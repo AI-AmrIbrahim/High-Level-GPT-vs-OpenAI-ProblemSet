@@ -2,7 +2,7 @@ import json
 import os
 
 class DatasetManager:
-    def __init__(self, dataset_folder='../'):
+    def __init__(self, dataset_folder='../High-Level-GPT-vs-OpenAI-ProblemSet/'):
         self.dataset_folder = dataset_folder
         self.math_dataset_path = os.path.join(self.dataset_folder, 'math_problems.json')
         self.leetcode_dataset_path = os.path.join(self.dataset_folder, 'leetcode_problems.json')
