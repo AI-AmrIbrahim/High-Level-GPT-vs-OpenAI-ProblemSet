@@ -16,6 +16,10 @@ class DatasetManager:
             with open(path, 'w') as f:
                 json.dump([], f, indent=4)
     
+    def _is_duplicate(self, problem_str, dataset):
+        """Check if the problem already exists in the dataset."""
+        return any(item["problem"] == problem_str for item in dataset)
+    
     def _get_next_id(self, dataset):
         """Generate the next ID based on the highest current ID."""
         if len(dataset) == 0:
@@ -47,3 +51,24 @@ class DatasetManager:
         with open(dataset_path, 'w') as f:
             json.dump(dataset, f, indent=4)
         print(f"New problem added to {dataset_type} dataset with ID {new_problem['id']}.")
+    
+    def remove_problem(self, problem_id, dataset_type="math"):
+        """Remove a problem by its ID from the specified dataset (either 'math' or 'leetcode')."""
+        if dataset_type == "math":
+            dataset_path = self.math_dataset_path
+        elif dataset_type == "leetcode":
+            dataset_path = self.leetcode_dataset_path
+        else:
+            raise ValueError("Invalid dataset_type. Choose 'math' or 'leetcode'.")
+        
+        # Load the dataset
+        with open(dataset_path, 'r') as f:
+            dataset = json.load(f)
+        
+        # Find the problem by ID and remove it
+        dataset = [item for item in dataset if item["id"] != problem_id]
+        
+        # Save the updated dataset
+        with open(dataset_path, 'w') as f:
+            json.dump(dataset, f, indent=4)
+        print(f"Problem with ID {problem_id} removed from {dataset_type} dataset.")
