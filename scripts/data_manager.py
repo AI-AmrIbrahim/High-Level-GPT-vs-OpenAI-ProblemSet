@@ -28,6 +28,11 @@ class DatasetManager:
     
     def add_problem(self, problem_str, dataset_type="math"):
         """Add a new problem to the specified dataset (either 'math' or 'leetcode')."""
+        # Check if the problem string is empty
+        if not problem_str.strip():
+            print("Problem string is empty. Cannot add an empty problem.")
+            return
+        
         if dataset_type == "math":
             dataset_path = self.math_dataset_path
         elif dataset_type == "leetcode":
