@@ -43,6 +43,11 @@ class DatasetManager:
         # Load the dataset
         with open(dataset_path, 'r') as f:
             dataset = json.load(f)
+
+        # Check for duplicate problems
+        if self._is_duplicate(problem_str, dataset):
+            print(f"Problem already exists in {dataset_type} dataset.")
+            return
         
         # Generate the new problem with an auto-incremented ID
         new_problem = {
