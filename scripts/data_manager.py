@@ -138,19 +138,21 @@ class DatasetManager:
                             problems_added += 1
                             print(f"Added problem {problems_added}/15")
                         else:
-                            print(f"Problem for {slug} was not added (likely duplicate content)")
+                            # print(f"Problem for {slug} was not added (likely duplicate content)")
+                            pass
                     except Exception as e:
-                        print(f"Error fetching problem for titleSlug {slug}: {e}")
+                        # print(f"Error fetching problem for titleSlug {slug}: {e}")
+                        pass
                 
                 if problems_added >= 15:
                     break
             
             # Get the final count of problems in the dataset
-            with open(self.leetcode_dataset_path, 'r') as f:
-                final_problem_count = len(json.load(f))
+            # with open(self.leetcode_dataset_path, 'r') as f:
+            #     final_problem_count = len(json.load(f))
             
-            print(f"Final number of problems in dataset: {final_problem_count}")
-            print(f"Total problems added in this run: {final_problem_count - initial_problem_count}")
+            # print(f"Final number of problems in dataset: {final_problem_count}")
+            # print(f"Total problems added in this run: {final_problem_count - initial_problem_count}")
             
             if problems_added < 15:
                 print(f"Warning: Only able to add {problems_added} problems. Consider increasing the limit_num or adding more tags.")
