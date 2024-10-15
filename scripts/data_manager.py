@@ -115,13 +115,16 @@ class DatasetManager:
             
             for slug in hard_question_titleslugs:
                 if not self._is_duplicate_slug(slug) and len(selected_titleslugs) < 15:
-                    selected_titleslugs.append(slug)
+                    try:
+                        # Try fetching and adding the problem
+                        self.get_problem_description_and_add(slug)
+                        selected_titleslugs.append(slug)
+                    except Exception as e:
+                        # Catch the error for a specific slug and print the message but continue
+                        print(f"Error fetching problem for titleSlug {slug}: {e}")
+                
                 if len(selected_titleslugs) >= 15:  # Early exit after getting 15 unique slugs
                     break
-            
-            # Fetch the problem descriptions for the selected titleslugs
-            for title_slug in selected_titleslugs:
-                self.get_problem_description_and_add(title_slug)
 
         except Exception as e:
             print(f"Error querying LeetCode API: {e}")
