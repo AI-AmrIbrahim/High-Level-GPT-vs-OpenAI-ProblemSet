@@ -54,8 +54,10 @@ class DatasetManager:
         except Exception as e:
             print(f"Error saving title slug: {e}")
     
-    def add_problem(self, problem_str, dataset_type="math"):
-        """Add a new problem to the specified dataset (either 'math' or 'leetcode')."""
+    def add_problem(self, problem_str, dataset_type="math", title_slug=None):
+        """Add a new problem to the specified dataset (either 'math' or 'leetcode').
+        If title_slug is provided, save it only if the problem is added successfully.
+        """
         if not problem_str.strip():
             print("Problem string is empty. Cannot add an empty problem.")
             return
@@ -89,6 +91,10 @@ class DatasetManager:
             with open(dataset_path, 'w') as f:
                 json.dump(dataset, f, indent=4)
             print(f"New problem added to {dataset_type} dataset with ID {new_problem['id']}.")
+            
+            # Save the titleSlug only if the problem was added
+            if title_slug:
+                self._save_title_slug(title_slug)
         except Exception as e:
             print(f"Error adding problem to {dataset_type} dataset: {e}")
 
@@ -109,7 +115,6 @@ class DatasetManager:
             for slug in hard_question_titleslugs:
                 if not self._is_duplicate_slug(slug) and len(selected_titleslugs) < 15:
                     selected_titleslugs.append(slug)
-                    self._save_title_slug(slug)
                 if len(selected_titleslugs) >= 15:  # Early exit after getting 15 unique slugs
                     break
             
@@ -130,7 +135,7 @@ class DatasetManager:
             problem_description = problem_data["question"] + problem_data['exampleTestcases']
             
             if problem_description:
-                self.add_problem(problem_description, dataset_type="leetcode")
+                self.add_problem(problem_description, dataset_type="leetcode", title_slug=title_slug)
             else:
                 print(f"No description found for titleSlug {title_slug}.")
         
