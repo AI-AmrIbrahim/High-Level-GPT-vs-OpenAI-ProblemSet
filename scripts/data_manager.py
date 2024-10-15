@@ -127,7 +127,7 @@ class DatasetManager:
         try:
             r = requests.get(URL_single)
             problem_data = r.json()
-            problem_description = problem_data.get('content', '')
+            problem_description = problem_data["question"] + problem_data['exampleTestcases']
             
             if problem_description:
                 self.add_problem(problem_description, dataset_type="leetcode")
