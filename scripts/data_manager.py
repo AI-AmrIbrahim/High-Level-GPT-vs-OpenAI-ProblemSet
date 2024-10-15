@@ -137,6 +137,13 @@ class DatasetManager:
         except Exception as e:
             print(f"Error fetching problem for titleSlug {title_slug}: {e}")
     
+    def query_multiple_tags(self, tags_limits):
+        """Query LeetCode API for multiple tags with specified limits, select random titleslugs, and avoid duplicates."""
+        for tag, limit_num in tags_limits.items():
+            print(f"Querying LeetCode for tag: {tag} with limit: {limit_num}")
+            self.query_leetcode_problems(tag, limit_num)
+
+    
     def remove_problem(self, problem_id, dataset_type="math"):
         """Remove a problem by its ID from the specified dataset (either 'math' or 'leetcode')."""
         if dataset_type == "math":
