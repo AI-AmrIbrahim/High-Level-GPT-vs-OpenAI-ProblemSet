@@ -58,5 +58,20 @@
     "data-stream-as-disjoint-intervals",
     "merge-k-sorted-lists",
     "reverse-pairs",
-    "trips-and-users"
+    "trips-and-users",
+    "count-the-number-of-infection-sequences",
+    "abbreviating-the-product-of-a-range",
+    "verbal-arithmetic-puzzle",
+    "check-if-point-is-reachable",
+    "count-ways-to-make-array-with-product",
+    "stone-game-iv",
+    "numbers-with-repeated-digits",
+    "allocate-mailboxes",
+    "largest-component-size-by-common-factor",
+    "kth-smallest-instructions",
+    "minimum-deletions-to-make-array-divisible",
+    "number-of-ways-to-divide-a-long-corridor",
+    "find-the-count-of-good-integers",
+    "cat-and-mouse-ii",
+    "number-of-beautiful-integers-in-the-range"
 ]
