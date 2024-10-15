@@ -114,16 +114,25 @@ class DatasetManager:
             random.shuffle(hard_question_titleslugs)
             i = 0
             
-            # Load the current title slugs from the JSON store
-            with open(self.titleslug_store_path, 'r') as f:
-                title_slugs = json.load(f)
+            # # Load the current title slugs from the JSON store
+            # with open(self.titleslug_store_path, 'r') as f:
+            #     title_slugs = json.load(f)
             
             # Get the current count of slugs from the file
-            current_slug_count = len(title_slugs)
+            current_slug_count = 0
             print(f"Current number of title slugs: {current_slug_count}")
             
             # Ensure that 15 unique slugs are added in total
             while current_slug_count < 15 and i < len(hard_question_titleslugs):
+                
+                # Load the current title slugs from the JSON store
+                with open(self.titleslug_store_path, 'r') as f:
+                    title_slugs = json.load(f)
+                
+                # Get the current count of slugs from the file
+                current_slug_count = len(title_slugs)
+                print(f"Current number of title slugs: {current_slug_count}")
+
                 slug = hard_question_titleslugs[i]
                 i += 1
                 
