@@ -114,7 +114,7 @@ class DatasetManager:
             selected_titleslugs = []
             
             for slug in hard_question_titleslugs:
-                if not self._is_duplicate_slug(slug) and len(selected_titleslugs) < 15:
+                if not self._is_duplicate_slug(slug):
                     try:
                         # Try fetching and adding the problem
                         self.get_problem_description_and_add(slug)
@@ -122,6 +122,7 @@ class DatasetManager:
                     except Exception as e:
                         # Catch the error for a specific slug and print the message but continue
                         print(f"Error fetching problem for titleSlug {slug}: {e}")
+                        continue
                 
                 if len(selected_titleslugs) >= 15:  # Early exit after getting 15 unique slugs
                     break
