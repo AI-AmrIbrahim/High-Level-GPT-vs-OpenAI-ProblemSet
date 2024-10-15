@@ -96,6 +96,7 @@ class DatasetManager:
             # Save the titleSlug only if the problem was added
             if title_slug:
                 self._save_title_slug(title_slug)
+        
         except Exception as e:
             print(f"Error adding problem to {dataset_type} dataset: {e}")
 
@@ -111,23 +112,51 @@ class DatasetManager:
             
             # Randomly select titleslugs and avoid duplicates
             random.shuffle(hard_question_titleslugs)
-            selected_titleslugs = []
             
-            for slug in hard_question_titleslugs:
+            # Get the initial count of problems in the dataset
+            with open(self.leetcode_dataset_path, 'r') as f:
+                initial_problem_count = len(json.load(f))
+            print(f"Initial number of problems in dataset: {initial_problem_count}")
+            
+            problems_added = 0
+            attempts = 0
+            
+            while problems_added < 15 and attempts < len(hard_question_titleslugs):
+                slug = hard_question_titleslugs[attempts]
+                attempts += 1
+                
                 if not self._is_duplicate_slug(slug):
                     try:
                         # Try fetching and adding the problem
                         self.get_problem_description_and_add(slug)
-                        selected_titleslugs.append(slug)
+                        
+                        # Check if the problem was actually added
+                        with open(self.leetcode_dataset_path, 'r') as f:
+                            current_problem_count = len(json.load(f))
+                        
+                        if current_problem_count > initial_problem_count + problems_added:
+                            problems_added += 1
+                            print(f"Added problem {problems_added}/15")
+                        else:
+                            # print(f"Problem for {slug} was not added (likely duplicate content)")
+                            pass
                     except Exception as e:
-                        # Catch the error for a specific slug and print the message but continue
-                        print(f"Error fetching problem for titleSlug {slug}: {e}")
-                        selected_titleslugs = selected_titleslugs[:-1]
-                        continue
+                        # print(f"Error fetching problem for titleSlug {slug}: {e}")
+                        pass
                 
-                if len(selected_titleslugs) >= 15:  # Early exit after getting 15 unique slugs
+                if problems_added >= 15:
                     break
-
+            
+            # Get the final count of problems in the dataset
+            # with open(self.leetcode_dataset_path, 'r') as f:
+            #     final_problem_count = len(json.load(f))
+            
+            # print(f"Final number of problems in dataset: {final_problem_count}")
+            # print(f"Total problems added in this run: {final_problem_count - initial_problem_count}")
+            
+            if problems_added < 15:
+                print(f"Warning: Only able to add {problems_added} problems. Consider increasing the limit_num or adding more tags.")
+        
         except Exception as e:
             print(f"Error querying LeetCode API: {e}")
 
