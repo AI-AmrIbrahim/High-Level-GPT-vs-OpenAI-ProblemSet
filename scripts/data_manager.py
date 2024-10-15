@@ -83,7 +83,8 @@ class DatasetManager:
             new_problem = {
                 "id": self._get_next_id(dataset),
                 "problem": problem_str,
-                "solution": ""  # Empty solution to be filled later
+                "4o-solution": "",  # Empty solution to be filled later
+                "o1-solution": ""  # Empty solution to be filled later
             }
             dataset.append(new_problem)
             
