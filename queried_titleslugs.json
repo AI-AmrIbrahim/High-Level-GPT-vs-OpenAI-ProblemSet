@@ -88,5 +88,20 @@
     "number-of-good-paths",
     "minimum-cost-to-make-array-equal",
     "make-array-empty",
-    "russian-doll-envelopes"
+    "russian-doll-envelopes",
+    "minimum-adjacent-swaps-for-k-consecutive-ones",
+    "candy",
+    "minimum-moves-to-pick-k-ones",
+    "find-the-string-with-lcp",
+    "smallest-k-length-subsequence-with-occurrences-of-a-letter",
+    "minimum-number-of-taps-to-open-to-water-a-garden",
+    "minimum-operations-to-make-a-subsequence",
+    "minimum-possible-integer-after-at-most-k-adjacent-swaps-on-digits",
+    "stamping-the-grid",
+    "minimum-total-cost-to-make-arrays-unequal",
+    "reducing-dishes",
+    "maximum-number-of-non-overlapping-palindrome-substrings",
+    "lexicographically-smallest-beautiful-string",
+    "find-servers-that-handled-most-number-of-requests",
+    "minimum-number-of-removals-to-make-mountain-array"
 ]
