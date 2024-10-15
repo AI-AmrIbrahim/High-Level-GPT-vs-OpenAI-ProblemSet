@@ -122,6 +122,7 @@ class DatasetManager:
                     except Exception as e:
                         # Catch the error for a specific slug and print the message but continue
                         print(f"Error fetching problem for titleSlug {slug}: {e}")
+                        selected_titleslugs = selected_titleslugs[:-1]
                         continue
                 
                 if len(selected_titleslugs) >= 15:  # Early exit after getting 15 unique slugs
