@@ -96,6 +96,7 @@ class DatasetManager:
             # Save the titleSlug only if the problem was added
             if title_slug:
                 self._save_title_slug(title_slug)
+        
         except Exception as e:
             print(f"Error adding problem to {dataset_type} dataset: {e}")
 
@@ -111,11 +112,18 @@ class DatasetManager:
             
             # Randomly select titleslugs and avoid duplicates
             random.shuffle(hard_question_titleslugs)
-            selected_titleslugs = []
             i = 0
             
-            # Ensure that 15 problems are successfully added, even after encountering errors
-            while len(selected_titleslugs) < 15 and i < len(hard_question_titleslugs):
+            # Load the current title slugs from the JSON store
+            with open(self.titleslug_store_path, 'r') as f:
+                title_slugs = json.load(f)
+            
+            # Get the current count of slugs from the file
+            current_slug_count = len(title_slugs)
+            print(f"Current number of title slugs: {current_slug_count}")
+            
+            # Ensure that 15 unique slugs are added in total
+            while current_slug_count < 15 and i < len(hard_question_titleslugs):
                 slug = hard_question_titleslugs[i]
                 i += 1
                 
@@ -123,19 +131,15 @@ class DatasetManager:
                     try:
                         # Try fetching and adding the problem
                         self.get_problem_description_and_add(slug)
-                        selected_titleslugs.append(slug)  # Append only after successful fetch
+                        current_slug_count += 1  # Only increment after successful fetch
                     except Exception as e:
                         # Catch the error for a specific slug and print the message but continue
                         print(f"Error fetching problem for titleSlug {slug}: {e}")
-                        # Do not append to selected_titleslugs on error; just move to next slug
                         continue
-                
-                if len(selected_titleslugs) >= 15:  # Early exit after getting 15 unique slugs
-                    break
-
+            
             # Check if less than 15 slugs were added due to errors
-            if len(selected_titleslugs) < 15:
-                print(f"Only {len(selected_titleslugs)} problems were added due to errors or limitations.")
+            if current_slug_count < 15:
+                print(f"Only {current_slug_count} problems were added due to errors or limitations.")
         
         except Exception as e:
             print(f"Error querying LeetCode API: {e}")
