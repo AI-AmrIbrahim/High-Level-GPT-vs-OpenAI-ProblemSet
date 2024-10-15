@@ -112,43 +112,41 @@ class DatasetManager:
             
             # Randomly select titleslugs and avoid duplicates
             random.shuffle(hard_question_titleslugs)
-            i = 0
-            
-            # # Load the current title slugs from the JSON store
-            # with open(self.titleslug_store_path, 'r') as f:
-            #     title_slugs = json.load(f)
             
             # Get the current count of slugs from the file
-            current_slug_count = 0
-            print(f"Current number of title slugs: {current_slug_count}")
+            with open(self.titleslug_store_path, 'r') as f:
+                title_slugs = json.load(f)
+            initial_slug_count = len(title_slugs)
+            print(f"Initial number of title slugs: {initial_slug_count}")
             
-            # Ensure that 15 unique slugs are added in total
-            while current_slug_count < 15 and i < len(hard_question_titleslugs):
-                
-                # Load the current title slugs from the JSON store
-                with open(self.titleslug_store_path, 'r') as f:
-                    title_slugs = json.load(f)
-                
-                # Get the current count of slugs from the file
-                current_slug_count = len(title_slugs)
-                print(f"Current number of title slugs: {current_slug_count}")
+            problems_added = 0
+            attempts = 0
+            max_attempts = len(hard_question_titleslugs)  # Try all available slugs if necessary
 
-                slug = hard_question_titleslugs[i]
-                i += 1
+            while problems_added < 15 and attempts < max_attempts:
+                slug = hard_question_titleslugs[attempts]
+                attempts += 1
                 
                 if not self._is_duplicate_slug(slug):
                     try:
                         # Try fetching and adding the problem
                         self.get_problem_description_and_add(slug)
-                        current_slug_count += 1  # Only increment after successful fetch
+                        problems_added += 1
+                        print(f"Added problem {problems_added}/15")
                     except Exception as e:
-                        # Catch the error for a specific slug and print the message but continue
                         print(f"Error fetching problem for titleSlug {slug}: {e}")
                         continue
             
-            # Check if less than 15 slugs were added due to errors
-            if current_slug_count < 15:
-                print(f"Only {current_slug_count} problems were added due to errors or limitations.")
+            # Get the final count of slugs from the file
+            with open(self.titleslug_store_path, 'r') as f:
+                title_slugs = json.load(f)
+            final_slug_count = len(title_slugs)
+            
+            print(f"Final number of title slugs: {final_slug_count}")
+            print(f"Total problems added in this run: {final_slug_count - initial_slug_count}")
+            
+            if problems_added < 15:
+                print(f"Warning: Only able to add {problems_added} problems. Consider increasing the limit_num.")
         
         except Exception as e:
             print(f"Error querying LeetCode API: {e}")
