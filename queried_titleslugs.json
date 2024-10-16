@@ -170,5 +170,20 @@
     "number-of-ways-to-reconstruct-a-tree",
     "binary-tree-cameras",
     "recover-a-tree-from-preorder-traversal",
-    "frog-position-after-t-seconds"
+    "frog-position-after-t-seconds",
+    "tag-validator",
+    "design-a-text-editor",
+    "sum-of-total-strength-of-wizards",
+    "stamping-the-sequence",
+    "subarray-with-elements-greater-than-varying-threshold",
+    "odd-even-jump",
+    "minimum-cost-to-change-the-final-value-of-expression",
+    "replace-non-coprime-numbers-in-array",
+    "car-fleet-ii",
+    "robot-collisions",
+    "find-building-where-alice-and-bob-can-meet",
+    "maximum-elegance-of-a-k-length-subsequence",
+    "max-chunks-to-make-sorted-ii",
+    "dinner-plate-stacks",
+    "apply-operations-to-maximize-score"
 ]
