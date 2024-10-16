@@ -144,5 +144,20 @@
     "minimum-moves-to-reach-target-with-rotations",
     "shortest-path-to-get-all-keys",
     "maximum-value-sum-by-placing-three-rooks-ii",
-    "human-traffic-of-stadium"
+    "human-traffic-of-stadium",
+    "create-components-with-same-value",
+    "count-subtrees-with-max-distance-between-cities",
+    "count-number-of-possible-root-nodes",
+    "merge-bsts-to-create-single-bst",
+    "vertical-order-traversal-of-a-binary-tree",
+    "count-valid-paths-in-a-tree",
+    "tree-of-coprimes",
+    "minimize-the-total-price-of-the-trips",
+    "number-of-ways-to-reorder-array-to-get-same-bst",
+    "maximum-number-of-k-divisible-components",
+    "sum-of-distances-in-tree",
+    "maximum-points-after-collecting-coins-from-all-nodes",
+    "height-of-binary-tree-after-subtree-removal-queries",
+    "kth-ancestor-of-a-tree-node",
+    "count-ways-to-build-rooms-in-an-ant-colony"
 ]
