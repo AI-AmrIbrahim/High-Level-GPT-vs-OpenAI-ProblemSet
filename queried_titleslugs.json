@@ -159,5 +159,11 @@
     "maximum-points-after-collecting-coins-from-all-nodes",
     "height-of-binary-tree-after-subtree-removal-queries",
     "kth-ancestor-of-a-tree-node",
-    "count-ways-to-build-rooms-in-an-ant-colony"
+    "count-ways-to-build-rooms-in-an-ant-colony",
+    "find-the-k-th-character-in-string-game-ii",
+    "special-binary-string",
+    "basic-calculator-iv",
+    "parse-lisp-expression",
+    "maximize-number-of-nice-divisors",
+    "parsing-a-boolean-expression"
 ]
