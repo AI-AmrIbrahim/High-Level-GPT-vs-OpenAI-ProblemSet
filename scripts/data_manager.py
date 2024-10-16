@@ -19,7 +19,7 @@ class DatasetManager:
         try:
             if not os.path.exists(path):
                 with open(path, 'w') as f:
-                    json.dump([], f, indent=4)
+                    json.dump({}, f, indent=4)
         except Exception as e:
             print(f"Error initializing dataset at {path}: {e}")
     
