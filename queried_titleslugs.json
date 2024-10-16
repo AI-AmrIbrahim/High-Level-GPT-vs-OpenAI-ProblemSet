@@ -178,12 +178,5 @@
     "subarray-with-elements-greater-than-varying-threshold",
     "odd-even-jump",
     "minimum-cost-to-change-the-final-value-of-expression",
-    "replace-non-coprime-numbers-in-array",
-    "car-fleet-ii",
-    "robot-collisions",
-    "find-building-where-alice-and-bob-can-meet",
-    "maximum-elegance-of-a-k-length-subsequence",
-    "max-chunks-to-make-sorted-ii",
-    "dinner-plate-stacks",
-    "apply-operations-to-maximize-score"
+    "replace-non-coprime-numbers-in-array"
 ]
