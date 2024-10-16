@@ -103,5 +103,20 @@
     "maximum-number-of-non-overlapping-palindrome-substrings",
     "lexicographically-smallest-beautiful-string",
     "find-servers-that-handled-most-number-of-requests",
-    "minimum-number-of-removals-to-make-mountain-array"
+    "minimum-number-of-removals-to-make-mountain-array",
+    "trapping-rain-water",
+    "best-time-to-buy-and-sell-stock-iv",
+    "best-time-to-buy-and-sell-stock-iii",
+    "word-ladder-ii",
+    "find-median-from-data-stream",
+    "word-search-ii",
+    "word-ladder",
+    "contains-duplicate-iii",
+    "serialize-and-deserialize-binary-tree",
+    "department-top-three-salaries",
+    "longest-valid-parentheses",
+    "n-queens-ii",
+    "palindrome-partitioning-ii",
+    "distinct-subsequences",
+    "dungeon-game"
 ]
