@@ -283,3 +283,9 @@ class DatasetManager:
             json.dump(dataset, f, indent=4)
         
         print(f"Solution added to {model} for problem ID {problem_id} to {dataset_type} dataset.")
+
+    def eval_leetcode(self, problem_id, runtime_beat, memory_bear):
+        pass
+
+    def eval_math(self, problem_id):
+        pass
