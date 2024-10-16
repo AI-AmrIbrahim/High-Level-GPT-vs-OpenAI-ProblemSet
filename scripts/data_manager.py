@@ -2,6 +2,7 @@ import json
 import os
 import random
 import requests
+from openai import OpenAI
 
 class DatasetManager:
     def __init__(self, dataset_folder='../High-Level-GPT-vs-OpenAI-ProblemSet/'):
@@ -207,3 +208,73 @@ class DatasetManager:
             print(f"Problem with ID {problem_id} removed from {dataset_type} dataset.")
         except Exception as e:
             print(f"Error removing problem from {dataset_type} dataset: {e}")
+
+    def prompt_llm(self, openai_key, problem_id, model="GPT-4o"):
+        """Prompt GPT-4o or OpenAI-o1 to solve the given problem with optimal efficiency and store the solution."""
+        
+        # Load the problem description from the dataset
+        with open(self.leetcode_dataset_path, 'r') as f:
+            dataset = json.load(f)
+
+        # Find the problem by ID
+        problem = next((p for p in dataset if p["id"] == problem_id), None)
+        if not problem:
+            print(f"Problem with ID {problem_id} not found.")
+            return
+        
+        problem_str = problem["problem"]
+
+        # Construct the prompt context to ensure efficient code output with no explanation
+        direction = """You are a Python coding assistant. Solve the following problem in the most efficient way possible.
+        Please provide **only the Python code** without any explanations, comments, or additional output.
+        Ensure the code is optimized for both time and space complexity."""
+        
+        client = OpenAI(api_key=openai_key)
+
+        # Select the appropriate model based on the input
+        if model == "GPT-4o":
+            response = client.chat.completions.create(
+                model="gpt-4o",
+                messages=[
+                    {
+                    "role": "system",
+                    "content": direction
+                    },
+                    {
+                    "role": "user",
+                    "content": problem_str
+                    }
+                ],
+                max_tokens=5000,  # Adjust as needed to ensure enough space for longer solutions
+                temperature=0  # Ensures deterministic output
+            )
+            # Extract the generated code and store in the problem entry
+            problem["4o-solution"] = response.choices[0].text.strip()
+        
+        elif model == "OpenAI-o1":
+            response = client.chat.completions.create(
+                model="openai-o1",
+                messages=[
+                    {
+                    "role": "system",
+                    "content": direction
+                    },
+                    {
+                    "role": "user",
+                    "content": problem_str
+                    }
+                ],
+                max_tokens=5000,
+                temperature=0  # Ensures deterministic output
+            )
+            # Extract the generated code and store in the problem entry
+            problem["o1-solution"] = response.choices[0].text.strip()
+        
+        else:
+            raise ValueError("Invalid model name. Choose either 'GPT-4o' or 'OpenAI-o1'.")
+        
+        # Save the updated dataset with the new solution
+        with open(self.leetcode_dataset_path, 'w') as f:
+            json.dump(dataset, f, indent=4)
+        
+        print(f"Solution added to {model} for problem ID {problem_id}.")
