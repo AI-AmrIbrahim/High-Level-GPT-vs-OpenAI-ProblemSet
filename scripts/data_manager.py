@@ -25,13 +25,15 @@ class DatasetManager:
     
     def _is_duplicate(self, problem_str, dataset):
         """Check if the problem already exists in the dataset."""
-        return any(item["problem"] == problem_str for item in dataset)
+        return any(problem_data["problem"] == problem_str for problem_data in dataset.values())
+
     
     def _get_next_id(self, dataset):
         """Generate the next ID based on the highest current ID."""
         if len(dataset) == 0:
             return 1
-        return max(item["id"] for item in dataset) + 1
+        return max(map(int, dataset.keys())) + 1
+
 
     def _is_duplicate_slug(self, title_slug):
         """Check if the title slug already exists in the titleslug store."""
@@ -80,13 +82,18 @@ class DatasetManager:
                 return
             
             # Generate the new problem with an auto-incremented ID
-            new_problem = {
-                "id": self._get_next_id(dataset),
-                "problem": problem_str,
-                "4o-solution": "",  # Empty solution to be filled later
-                "o1-solution": ""  # Empty solution to be filled later
+            new_problem_id = str(self._get_next_id(dataset))
+            new_problem_data = {
+            "problem": problem_str,
+            "GPT-4o": {
+                "solution": "",  # Placeholder for GPT-4o solution
+                },
+            "OpenAI-o1": {
+                "solution": "",  # Placeholder for OpenAI-o1 solution
+                }
             }
-            dataset.append(new_problem)
+            # Add the new problem to the dataset using the new ID as the key
+            dataset[new_problem_id] = new_problem_data
             
             # Save the updated dataset
             with open(dataset_path, 'w') as f:
@@ -177,13 +184,6 @@ class DatasetManager:
         except Exception as e:
             print(f"Error fetching problem for titleSlug {title_slug}: {e}")
     
-    def query_multiple_tags(self, tags_limits):
-        """Query LeetCode API for multiple tags with specified limits, select random titleslugs, and avoid duplicates."""
-        for tag, limit_num in tags_limits.items():
-            print(f"Querying LeetCode for tag: {tag} with limit: {limit_num}")
-            self.query_leetcode_problems(tag, limit_num)
-
-    
     def remove_problem(self, problem_id, dataset_type="math"):
         """Remove a problem by its ID from the specified dataset (either 'math' or 'leetcode')."""
         if dataset_type == "math":
@@ -198,8 +198,7 @@ class DatasetManager:
             with open(dataset_path, 'r') as f:
                 dataset = json.load(f)
             
-            # Find the problem by ID and remove it
-            dataset = [item for item in dataset if item["id"] != problem_id]
+            del dataset[str(problem_id)]
             
             # Save the updated dataset
             with open(dataset_path, 'w') as f:
