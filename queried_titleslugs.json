@@ -165,5 +165,10 @@
     "basic-calculator-iv",
     "parse-lisp-expression",
     "maximize-number-of-nice-divisors",
-    "parsing-a-boolean-expression"
+    "parsing-a-boolean-expression",
+    "maximum-sum-bst-in-binary-tree",
+    "number-of-ways-to-reconstruct-a-tree",
+    "binary-tree-cameras",
+    "recover-a-tree-from-preorder-traversal",
+    "frog-position-after-t-seconds"
 ]
