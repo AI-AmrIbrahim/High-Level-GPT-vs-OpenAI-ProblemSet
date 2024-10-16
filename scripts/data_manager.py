@@ -209,11 +209,21 @@ class DatasetManager:
         except Exception as e:
             print(f"Error removing problem from {dataset_type} dataset: {e}")
 
-    def prompt_llm(self, openai_key, problem_id, model="GPT-4o"):
+    def prompt_llm(self, openai_key, problem_id, model="GPT-4o", dataset_type="math"):
         """Prompt GPT-4o or OpenAI-o1 to solve the given problem with optimal efficiency and store the solution."""
+        if dataset_type == "math":
+            dataset_path = self.math_dataset_path
+            direction = ""
+        elif dataset_type == "leetcode":
+            dataset_path = self.leetcode_dataset_path
+            direction = """You are a Python coding assistant. Solve the following problem in the most efficient way possible.
+            Please provide **only the Python code** without any explanations, comments, or additional output.
+            Ensure the code is optimized for both time and space complexity."""
+        else:
+            raise ValueError("Invalid dataset_type. Choose 'math' or 'leetcode'.")
         
         # Load the problem description from the dataset
-        with open(self.leetcode_dataset_path, 'r') as f:
+        with open(dataset_path, 'r') as f:
             dataset = json.load(f)
 
         # Find the problem by ID
@@ -223,11 +233,6 @@ class DatasetManager:
             return
         
         problem_str = problem["problem"]
-
-        # Construct the prompt context to ensure efficient code output with no explanation
-        direction = """You are a Python coding assistant. Solve the following problem in the most efficient way possible.
-        Please provide **only the Python code** without any explanations, comments, or additional output.
-        Ensure the code is optimized for both time and space complexity."""
         
         client = OpenAI(api_key=openai_key)
 
@@ -274,7 +279,7 @@ class DatasetManager:
             raise ValueError("Invalid model name. Choose either 'GPT-4o' or 'OpenAI-o1'.")
         
         # Save the updated dataset with the new solution
-        with open(self.leetcode_dataset_path, 'w') as f:
+        with open(dataset_path, 'w') as f:
             json.dump(dataset, f, indent=4)
         
-        print(f"Solution added to {model} for problem ID {problem_id}.")
+        print(f"Solution added to {model} for problem ID {problem_id} to {dataset_type} dataset.")
