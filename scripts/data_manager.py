@@ -98,7 +98,7 @@ class DatasetManager:
             # Save the updated dataset
             with open(dataset_path, 'w') as f:
                 json.dump(dataset, f, indent=4)
-            print(f"New problem added to {dataset_type} dataset with ID {new_problem['id']}.")
+            print(f"New problem added to {dataset_type} dataset with ID {new_problem_id}.")
             
             # Save the titleSlug only if the problem was added
             if title_slug:
