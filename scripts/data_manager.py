@@ -2,6 +2,7 @@ import json
 import os
 import random
 import requests
+from openai import OpenAI
 
 class DatasetManager:
     def __init__(self, dataset_folder='../High-Level-GPT-vs-OpenAI-ProblemSet/'):
@@ -206,3 +207,163 @@ class DatasetManager:
             print(f"Problem with ID {problem_id} removed from {dataset_type} dataset.")
         except Exception as e:
             print(f"Error removing problem from {dataset_type} dataset: {e}")
+
+    def prompt_llm(self, openai_key, problem_id, model="GPT-4o", dataset_type="math"):
+        """Prompt GPT-4o or OpenAI-o1 to solve the given problem with optimal efficiency and store the solution."""
+        if dataset_type == "math":
+            dataset_path = self.math_dataset_path
+            context = ""
+        elif dataset_type == "leetcode":
+            dataset_path = self.leetcode_dataset_path
+            context = """You are an expert algorithm designer and Python programmer. Your task is to solve a LeetCode hard problem, optimizing for the following criteria in order of importance:
+
+1. Correctness: The solution must be correct and pass all test cases.
+2. Time Complexity: Optimize the algorithm for the best possible time complexity.
+3. Space Complexity: Minimize the space usage while maintaining the best time complexity.
+
+Please follow these guidelines:
+- Start your solution with the following structure:
+
+  class Solution:
+      def FunctionName(self, ... ) -> ... :
+          # Your code here
+
+- Replace 'FunctionName' with the appropriate function name for the problem.
+- Fill in the parameters and return type as required by the problem.
+- Provide only the Python code for the solution.
+- Do not include any explanations, comments, or docstrings in your code.
+- Use meaningful variable names to enhance code readability.
+- If multiple solutions exist, provide the one with the best balance of time and space complexity.
+- Ensure your code follows Python best practices and PEP 8 style guidelines.
+- Your solution must be contained entirely within the class and function structure provided.
+
+Your code will be directly submitted to the LeetCode judge, so it must be complete and runnable without any modifications."""
+            
+            # """You are a Python coding assistant. Solve the following problem in the most efficient way possible.
+            # Please provide **only the Python code** without any explanations, comments, or additional output.
+            # **Ensure the code is optimized for both time and space complexity**."""
+        else:
+            raise ValueError("Invalid dataset_type. Choose 'math' or 'leetcode'.")
+        
+        # Load the problem description from the dataset
+        with open(dataset_path, 'r') as f:
+            dataset = json.load(f)
+
+        # Check if the problem ID exists
+        if str(problem_id) not in dataset:
+            print(f"Problem with ID {problem_id} not found in the {dataset_type} dataset.")
+            return
+        
+        # Find the problem by ID
+        problem = dataset[problem_id]
+        if not problem:
+            print(f"Problem with ID {problem_id} not found.")
+            return
+        
+        problem_str = dataset[str(problem_id)]["problem"]
+        
+        client = OpenAI(api_key=openai_key)
+
+        # Select the appropriate model based on the input
+        if model == "GPT-4o":
+            response = client.chat.completions.create(
+                model="gpt-4o",
+                messages=[
+                    {
+                    "role": "system",
+                    "content": context
+                    },
+                    {
+                    "role": "user",
+                    "content": problem_str
+                    }
+                ],
+                max_tokens=5000,  # Adjust as needed to ensure enough space for longer solutions
+                temperature=0  # Ensures deterministic output
+            )
+            # Store the solution in the GPT-4o slot
+            dataset[str(problem_id)]["GPT-4o"]["solution"] = response.choices[0].text.strip()
+        
+        elif model == "OpenAI-o1":
+            response = client.chat.completions.create(
+                model="o1-preview",
+                messages=[
+                    {
+                    "role": "system",
+                    "content": context
+                    },
+                    {
+                    "role": "user",
+                    "content": problem_str
+                    }
+                ],
+                max_tokens=5000,
+                temperature=0  # Ensures deterministic output
+            )
+            # Extract the generated code and store in the problem entry
+            dataset[str(problem_id)]["OpenAI-o1"]["solution"] = response.choices[0].text.strip()
+        
+        else:
+            raise ValueError("Invalid model name. Choose either 'GPT-4o' or 'OpenAI-o1'.")
+        
+        # Save the updated dataset with the new solution
+        with open(dataset_path, 'w') as f:
+            json.dump(dataset, f, indent=4)
+        
+        print(f"Solution added to {model} for problem ID {problem_id} to {dataset_type} dataset.")
+
+    def eval(self, problem_id, model = "GPT-4o", runtime_beats = None, memory_beats = None, dataset_type="math"):
+        # Determine the correct dataset path
+        if dataset_type == "math":
+            dataset_path = self.math_dataset_path
+
+            # Load the dataset
+            with open(dataset_path, 'r') as f:
+                dataset = json.load(f)
+
+            # Check if the problem ID exists
+            if str(problem_id) not in dataset:
+                print(f"Problem with ID {problem_id} not found in the {dataset_type} dataset.")
+                return
+
+            
+        elif dataset_type == "leetcode":
+            dataset_path = self.leetcode_dataset_path
+
+            # Load the dataset
+            with open(dataset_path, 'r') as f:
+                dataset = json.load(f)
+
+            # Check if the problem ID exists
+            if str(problem_id) not in dataset:
+                print(f"Problem with ID {problem_id} not found in the {dataset_type} dataset.")
+                return
+
+            # Calculate the scores
+            simple_average = (runtime_beats + memory_beats) / 2
+            weighted_average = 0.6 * runtime_beats + 0.4 * memory_beats
+
+            # Update the appropriate model's evaluation in the dataset
+            if model == "GPT-4o":
+                dataset[str(problem_id)]["GPT-4o"]["runtime_beats"] = runtime_beats
+                dataset[str(problem_id)]["GPT-4o"]["memory_beats"] = memory_beats
+                dataset[str(problem_id)]["GPT-4o"]["simple_average"] = simple_average
+                dataset[str(problem_id)]["GPT-4o"]["weighted_average"] = weighted_average
+            elif model == "OpenAI-o1":
+                dataset[str(problem_id)]["OpenAI-o1"]["runtime_beats"] = runtime_beats
+                dataset[str(problem_id)]["OpenAI-o1"]["memory_beats"] = memory_beats
+                dataset[str(problem_id)]["OpenAI-o1"]["simple_average"] = simple_average
+                dataset[str(problem_id)]["OpenAI-o1"]["weighted_average"] = weighted_average
+            else:
+                raise ValueError("Invalid model name. Choose either 'GPT-4o' or 'OpenAI-o1-preview'.")
+
+            # Save the updated dataset with the new evaluation metrics
+            with open(dataset_path, 'w') as f:
+                json.dump(dataset, f, indent=4)
+
+            print(f"Evaluation metrics added to {model} for problem ID {problem_id}.")
+
+        else:
+            raise ValueError("Invalid dataset_type. Choose 'math' or 'leetcode'.")
+
+        
