@@ -302,7 +302,7 @@ Your code will be directly submitted to the LeetCode judge, so it must be comple
                 temperature=0  # Ensures deterministic output
             )
             # Extract the generated code and store in the problem entry
-            solution = response.choices[0].message.content.replace('```python\n', '')
+            solution = response.choices[0].message.content.replace('```python\n', '').replace('```','')
             dataset[str(problem_id)]["OpenAI-o1"]["solution"] = solution
         
         else:
@@ -330,7 +330,7 @@ Your code will be directly submitted to the LeetCode judge, so it must be comple
                     print("Please enter a valid number.")
 
 
-            self._eval(dataset_path, problem_id, model, runtime_beats, memory_beats)
+            self._eval(problem_id, model, runtime_beats, memory_beats, dataset_type)
 
 
     def _eval(self, problem_id, model = "GPT-4o", runtime_beats = None, memory_beats = None, dataset_type = "math"):
