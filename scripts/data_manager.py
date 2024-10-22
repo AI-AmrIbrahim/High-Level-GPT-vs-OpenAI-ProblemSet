@@ -282,7 +282,7 @@ Your code will be directly submitted to the LeetCode judge, so it must be comple
                 temperature=0  # Ensures deterministic output
             )
             # Store the solution in the GPT-4o slot
-            dataset[str(problem_id)]["GPT-4o"]["solution"] = response.choices[0].text.strip()
+            dataset[str(problem_id)]["GPT-4o"]["solution"] = response.choices[0].message.content
         
         elif model == "OpenAI-o1":
             response = client.chat.completions.create(
@@ -301,7 +301,7 @@ Your code will be directly submitted to the LeetCode judge, so it must be comple
                 temperature=0  # Ensures deterministic output
             )
             # Extract the generated code and store in the problem entry
-            dataset[str(problem_id)]["OpenAI-o1"]["solution"] = response.choices[0].text.strip()
+            dataset[str(problem_id)]["OpenAI-o1"]["solution"] = response.choices[0].message.content
         
         else:
             raise ValueError("Invalid model name. Choose either 'GPT-4o' or 'OpenAI-o1'.")
