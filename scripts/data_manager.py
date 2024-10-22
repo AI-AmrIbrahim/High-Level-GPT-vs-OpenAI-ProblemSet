@@ -207,8 +207,8 @@ class DatasetManager:
             print(f"Problem with ID {problem_id} removed from {dataset_type} dataset.")
         except Exception as e:
             print(f"Error removing problem from {dataset_type} dataset: {e}")
-
-    def prompt_llm(self, openai_key, problem_id, model="GPT-4o", dataset_type="math"):
+    
+    def prompt_and_eval(self, openai_key, problem_id, model="GPT-4o", dataset_type="math"):
         """Prompt GPT-4o or OpenAI-o1 to solve the given problem with optimal efficiency and store the solution."""
         if dataset_type == "math":
             dataset_path = self.math_dataset_path
@@ -255,7 +255,7 @@ Your code will be directly submitted to the LeetCode judge, so it must be comple
             return
         
         # Find the problem by ID
-        problem = dataset[problem_id]
+        problem = dataset[str(problem_id)]
         if not problem:
             print(f"Problem with ID {problem_id} not found.")
             return
@@ -301,7 +301,8 @@ Your code will be directly submitted to the LeetCode judge, so it must be comple
                 temperature=0  # Ensures deterministic output
             )
             # Extract the generated code and store in the problem entry
-            dataset[str(problem_id)]["OpenAI-o1"]["solution"] = response.choices[0].message.content
+            solution = response.choices[0].message.content.replace('```python\n', '')
+            dataset[str(problem_id)]["OpenAI-o1"]["solution"] = solution
         
         else:
             raise ValueError("Invalid model name. Choose either 'GPT-4o' or 'OpenAI-o1'.")
@@ -311,34 +312,41 @@ Your code will be directly submitted to the LeetCode judge, so it must be comple
             json.dump(dataset, f, indent=4)
         
         print(f"Solution added to {model} for problem ID {problem_id} to {dataset_type} dataset.")
+        print(f"\n{model} solution for problem ID {problem_id}:")
+        print("-" * 50)
+        print(solution)
+        print("-" * 50)
 
-    def eval(self, problem_id, model = "GPT-4o", runtime_beats = None, memory_beats = None, dataset_type="math"):
-        # Determine the correct dataset path
+        if dataset_type == "math":
+            pass
+        elif dataset_type == "leetcode":
+            while True:
+                try:
+                    runtime_beats = float(input("Enter the LeetCode Solution Runtime Beats: "))
+                    memory_beats = float(input("Enter the LeetCode Solution Memory Beats: "))
+                    break
+                except ValueError:
+                    print("Please enter a valid number.")
+
+
+            self._eval(dataset_path, problem_id, model, runtime_beats, memory_beats)
+
+
+    def _eval(self, problem_id, model = "GPT-4o", runtime_beats = None, memory_beats = None, dataset_type = "math"):
         if dataset_type == "math":
             dataset_path = self.math_dataset_path
-
-            # Load the dataset
-            with open(dataset_path, 'r') as f:
-                dataset = json.load(f)
-
-            # Check if the problem ID exists
-            if str(problem_id) not in dataset:
-                print(f"Problem with ID {problem_id} not found in the {dataset_type} dataset.")
-                return
-
-            
         elif dataset_type == "leetcode":
             dataset_path = self.leetcode_dataset_path
+        else:
+            raise ValueError("Invalid dataset_type. Choose 'math' or 'leetcode'.")
+        
+        # Load the dataset in _eval
+        with open(dataset_path, 'r') as f:
+            dataset = json.load(f)
 
-            # Load the dataset
-            with open(dataset_path, 'r') as f:
-                dataset = json.load(f)
-
-            # Check if the problem ID exists
-            if str(problem_id) not in dataset:
-                print(f"Problem with ID {problem_id} not found in the {dataset_type} dataset.")
-                return
-
+        if dataset_type == "math":
+            pass
+        elif dataset_type == "leetcode":
             # Calculate the scores
             simple_average = (runtime_beats + memory_beats) / 2
             weighted_average = 0.6 * runtime_beats + 0.4 * memory_beats
@@ -365,5 +373,3 @@ Your code will be directly submitted to the LeetCode judge, so it must be comple
 
         else:
             raise ValueError("Invalid dataset_type. Choose 'math' or 'leetcode'.")
-
-        
