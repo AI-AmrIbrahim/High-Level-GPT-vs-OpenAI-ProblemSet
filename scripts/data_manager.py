@@ -282,7 +282,8 @@ Your code will be directly submitted to the LeetCode judge, so it must be comple
                 temperature=0  # Ensures deterministic output
             )
             # Store the solution in the GPT-4o slot
-            dataset[str(problem_id)]["GPT-4o"]["solution"] = response.choices[0].message.content
+            solution = response.choices[0].message.content.replace('```python\n', '')
+            dataset[str(problem_id)]["GPT-4o"]["solution"] = solution
         
         elif model == "OpenAI-o1":
             response = client.chat.completions.create(
