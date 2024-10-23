@@ -1,1 +1,569 @@
-{}
+{
+    "1": {
+        "problem": "If $X \\sim N(\\mu, \\sigma^2)$, show that $Y = aX + b$ follows a normal distribution, where $a, b$ are constants and $a \\neq 0$. Determine the parameters of this normal distribution.",
+        "GPT-4o": {
+            "solution": ""
+        },
+        "OpenAI-o1": {
+            "solution": ""
+        }
+    },
+    "2": {
+        "problem": "Let $X \\sim \\text{Poisson}(\\lambda)$. Compute $P(X \\text{ is even})$. (Hint: $e^y = 1 + \\frac{y}{1!} + \\frac{y^2}{2!} + \\frac{y^3}{3!} + \\cdots$, $e^{-y} = 1 - \\frac{y}{1!} + \\frac{y^2}{2!} - \\frac{y^3}{3!} + \\cdots$, use the sum of the two series to simplify the summation in this question. Even numbers include zero.)",
+        "GPT-4o": {
+            "solution": ""
+        },
+        "OpenAI-o1": {
+            "solution": ""
+        }
+    },
+    "3": {
+        "problem": "If $X \\sim U(0, 1)$ and $Y = X^n$, $n > 0$, find the distribution of $Y$ using \\begin{enumerate} \\item the c.d.f. method \\item the Jacobian method \\end{enumerate}",
+        "GPT-4o": {
+            "solution": ""
+        },
+        "OpenAI-o1": {
+            "solution": ""
+        }
+    },
+    "4": {
+        "problem": "Let $X$, $Y$, and $Z$ be three independent Poisson random variables with parameters $\\lambda_1$, $\\lambda_2$, and $\\lambda_3$, respectively. (Hint: You may use the result that if $S \\sim \\text{Po}(\\lambda_S)$ and $T \\sim \\text{Po}(\\lambda_T)$, $S$ independent of $T$, then $S + T \\sim \\text{Po}(\\lambda_S + \\lambda_T)$) \\begin{enumerate} \\item For $y = 0, 1, 2, \\dots, t$, calculate $P(Y = y | X + Y + Z = t)$. \\item What can you say about the distribution of $Y | X + Y + Z$? \\end{enumerate}",
+        "GPT-4o": {
+            "solution": ""
+        },
+        "OpenAI-o1": {
+            "solution": ""
+        }
+    },
+    "5": {
+        "problem": "Suppose $X \\sim \\text{Bin}(n, p)$. Can you show that the pmf of $X$ converges to the pmf of a Poisson random variable as $n \\to \\infty$?",
+        "GPT-4o": {
+            "solution": ""
+        },
+        "OpenAI-o1": {
+            "solution": ""
+        }
+    },
+    "6": {
+        "problem": "Let $X_i$, $i = 1, \\dots, n$ be a random sample from $N(\\mu, \\sigma^2)$. Define \\[ S = \\sqrt{\\frac{\\sum_{i=1}^{n}(X_i - \\bar{X})^2}{n - 1}} \\] Compute $E(S)$. Is $S$ an unbiased estimator of $\\sigma$?",
+        "GPT-4o": {
+            "solution": ""
+        },
+        "OpenAI-o1": {
+            "solution": ""
+        }
+    },
+    "7": {
+        "problem": "Let $X_1, \\dots, X_n$ be a random sample from $U(0, \\theta)$. Find the MLE and MME of $\\theta$.",
+        "GPT-4o": {
+            "solution": ""
+        },
+        "OpenAI-o1": {
+            "solution": ""
+        }
+    },
+    "8": {
+        "problem": "A box contains five chips marked $1, 2, ..., 5$. One chip is drawn at random, the number on it is noted, and the chip is replaced. The process is repeated with another chip. Let $X_1$, $X_2$ be the outcomes of the two draws. \\begin{enumerate} \\item[(a)] What is the population from which this random sample is drawn? Find the mean $\\mu$ and variance $\\sigma^2$ of this population. \\item[(b)] List all possible (25 in all) samples and calculate the value of the sample mean $\\bar{X}$ for each sample. \\item[(c)] Obtain the sampling distribution of $\\bar{X}$ from this list. \\item[(d)] Find $E(\\bar{X})$ and $Var(\\bar{X})$. Check that they equal $\\mu$ and $\\frac{\\sigma^2}{2}$, respectively. \\end{enumerate} The sampling scheme used above is called sampling with replacement. When sampling without replacement, the chips are not replaced. Suppose that two chips are drawn at random in this way. Let $X_1$, $X_2$ be the outcomes of the two draws. \\begin{enumerate} \\item[(e)] List all possible (20 in all) samples and calculate the value of the sample mean $\\bar{X}$ for each sample. \\item[(f)] Obtain the sampling distribution of $\\bar{X}$ using this list. \\item[(g)] Find $E(\\bar{X})$ and $Var(\\bar{X})$. Are their values different from those obtained for sampling with replacement? \\item[(h)] For sampling without replacement, $Var(\\bar{X})$ equals $(\\frac{N-n}{N-1})\\frac{\\sigma^2}{n}$, where $n$ is the sample size and $N$ is the population size. Check your answer from (g) with this formula. \\end{enumerate}",
+        "GPT-4o": {
+            "solution": ""
+        },
+        "OpenAI-o1": {
+            "solution": ""
+        }
+    },
+    "9": {
+        "problem": "Let $X_1, ..., X_9$ be a random sample drawn from the $U[0, 1]$ distribution. Find the p.d.f.'s of $X_{min}$, $X_{max}$, and the sample median $\\tilde{X}$.",
+        "GPT-4o": {
+            "solution": ""
+        },
+        "OpenAI-o1": {
+            "solution": ""
+        }
+    },
+    "10": {
+        "problem": "Let $X_1$, $X_2$, $X_3$, $X_4$ be i.i.d. observations from a distribution with mean $\\mu$ and variance $\\sigma^2$. Consider the following four estimators of $\\mu$: $\\hat{\\mu_1} = X_1$ $\\hat{\\mu_2} = \\frac{X_2+X_3}{2}$ $\\hat{\\mu_3} = 0.1X_1+0.2X_2+0.3X_3+0.4X_4$ $\\hat{\\mu_4} = \\bar{X}$ \\begin{enumerate} \\item[(a)] Show that all four estimators are unbiased. \\item[(b)] Calculate the variance of each estimator. Which one has the smallest variance? \\item[(c)] More generally, for a random sample of size n, show that if an estimator $\\mu=a_1X_1+a_2X_2+\\cdots+a_nX_n$, where $a_1$, $a_2$, ..., $a_n$ are constants, is unbiased, then its variance is minimum when $a_1=a_2=\\cdots=a_n=\\frac{1}{n}$, i.e., $\\hat{\\mu}= \\bar{X}$. (Hint: Subject to $\\sum a_i = 1$, $\\sum a_i^2$ is minimized by choosing $a_1=a_2=\\cdots=a_n=\\frac{1}{n}$.) \\end{enumerate}",
+        "GPT-4o": {
+            "solution": ""
+        },
+        "OpenAI-o1": {
+            "solution": ""
+        }
+    },
+    "11": {
+        "problem": "Let $X_1$, $X_2$, ..., $X_n$ be a random sample from a distribution with mean $\\mu$ and variance $\\sigma^2$. Show that $X^2$ is a biased estimator of $\\mu^2$. What is its bias? (Hint. $E(\\bar{X}^2)-\\mu^2 = Var(\\bar{X}) = \\frac{\\sigma^2}{n}$)",
+        "GPT-4o": {
+            "solution": ""
+        },
+        "OpenAI-o1": {
+            "solution": ""
+        }
+    },
+    "12": {
+        "problem": "Consider the probability $P[-1.645 \\leq Z = \\frac{\\bar{X}-\\mu}{\\frac{\\sigma}{\\sqrt{n}}} \\leq +1.645]$ where $\\bar{X}$ is the mean of a random sample of size n drawn from an N($\\mu$, $\\sigma^2$) distribution. \\begin{enumerate} \\item[(a)] Use this statement to find a Cl for $\\mu$. What is the confidence level of this CI? \\item[(b)] A sample of $n = 100$ is taken from a normal population with $\\sigma = 10$. The sample mean is 30. Calculate the CI for $\\mu$, using the result from (a). \\item[(c)] What is the probability that $\\mu$ is included in the CI calculated in (b)? \\end{enumerate}",
+        "GPT-4o": {
+            "solution": ""
+        },
+        "OpenAI-o1": {
+            "solution": ""
+        }
+    },
+    "13": {
+        "problem": "Suppose that 100 random samples of size 9 are generated from an N(70, $3^2$) distribution and the associated 95\\% CI is calculated for each sample. \\begin{enumerate} \\item[(a)] How many of these 100 intervals would you expect to contain the true $\\mu = 70$? \\item[(b)] Let $X$ be the number of intervals out of 100 that contain the true $\\mu$. What is the distribution of the r.v. $X$? \\end{enumerate}",
+        "GPT-4o": {
+            "solution": ""
+        },
+        "OpenAI-o1": {
+            "solution": ""
+        }
+    },
+    "14": {
+        "problem": "Let $X_1$, $X_2$, ..., $X_n$ be a random sample from a continuous distribution with median $\\tilde{X}$. If $[X_{min}, X_{max}]$ is used as a CI for $\\tilde{X}$, what is its confidence level? What is the confidence level if $n = 10$? (Hint: $P(X_{min}\\leq \\tilde{X} \\leq X_{max}=1-(0.5)^{n-1})$.)",
+        "GPT-4o": {
+            "solution": ""
+        },
+        "OpenAI-o1": {
+            "solution": ""
+        }
+    },
+    "15": {
+        "problem": "Consider testing $H_0: \\mu = 0$ vs. $H_1: \\mu > 0$ based on a random sample of size $n$ from an N($\\mu$, $1^2$) distribution. Calculate the P-values for the following three cases: (i) $\\bar{x}=0.1$, $n=100$, (ii) $\\bar{x}=0.1$, $n=400$, (iii) $\\bar{x}=0.1$, $n=900$. What do you conclude?",
+        "GPT-4o": {
+            "solution": ""
+        },
+        "OpenAI-o1": {
+            "solution": ""
+        }
+    },
+    "16": {
+        "problem": "An EPA researcher wants to design a study to estimate the mean lead level of fish in a lake located near an industrial area. Based on past sample data, the researcher estimates that $\\sigma$ for the lead level in the fish population is approximately $0.016$ mg/g. He wants to use a $98\\%$ CI having a margin of error no greater than $0.005$ mg/g. \\begin{enumerate} \\item[(a)] How many fish does he need to catch? \\item[(b)] If 100 fish are actually caught, by what factor will the margin of error be reduced? \\end{enumerate}",
+        "GPT-4o": {
+            "solution": ""
+        },
+        "OpenAI-o1": {
+            "solution": ""
+        }
+    },
+    "17": {
+        "problem": "The mail-order division of a large clothing company wants to estimate its loss due to incorrectly filled orders. It plans to sample incorrect orders and determine the associated cost for each one. It is estimated that the loss from an incorrectly filled order ranges from \\$10 to \\$350. \\begin{enumerate} \\item[(a)] How many incorrect orders should be sampled to estimate the average loss within \\$10 using a 95\\% confidence interval? Use a rough estimate of $\\sigma$ obtained from the range of losses. \\item[(b)] Repeat (a) if a 99\\% confidence interval is to be used. \\end{enumerate}",
+        "GPT-4o": {
+            "solution": ""
+        },
+        "OpenAI-o1": {
+            "solution": ""
+        }
+    },
+    "18": {
+        "problem": "The mean yield of corn in the U.S. is about 120 bushels per acre. A survey of 50 farmers from Illinois yielded a sample mean of $\\bar{x} = 123.6$ bushels per acre. Assume that the standard deviation of the yield for this population is $\\sigma = 10$ bushels per acre. Determine if the mean yield for Illinois differs from the national mean. \\begin{enumerate} \\item[(a)] Set up the hypotheses assuming that there was no a priori reason to suspect that the Illinois mean would be higher than the national mean. \\item[(b)] Calculate the $P$-value of the test. Can you conclude that the mean yield for Illinois differs from the national mean? Use $\\alpha = 0.01$. \\item[(c)] Which assumption is more important to the validity of the conclusion drawn from this test: the assumption that the 50 farmers form a random sample from the population of all Illinois farmers or the assumption that the yields in this population are normally distributed? Explain. \\end{enumerate}",
+        "GPT-4o": {
+            "solution": ""
+        },
+        "OpenAI-o1": {
+            "solution": ""
+        }
+    },
+    "19": {
+        "problem": "Coffee cans are to be filled with 16 oz. of coffee. The mean content of cans filled on a production line is monitored. It is known from past experience that the standard deviation of the contents is 0.1 oz. A sample of 9 cans is taken every hour and their mean content is measured. \\begin{enumerate} \\item[(a)] Set up the hypotheses to test whether the mean content is 16 oz. Should the alternative be one-sided or two-sided? Why? \\item[(b)] Give a decision rule in terms of the sample mean $\\bar{x}$ for a 0.05-level test. \\item[(c)] If the \\textit{true} mean content during a particular period is 16.1 oz., what is the probability that the test derived in (b) will correctly detect this deviation from the target value of 16 oz.? \\item[(d)] How many cans should be sampled to assure 90\\% power in (c)? \\end{enumerate}",
+        "GPT-4o": {
+            "solution": ""
+        },
+        "OpenAI-o1": {
+            "solution": ""
+        }
+    },
+    "20": {
+        "problem": "In order to test the accuracy of speedometers purchased from a subcontractor, the purchasing department of an automaker orders a test of a sample of speedometers at a controlled speed of 55 mph. At this speed, it is estimated that the readings will range $\\pm 2$ mph around the mean. \\begin{enumerate} \\item[(a)] Set up the hypotheses to detect if the speedometers have any bias. \\item[(b)] How many speedometers need to be tested to have a 95\\% power to detect a bias of 0.5 mph or greater using a 0.01-level test? Use the rough estimate of $\\sigma$ obtained from the range. \\item[(c)] A sample of the size determined in (b) has a mean of $\\bar{x} = 55.2$ and $s = 0.8$. Can you conclude that the speedometers have a bias? \\item[(d)] Calculate the power of the test if 50 speedometers are tested and the actual bias is 0.5 mph. Assume $\\sigma = 0.8$. \\end{enumerate}",
+        "GPT-4o": {
+            "solution": ""
+        },
+        "OpenAI-o1": {
+            "solution": ""
+        }
+    },
+    "21": {
+        "problem": "Suppose that 100 random samples of size 25 are drawn from a normal distribution with $\\mu = 12$ and $\\sigma = 2$. \\begin{enumerate} \\item[(a)] If a 95\\% $z$-interval is calculated for each sample, how many of the intervals would you expect to contain the true $\\mu = 12$? \\item[(b)] If a 95\\% $t$-interval is calculated for each sample, will the answer be different from (a)? Why or why not? \\end{enumerate}",
+        "GPT-4o": {
+            "solution": ""
+        },
+        "OpenAI-o1": {
+            "solution": ""
+        }
+    },
+    "22": {
+        "problem": "In response to student complaints and financial considerations, a high school decides to close its kitchen and contract a food service to provide school lunches. The previous year, when food was prepared in the high school kitchen, about 60\\% of the students purchased lunch on a daily basis. The daily proportions of students using the food service during the fourth month of the contract are given below. \\[ \\begin{matrix} 68 & 61 & 65 & 74 & 68 & 80 & 78 & 63 & 74 & 65 \\\\ 70 & 53 & 65 & 70 & 78 & 65 & 74 & 68 & 61 & 70 \\\\ \\end{matrix} \\] \\noindent Compared to the previous year, is there an increase in the average proportion of students purchasing lunches provided by the food service? \\begin{enumerate} \\item[(a)] The hypotheses are set up as $H_0: \\mu \\leq 60$ vs. $H_1: \\mu > 60$. Explain the meaning of $\\mu$, the parameter under test. \\item[(b)] Perform a test of the hypotheses in (a) using $\\alpha = 0.01$. Interpret your results. \\item[(c)] The food service set a goal of attracting at least 70\\% of the students to purchase lunches. Set up the hypotheses to test whether the food service has met its goal. \\item[(d)] Calculate the $P$-value for the test of the hypotheses in (c). Is the result significant at $\\alpha = 0.10$? \\end{enumerate}",
+        "GPT-4o": {
+            "solution": ""
+        },
+        "OpenAI-o1": {
+            "solution": ""
+        }
+    },
+    "23": {
+        "problem": "Diabetic patients monitor their blood sugar levels with a home glucose monitor which analyzes a drop of blood from a finger stick. Although the monitor gives precise results in a laboratory, the results are too variable when it is used by patients. A new monitor is developed to improve the precision of the assay results under home use. Home testing on the new monitor is done by 25 persons using drops from a sample having a glucose concentration of 118 mg/dl. If $\\sigma < 10$ mg/dl, then the precision of the new device under home use is better than the current monitor. The readings from 25 tests are as follows. \\[ \\begin{matrix} 125 & 123 & 117 & 123 & 115 \\\\ 112 & 128 & 118 & 124 & 111 \\\\ 116 & 109 & 125 & 120 & 113 \\\\ 123 & 112 & 118 & 121 & 118 \\\\ 122 & 115 & 105 & 118 & 131 \\\\ \\end{matrix} \\] \\noindent The sample mean is $\\bar{x} = 118.5$ and the sample standard deviation is $s = 6.2$. \\begin{enumerate} \\item[(a)] Make a normal probability plot of these readings. Is it reasonable to assume that the data follow a normal distribution? \\item[(b)] Test $H_0: \\sigma \\geq 10$ vs. $H_1: \\sigma < 10$ at the 0.10 level. \\item[(c)] Find an upper one-sided 90\\% confidence interval for $\\sigma$. Use this interval to test the hypotheses in (b). \\end{enumerate}",
+        "GPT-4o": {
+            "solution": ""
+        },
+        "OpenAI-o1": {
+            "solution": ""
+        }
+    },
+    "24": {
+        "problem": "Consider the problem of testing $H_0: \\sigma^2 = \\sigma_0^2$ vs. $H_1: \\sigma^2 > \\sigma_0^2$ at level $\\alpha$ using the test that rejects $H_0$ if \\[ \\frac{(n - 1)S^2}{\\sigma_0^2} > \\chi^2_{n-1,1-\\alpha} \\] where $S^2$ is the sample variance. \\begin{enumerate} \\item[(a)] Find an expression for the power of this test in terms of the $\\chi^2_{n-1}$ distribution if the true $\\sigma^2 = c\\sigma_0^2$, where $c > 1$. \\item[(b)] Given a table of critical values $\\chi_{v, \\alpha}^2$ for the Chi-square Distribution, explain how to find the power of this test if $\\alpha = 0.05$, $n = 16$, and $c = 4$; that is, the true $\\sigma^2$ is four times the value being tested under $H_0$. \\end{enumerate}",
+        "GPT-4o": {
+            "solution": ""
+        },
+        "OpenAI-o1": {
+            "solution": ""
+        }
+    },
+    "25": {
+        "problem": "Tell in each of the following instances whether the study uses an independent samples or a matched pairs design. Tell in each of the instances whether the study is experimental or observational. \\begin{enumerate} \\item[(a)] Two computing algorithms are compared in terms of the CPU times required to do the same six test problems. \\item[(b)] A survey is conducted of teens from inner city schools and suburban schools to compare the proportion who have tried drugs. \\item[(c)] A psychologist measures the response times of subjects under two stimuli; each subject is observed under both the stimuli in a random order. \\item[(d)] An agronomist compares the yields of two varieties of soybean by planting each variety in 10 separate plots of land (a total of 20 plots). \\end{enumerate}",
+        "GPT-4o": {
+            "solution": ""
+        },
+        "OpenAI-o1": {
+            "solution": ""
+        }
+    },
+    "26": {
+        "problem": "To determine whether glaucoma affects the corneal thickness, measurements were made in 8 people affected by glaucoma in one eye but not in the other. The corneal thicknesses (in microns) were as follows: \\[ \\begin{array}{|c|c|c|c|c|c|c|c|c|} \\hline \\textbf{Person} & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 \\\\ \\hline \\textbf{Eye affected by glaucoma} & 488 & 478 & 480 & 426 & 440 & 410 & 458 & 460 \\\\ \\hline \\textbf{Eye not affected by glaucoma} & 484 & 478 & 492 & 444 & 436 & 398 & 464 & 476 \\\\ \\hline \\end{array} \\] \\begin{enumerate} \\item[(a)] Explain why these samples are matched pairs. \\item[(b)] Make a scatter plot of the corneal thicknesses. Do the pairs tend to lie above or below the 45\u00b0 line through the origin? Do eyes affected by glaucoma tend to have either thicker or thinner corneas than unaffected eyes? \\item[(c)] Test Ho: $\\mu_1 = \\mu_2$ against a two-sided alternative using $\\alpha = .10$. What do you conclude? \\item[(d)] Calculate a 90\\% confidence interval for the mean difference in thickness. \\item[(e)] Do the sign test to determine if the corneal thickness differs between an eye affected with glaucoma and an unaffected eye. Use $\\alpha= .05$. \\item[(f)] Repeat part (e) using the Wilcoxon signed rank test. \\end{enumerate}",
+        "GPT-4o": {
+            "solution": ""
+        },
+        "OpenAI-o1": {
+            "solution": ""
+        }
+    },
+    "27": {
+        "problem": "Two brands of water filters are to be compared in terms of the mean reduction in impurities measured in parts per million (ppm). Twenty-one water samples were tested with each filter and reduction in the impurity level was measured, resulting in the following data: Filter 1: $n_1 = 21$, $\\bar{x} = 8.0$, $s_1^2 = 4.5$ Filter 2: $n_2 = 21$, $\\bar{y} = 6.5$, $s_2^2 = 2.0$ \\begin{enumerate} \\item[(a)] Calculate a 95\\% confidence interval for the mean difference $\\mu_1 - \\mu_2$ between the two filters, assuming $\\sigma_1^2 = \\sigma_2^2$. Is there a statistically significant difference at $\\alpha = .05$ between the two filters? \\item[(b)] Repeat (a) without assuming $\\sigma_1^2 = \\sigma_2^2$. Compare the results. \\end{enumerate}",
+        "GPT-4o": {
+            "solution": ""
+        },
+        "OpenAI-o1": {
+            "solution": ""
+        }
+    },
+    "28": {
+        "problem": "Two methods of measuring atomic weight of carbon (the nominal atomic weight is 12) yielded the following results: \\[ \\begin{array}{|c|c|c|c|c|c|c|c|c|c|c|} \\hline \\textbf{Method 1} & 12.0129 & 12.0072& 12.0064& 12.0054& 12.0016& 11.9853& 11.9949& 11.9985& 12.0077& 12.0061 \\\\ \\hline \\textbf{Method 2} & 12.0318& 12.0246& 12.0069& 12.0006& 12.0075& & & & &  \\\\ \\hline \\end{array} \\] \\begin{enumerate} \\item[(a)] Test $H_0: \\mu_1 = \\mu_2$ vs. $H_1: \\mu_1 \\neq \\mu_2$ at $\\alpha = .05$, assuming $\\sigma_1^2 = \\sigma_2^2$. What is your conclusion? \\item[(b)] Repeat (a) without assuming $\\sigma_1^2 = \\sigma_2^2$. Compare the results. \\item[(c)] which gives data on two carbon measurement methods. Calculate a 90\\% confidence interval for the ratio of the variances of the two methods. Does this confidence interval indicate that the two variances are different? If the equality of the means is tested, would you recommend using a t-test calculated from pooled variances or separate variances? \\end{enumerate}",
+        "GPT-4o": {
+            "solution": ""
+        },
+        "OpenAI-o1": {
+            "solution": ""
+        }
+    },
+    "29": {
+        "problem": "A restaurant adds a new commercial oven to its kitchen. It is hoped that the new oven has more evenly distributed heat than the current oven. The ovens are heated to $350 ^{\\circ} F$, using a thermostat control, and temperature readings are obtained from thermometers placed at 9 locations in each oven, yielding the following data: Current oven: $n_1 = 9$, $\\bar{x} = 352.4$, $s_1 = 2.3$ New oven: $n_2 = 9$, $\\bar{y} = 350.2$, $s_2 = 1.1$ Test $H_0: \\sigma_1^2 = \\sigma_2^2$ vs. $H_1: \\sigma_1^2 > \\sigma_2^2$ using $\\alpha = .05$. Do the data indicate that the new oven provides more even heating than the current one?",
+        "GPT-4o": {
+            "solution": ""
+        },
+        "OpenAI-o1": {
+            "solution": ""
+        }
+    },
+    "30": {
+        "problem": "A study to compare the effects of high fiber and low fiber diet supplements on the serum cholesterol was done at a Boston hospital. Twenty subjects participated. During the baseline period of one week all subjects ate their normal diets. Serum cholesterol levels were measured at baseline for all subjects. For the following six weeks half the subjects received high fiber diet supplement in the form of oat bran, while the other half received low fiber diet supplement in the form of wheat bran. At the end of this period cholesterol levels were again measured. Then the subjects switched their diets. (This is called a crossover design.) At the end of six more weeks the measurements were again made. Subjects as well as the physicians were not told about which diet each subject was receiving. (This is called a double blind design.) The sample means and sample standard deviations for the 20 subjects were as follows: \\[ \\begin{array}{|c|c|c|c|} \\hline \\textbf{Total Cholesterol (mmol/liter)} & \\textbf{Baseline} & \\textbf{High Fiber (Oat Bran)} & \\textbf{Low Fiber (Wheat Bran)} \\\\ \\hline \\text{Mean} & 4.80  & 4.44 & 4.46   \\\\ \\text{SD} & 0.80 & 0.73 & 0.64  \\\\ \\hline \\end{array} \\] \\begin{enumerate} \\item[(a)] Compute a 95\\% confidence interval for the difference between the mean cholesterol levels for high fiber and low fiber diets. Assume that the two samples are independent (with $n_1 = n_2 = 20$). What do you conclude about the difference between the high and low fiber diets? \\item[(b)] The samples are really matched, because each person received both the diets in two different periods. To analyze the data correctly, we need the sample standard deviation of the differences of the cholesterol levels of the 20 subjects. This standard deviation was $s_d = 0.40$. Recalculate the confidence interval. Compare the result with that obtained in (a) and comment. \\item[(c)] Calculate a 95\\% confidence interval to compare the cholesterol levels under high fiber diet with baseline measurements. Use $s_d = 0.40$. \\item[(d)] Summarize the results by stating whether high or low fiber diets reduce the cholesterol level and whether any additional benefit is derived from high vs. low fiber diet. \\end{enumerate}",
+        "GPT-4o": {
+            "solution": ""
+        },
+        "OpenAI-o1": {
+            "solution": ""
+        }
+    },
+    "31": {
+        "problem": "This exercise compares an independent samples design with a matched pairs design in terms of their statistical precisions. For the independent samples design, assume that $X_1, X_2, ..., X_n$ and $Y_1, Y_2, ..., Y_n$ are mutually independent random samples from N($\\mu_1$, $\\sigma^2$) and N($\\mu_2$, $\\sigma^2$) distributions, respectively. (Note that we are confining attention to the special case $\\sigma_1^2 = \\sigma_2^2=\\sigma^2$ and $n_1 = n_2 = n$.) For the matched pairs design, assume also that $Corr(X_i, Y_i) = \\rho$ and let $D_i = X_i - Y_i$. To estimate $\\mu_1 - \\mu_2$ , we use $\\bar{X} - \\bar{Y}$ for the independent samples design and $\\bar{D} = \\bar{X} - \\bar{Y}$ for the matched pairs design; thus we use the same estimator for both designs. \\begin{enumerate} \\item[(a)] Show that the ratio of the variances of $\\bar{X} - \\bar{Y}$ for the two designs equals $$\\frac{Var_{matched}(\\bar{X}-\\bar{Y})}{Var_{independent}(\\bar{X}-\\bar{Y})} = 1-\\rho$$ Hence the ratio of the margins of errors of the confidence intervals for $\\mu_1 - \\mu_2$ equals $\\sqrt{1-\\rho}$, assuming $\\sigma^2$ is known. \\item[(b)] Discuss in each of the following cases: $\\rho < 0$, $= 0$, and $> 0$, how the matched pairs design compares with the independent samples design in terms of the precision. Give practical situations where matching would result in these values of $\\rho$. \\end{enumerate}",
+        "GPT-4o": {
+            "solution": ""
+        },
+        "OpenAI-o1": {
+            "solution": ""
+        }
+    },
+    "32": {
+        "problem": "To compare salaries of people in two types of occupations. 72 advertisements in the newspaper The Guardian were sampled for (i) creative, media, and marketing occupations and (ii) occupations in education. \\begin{enumerate} \\item[(a)] Set up and test hypotheses to determine if there is a statistically significant difference between the two occupational groups based on the actual data. Use the following summary statistics for salary. Interpret your findings. \\[ \\begin{array}{|c|c|c|c|} \\hline \\textbf{Occupation Group} & \\textbf{Sample Size} & \\textbf{Sample Mean} & \\textbf{Sample SD} \\\\ \\hline \\text{Creative, media, marketing} &  72 & 17410 & 6423       \\\\ \\text{Education} &  72 &19817 & 7123       \\\\ \\hline \\end{array} \\] \\item[(b)] Set up and test hypotheses to determine if there is a statistically significant difference between the two occupational groups based on the transformed data. Use the following summary statistics for $log_e(salary)$. Interpret your findings. \\[ \\begin{array}{|c|c|c|c|} \\hline \\textbf{Occupation Group} & \\textbf{Sample Size} & \\textbf{Sample Mean} & \\textbf{Sample SD} \\\\ \\hline \\text{Creative, media, marketing} &  72 & 9.709  & 0.325        \\\\ \\text{Education} &  72 &9.840 & 0.325        \\\\ \\hline \\end{array} \\] \\end{enumerate}",
+        "GPT-4o": {
+            "solution": ""
+        },
+        "OpenAI-o1": {
+            "solution": ""
+        }
+    },
+    "33": {
+        "problem": "In this exercise we derive formulas to determine the sample sizes for testing $H_0: \\mu_1 = \\mu_2$ vs. $H_1: \\mu_1 > \\mu_2$ (the results are similar for lower one-sided and two-sided tests) when the samples are independently drawn from two normal populations, N($\\mu_1$, $\\sigma_1^2$) and N($\\mu_2$, $\\sigma_2^2$), and $\\sigma_1^2$ and $\\sigma_2^2$ are assumed known for design purposes. Let $n_1$ and $n_2$ be the sample sizes and $\\bar{x}$ and $\\bar{y}$ be the sample means. The $\\alpha$-level test of $H_0$ rejects if $$z = \\frac{\\bar{x}-\\bar{y}}{\\sqrt{\\frac{\\sigma_1^2}{n_1}+\\frac{\\sigma_2^2}{n_2}}} > z_{\\alpha}$$ \\begin{enumerate} \\item[(a)] Show that the power of the $\\alpha$-level test as a function of $\\mu_1 - \\mu_2$ is given by $$\\pi(\\mu_1-\\mu_2)=\\Phi\\left[-z_{\\alpha} + \\frac{\\mu_1-\\mu_2}{\\sqrt{\\frac{\\sigma_1^2}{n_1}+\\frac{\\sigma_2^2}{n_2}}}\\right]$$ \\item[(b)] For detecting a specified difference, $\\mu_1 - \\mu_2 = \\delta > 0$, show that for a fixed total sample size $n_1 + n_2 = N$, the power is maximized when $$n_1 = \\frac{\\sigma_1}{\\sigma_1+\\sigma_2}N \\text{ and } n_2 = \\frac{\\sigma_2}{\\sigma_1+\\sigma_2}N$$ i.e., the optimum values of the $n_i$ are proportional to the $\\sigma_i$ (ignoring the integer restrictions on the $n_i$). \\item[(c)] Show that the smallest total sample size $N$ required to guarantee at least $1 - \\beta$ power when $\\mu_1 - \\mu_2 = \\delta > 0$ is given by $$N = \\left[\\frac{(z_{\\alpha}+z_{\\beta})(\\sigma_1+\\sigma_2)}{\\delta}\\right]^2$$ \\item[(d)] Calculate the sample sizes $n_1$ and $n_2$ for $\\alpha = .05$, $\\beta = .10$, $\\delta = 2.0$, $\\sigma_1 = 2.0$, $\\sigma_2 = 4.0$. Note that you must round $n_1$ and $n_2$ up to the nearest integers. \\end{enumerate}",
+        "GPT-4o": {
+            "solution": ""
+        },
+        "OpenAI-o1": {
+            "solution": ""
+        }
+    },
+    "34": {
+        "problem": "Derive an expression in terms of the $F$-distribution for the power of an $\\alpha$-level test of $H_0: \\sigma_1^2 = \\sigma_2^2$ vs. $H_1: \\sigma_1^2 > \\sigma_2^2$ when $\\sigma_1^2 = c^2\\sigma_2^2$ for $c > 1$. Find the power for $\\alpha = .05$, $n_1 = n_2 = 16$, and $c = 2.40$. (Hint: Recall that $f_{v_1, v_2, 1-\\alpha} = \\frac{1}{f_{v_2, v_1, \\alpha}}$.)",
+        "GPT-4o": {
+            "solution": ""
+        },
+        "OpenAI-o1": {
+            "solution": ""
+        }
+    },
+    "35": {
+        "problem": "A business journal publisher plans to survey a sample of the subscribers to estimate the proportion $p$ with annual household incomes over \\$100,000. \\begin{enumerate} \\item[(a)] How many subscribers must be surveyed to obtain a 99\\% CI for $p$ with a margin of error no greater than 0.05? Assume that no prior estimate of $p$ is available. \\item[(b)] The marketing department thinks that $p = 0.30$ would be a reasonable guess. What is the corresponding sample size? \\item[(c)] Refer to the sample size obtained in (b). If a 40\\% nonresponse rate is anticipated, how many surveys need to be mailed? How may such a high nonresponse rate cause bias in the estimate? \\end{enumerate}",
+        "GPT-4o": {
+            "solution": ""
+        },
+        "OpenAI-o1": {
+            "solution": ""
+        }
+    },
+    "36": {
+        "problem": "While imprisoned by the Germans during World War II, the English mathematician John Kerrich tossed a coin 10,000 times and obtained 5067 heads. Let $p$ be the probability of a head on a single toss. We wish to check if the data are consistent with the hypothesis that the coin was fair. \\begin{enumerate} \\item[(a)] Set up the hypotheses. Why should the alternative be two-sided? \\item[(b)] Calculate the $P$-value. Can you reject $H_0$ at the 0.05 level? \\item[(c)] Find a 95\\% CI for the proportion of heads for Kerrich's coin. \\end{enumerate}",
+        "GPT-4o": {
+            "solution": ""
+        },
+        "OpenAI-o1": {
+            "solution": ""
+        }
+    },
+    "37": {
+        "problem": "A blood test intended to identify patients at \"high risk\" of cardiac disease gave positive results on 80 out of 100 known cardiac patients, but also on 16 out of 200 known normal patients. \\begin{enumerate} \\item[(a)] Find a 90\\% CI for the sensitivity of the test, which is defined as the probability that a cardiac patient is correctly identified. \\item[(b)] Find a 90\\% CI for the specificity of the test, which is defined as the probability that a normal patient is correctly identified. \\end{enumerate}",
+        "GPT-4o": {
+            "solution": ""
+        },
+        "OpenAI-o1": {
+            "solution": ""
+        }
+    },
+    "38": {
+        "problem": "The following data set from a study by the well-known chemist and Nobel Laureate Linus Pauling (1901--1994) gives the incidence of cold among 279 French skiers who were randomized to the Vitamin C and Placebo groups. \\[ \\begin{array}{|c|c|c|c|} \\hline \\textbf{Group} & \\textbf{Cold (Yes)} & \\textbf{Cold (No)} & \\textbf{Total} \\\\ \\hline \\text{Vitamin C} & 17 & 122 & 139 \\\\ \\text{Placebo} & 31 & 109 & 140 \\\\ \\hline \\end{array} \\] \\noindent Is there a significant difference in the incidence rates for cold between the Vitamin C and Placebo groups at $\\alpha = 0.05$? What do you conclude about the effectiveness of Vitamin C in preventing cold?",
+        "GPT-4o": {
+            "solution": ""
+        },
+        "OpenAI-o1": {
+            "solution": ""
+        }
+    },
+    "39": {
+        "problem": "The graduate degrees of faculty from a research group within a medical school were tabulated by gender, giving the following results. \\[ \\begin{array}{|c|c|c|} \\hline \\textbf{Gender} & \\textbf{M.D.} & \\textbf{Ph.D.} \\\\ \\hline \\text{Male} & 5 & 1 \\\\ \\text{Female} & 3 & 6 \\\\ \\hline \\end{array} \\] \\begin{enumerate} \\item[(a)] Set up the hypotheses to determine whether the proportion of male M.D.'s differs from the proportion of female M.D.'s. Which statistical test is appropriate to test the hypotheses? \\item[(b)] Calculate the $P$-value of the test. What is your conclusion using $\\alpha = 0.05$? \\end{enumerate}",
+        "GPT-4o": {
+            "solution": ""
+        },
+        "OpenAI-o1": {
+            "solution": ""
+        }
+    },
+    "40": {
+        "problem": "A matched pairs study was conducted to compare two topical anesthetic drugs for use in dentistry. The two drugs were applied on the oral mucous membrane of the two sides of each patient\u2019s mouth, and after a certain period of time, it was noted whether or not the membrane remained anesthetized. Data on 45 patients showed the following responses. \\[ \\begin{array}{|c|c|c|} \\hline \\textbf{Drug 1 Response} & \\textbf{Anesthetized} & \\textbf{Not Anesthetized} \\\\ \\hline \\text{Anesthetized} & 15 & 13 \\\\ \\text{Not Anesthetized} & 3 & 14 \\\\ \\hline \\end{array} \\] \\begin{enumerate} \\item[(a)] Set up the hypotheses to determine whether there is a statistically significant difference between the two drugs. Which statistical test is appropriate to test the hypotheses? \\item[(b)] Calculate the $P$-value of the test. What is your conclusion using $\\alpha = 0.05$? \\end{enumerate}",
+        "GPT-4o": {
+            "solution": ""
+        },
+        "OpenAI-o1": {
+            "solution": ""
+        }
+    },
+    "41": {
+        "problem": "The Hutterite Brethren is a religious group that is essentially a closed population with almost all marriages within the group. The following table shows the distribution of sons in families with 7 children whose mothers were born between 1879 and 1936. \\[ \\begin{array}{|c|c|c|c|c|c|c|c|c|} \\hline \\textbf{Sons} & 0 & 1 & 2 & 3 & 4 & 5 & 6 & 7 \\\\ \\hline \\textbf{Count} & 0 & 6 & 14 & 25 & 21 & 22 & 9 & 1 \\\\ \\hline \\end{array} \\] \\begin{enumerate} \\item[(a)] State the hypotheses to test that the number of sons follows a binomial distribution with $p = 0.5$, where $p$ is the probability that a child is male. Conduct a test of the hypotheses using a $\\chi^2$-test at $\\alpha = 0.10$. \\item[(b)] State the hypotheses to test that the number of sons follows a binomial distribution (with unspecified $p$). Conduct a test of the hypotheses using a $\\chi^2$-test at $\\alpha = 0.10$. How does the result of this test compare with the result from part (a)? \\end{enumerate}",
+        "GPT-4o": {
+            "solution": ""
+        },
+        "OpenAI-o1": {
+            "solution": ""
+        }
+    },
+    "42": {
+        "problem": "A genetics experiment on characteristics of tomato plants provided the following data on the numbers of offspring expressing four phenotypes. \\[ \\begin{array}{|l|c|} \\hline \\textbf{Phenotype} & \\textbf{Frequency} \\\\ \\hline \\text{Tall, cut-leaf} & 926 \\\\ \\text{Dwarf, cut-leaf} & 293 \\\\ \\text{Tall, potato-leaf} & 288 \\\\ \\text{Dwarf, potato-leaf} & 104 \\\\ \\hline \\textbf{Total} & 1611 \\\\ \\hline \\end{array} \\] \\begin{enumerate} \\item[(a)] State the hypotheses to test that theoretically the four phenotypes will appear in the proportion 9:3:3:1. \\item[(b)] Test the hypotheses. Use $\\alpha = 0.05$. \\end{enumerate}",
+        "GPT-4o": {
+            "solution": ""
+        },
+        "OpenAI-o1": {
+            "solution": ""
+        }
+    },
+    "43": {
+        "problem": "Consider the problem of testing $H_0: p = p_0$ vs. $H_1: p \\neq p_0$, where $p$ is the success probability of a Bernoulli population from which we have a random sample of size $n$. The equation below gives the following test statistic for this problem: \\[ z = \\frac{y - np_0}{\\sqrt{np_0(1 - p_0)}} \\] where $y$ is the number of successes. \\begin{enumerate} \\item[(a)] Show that $z^2 = \\chi^2$, where the $\\chi^2$-statistic is given by $\\chi^2=\\sum_{i=1}^c \\frac{(n_i-np_{i0})^2}{np_{i0}}$. This $\\chi^2$-statistic has 1 d.f. \\item[(b)] Show that the two-sided $z$-test and the $\\chi^2$-test are equivalent. \\end{enumerate}",
+        "GPT-4o": {
+            "solution": ""
+        },
+        "OpenAI-o1": {
+            "solution": ""
+        }
+    },
+    "44": {
+        "problem": "The time between eruptions of Old Faithful geyser in Yellowstone National Park is random but is related to the duration of the last eruption. The table below shows these times for 21 consecutive eruptions. Old Faithful Eruptions: Duration and Time Between Eruptions (in min.) \\begin{table}[ht] \\centering \\begin{tabular}{|c|c|c|c|c|c|} \\hline \\textbf{Obs. No.} & \\textbf{Duration of Eruption (LAST)} & \\textbf{Time Between Eruptions (NEXT)} & \\textbf{Obs. No.} & \\textbf{Duration of Eruption (LAST)} & \\textbf{Time Between Eruptions (NEXT)} \\\\ \\hline 1  & 2.0 & 50 & 12 & 3.8 & 70 \\\\ 2  & 1.8 & 57 & 13 & 4.5 & 85 \\\\ 3  & 3.7 & 55 & 14 & 4.7 & 75 \\\\ 4  & 2.2 & 47 & 15 & 4.0 & 77 \\\\ 5  & 2.1 & 53 & 16 & 4.0 & 70 \\\\ 6  & 2.4 & 50 & 17 & 1.7 & 43 \\\\ 7  & 2.6 & 62 & 18 & 1.8 & 48 \\\\ 8  & 2.8 & 57 & 19 & 4.9 & 70 \\\\ 9  & 3.3 & 72 & 20 & 4.2 & 79 \\\\ 10 & 3.5 & 62 & 21 & 4.3 & 72 \\\\ 11 & 3.7 & 63 &    &     &    \\\\ \\hline \\end{tabular} \\end{table} Let us see how well we can predict the time to next eruption, given the length of time of the last eruption. \\begin{enumerate} \\item[(a)] Make a scatter plot of NEXT vs. LAST. Does the relationship appear to be approximately linear? \\item[(b)] Fit a least squares regression line. Use it to predict the time to the next eruption if the last eruption lasted 3 minutes. \\item[(c)] What proportion of variability in NEXT is accounted for by LAST? Does it suggest that LAST is a good predictor of NEXT? \\item[(d)] Calculate the mean square error estimate of $\\sigma$. \\item[(e)] Calculate a 95\\% PI for the time to the next eruption if the last eruption lasted 3 minutes. \\item[(f)] Calculate a 95\\% CI for the mean time to the next eruption for a last eruption lasting 3 minutes. Compare this CI with the PI obtained in (a). \\item[(g)]  Repeat (e) if the last eruption lasted 1 minute. Do you think this prediction is reliable? Why or why not? \\end{enumerate}",
+        "GPT-4o": {
+            "solution": ""
+        },
+        "OpenAI-o1": {
+            "solution": ""
+        }
+    },
+    "45": {
+        "problem": "The data below show Olympic triple jump winning distances for men in meters for the years 1896 to 1992 (there were no Olympic games in 1916, 1940, and 1944). Men's Olympic Triple Jump Winning Distance (in meters) \\begin{table}[ht] \\centering \\begin{tabular}{|c|c|c|c|c|c|} \\hline \\textbf{Year} & \\textbf{Distance} & \\textbf{Year} & \\textbf{Distance} & \\textbf{Year} & \\textbf{Distance} \\\\ \\hline 1896 & 13.71 & 1932 & 15.72 & 1968 & 17.39 \\\\ 1900 & 14.47 & 1936 & 16.00 & 1972 & 17.35 \\\\ 1908 & 14.92 & 1948 & 15.40 & 1976 & 17.29 \\\\ 1912 & 14.64 & 1952 & 16.22 & 1980 & 17.35 \\\\ 1920 & 14.50 & 1956 & 16.35 & 1984 & 17.25 \\\\ 1924 & 15.53 & 1960 & 16.81 & 1988 & 17.61 \\\\ 1928 & 15.21 & 1964 & 16.85 & 1992 & 18.17 \\\\ \\hline \\end{tabular} \\end{table} \\begin{enumerate} \\item[(a)] Make a scatter plot of the length of the jump by year. Does the relationship appear to be approximately linear? \\item[(b)] Fit a least squares regression line. \\item[(c)] Calculate the mean square error estimate of $\\sigma$. \\item[(d)] Is there a significant increasing linear trend in the triple jump distance? Test at $\\alpha = .05$. \\item[(e)] Calculate a 95\\% PI for the winning jump in 2004. Do you think this prediction is reliable? Why or why not? Would a 95\\% Cl for the winning jump in 2004 have a meaningful interpretation? Explain. \\end{enumerate}",
+        "GPT-4o": {
+            "solution": ""
+        },
+        "OpenAI-o1": {
+            "solution": ""
+        }
+    },
+    "46": {
+        "problem": "Often the conditions of the problem dictate that the intercept coefficient $\\beta_0$ must be zero, e.g., the sales revenue as a function of the number of units sold or the gas mileage of a car as a function of the weight of the car. This is called regression through the origin. Show that the LS estimate of the slope coefficient $\\beta_1$ when fitting the straight line $y = \\beta_1x$ based on the data $(x_1, y_1),(x_2, y_2), ..., (x_n, y_n)$ is $$\\hat{\\beta_1} = \\frac{\\sum x_i y_i}{\\sum x_i^2}$$",
+        "GPT-4o": {
+            "solution": ""
+        },
+        "OpenAI-o1": {
+            "solution": ""
+        }
+    },
+    "47": {
+        "problem": "Show that $$\\sum_{i=1}^n (y_i-\\hat{y_i})(\\hat{y_i}-\\bar{y}) = 0$$ (Hint: Substitute $\\hat{y_i}=\\hat{\\beta_0}+\\hat{\\beta_1}x_1 = \\bar{y}+\\hat{\\beta_1}(x_i-\\bar{x})$ and simplify.)",
+        "GPT-4o": {
+            "solution": ""
+        },
+        "OpenAI-o1": {
+            "solution": ""
+        }
+    },
+    "48": {
+        "problem": "The problem of comparing the means of two independent samples can be formulated as a regression problem as follows: Denote $n_1$ i.i.d. observations from a N($\\mu_1$, $\\sigma^2$) population by $y_1, y_2, ..., y_{n_1}$, and $n_2$ i.i.d. observations from a N($\\mu_2$, $\\sigma^2$) population by $y_{n_1+1}, y_{n_1+2}, ..., y_{n_1+n_2}$. Define an indicator variable $x_i = 1$ for $i = 1, 2, ..., n_1$ and $x_i = 0$ for $i = n_1+1, n_1+2, ..., n_1+n_2$. Thus if $x_i = 1$, then $y_i$ comes from the first population, and if $x_i = 0$, then $y_i$ comes from the second population. \\begin{enumerate} \\item[(a)] Show that the regression model (10.1) corresponds to $\\beta_0 = \\mu_2$ and $\\beta_1 = \\mu_1 - \\mu_2$. \\item[(b)] Apply the formulas for the LS estimates $\\hat{\\beta_0}$ and $\\hat{\\beta_1}$ to show that $\\hat{\\beta_0}=\\bar{y_2}$ and $\\hat{\\beta_1} = \\bar{y_1} - \\bar{y_2}$. \\item[(c)] Show that the MSE for regression is the same as the pooled estimate $s^2$ of $\\sigma^2$ with $n_1 + n_2 - 2$ d.f. \\item[(d)] Show that the regression t-test of $\\beta_1 = 0$ is the same as the pooled variances t-test of $\\mu_1 = \\mu_2$. \\end{enumerate}",
+        "GPT-4o": {
+            "solution": ""
+        },
+        "OpenAI-o1": {
+            "solution": ""
+        }
+    },
+    "49": {
+        "problem": "A sample of 20 different types of cereals was taken from each of three grocery store shelves (1, 2, and 3, counting from the floor). A summary of the sugar content (grams per serving) and dietary fiber (grams per serving) of the cereals is given below. \\[ \\begin{array}{|c|c|c|c|c|c|} \\hline \\textbf{Location} & n & \\textbf{Sugar (Mean)} & \\textbf{SD (Sugar)} & \\textbf{Fiber (Mean)} & \\textbf{SD (Fiber)} \\\\ \\hline \\text{Shelf 1} & 20 & 4.80 & 2.138 & 1.68 & 1.166 \\\\ \\text{Shelf 2} & 20 & 9.85 & 1.985 & 0.95 & 1.162 \\\\ \\text{Shelf 3} & 20 & 6.10 & 1.865 & 2.17 & 1.277 \\\\ \\hline \\end{array} \\] \\begin{enumerate} \\item[(a)] Calculate 95\\% CI's for the sugar and fiber contents of the cereals on the three shelves. Are there any obvious differences among the sugar content or the fiber content? \\item[(b)] Construct an ANOVA table and test whether there are significant differences in sugar content between the three shelves. Use $\\alpha = 0.05$. Interpret your results. Repeat for fiber content. \\item[(c)] It is noted that Shelf 2 is at the eye level of grade school age children. What does this say about the grocery store strategy for locating cereals on shelves? \\item[(d)] Make pairwise comparisons using the Bonferroni and Tukey methods to determine which shelf cereals differ in sugar content at $\\alpha = 0.05$. Repeat for fiber content. \\end{enumerate}",
+        "GPT-4o": {
+            "solution": ""
+        },
+        "OpenAI-o1": {
+            "solution": ""
+        }
+    },
+    "50": {
+        "problem": "The effect of caffeine levels on performing a simple finger tapping task was investigated in a double-blind study. Thirty male college students were trained in finger tapping and randomly assigned to receive three different doses of caffeine (0, 100, or 200 mg) with 10 students per dose group. Two hours following the caffeine treatment, students were asked to finger tap and the numbers of taps per minute were counted. The data are tabulated below. \\[ \\begin{array}{|c|c|} \\hline \\textbf{Caffeine Dose} & \\textbf{Finger Taps per Minute} \\\\ \\hline 0 \\text{ mg} & 242, 245, 244, 248, 247, 248, 242, 244, 246, 242 \\\\ 100 \\text{ mg} & 248, 246, 245, 247, 248, 250, 247, 246, 243, 244 \\\\ 200 \\text{ mg} & 246, 248, 250, 252, 248, 250, 246, 248, 245, 250 \\\\ \\hline \\end{array} \\] \\begin{enumerate} \\item[(a)] Make side-by-side box plots for the three groups. Do these plots indicate any obvious differences between the groups? \\item[(b)] Construct an ANOVA table and test whether there are significant differences in finger tapping between the students treated with different doses of caffeine. Use $\\alpha = 0.10$. Interpret your results. \\item[(c)] Check the normality and constant variance assumptions by making residual plots. \\end{enumerate}",
+        "GPT-4o": {
+            "solution": ""
+        },
+        "OpenAI-o1": {
+            "solution": ""
+        }
+    },
+    "51": {
+        "problem": "The hemoglobin levels were measured on patients with three different types of sickle cell disease: classic sickle cell disease with two S genes (HB SS), the combined problem of sickle cell trait with thalassemia (HB S/-thalassemia), and the variant of sickle cell disease which has one S and one C gene (HB SC). The purpose was to investigate whether hemoglobin levels differ with the type of disease.The data are given below. \\[ \\begin{array}{|c|ccccccccc|} \\hline \\textbf{HB SS} & 7.2 & 7.7 & 8.0 & 8.1 & 8.3 & 8.4 & 8.4 & 8.5 & \\\\ & 8.6 & 8.7 & 9.1 & 9.1 & 9.1 & 9.8 & 10.1 & 10.3 & \\\\ \\hline \\textbf{HB S/-thalassemia} & 8.1 & 9.2 & 10.0 & 10.4 & 10.6 & 10.9 & 11.1 & 11.9 & \\\\ & 12.0 & 12.1 & & & & & & & \\\\ \\hline \\textbf{HB SC} & 10.7 & 11.3 & 11.5 & 11.6 & 11.7 & 11.8 & 12.0 & 12.1 & \\\\ & 12.3 & 12.6 & 12.6 & 13.3 & 13.3 & 13.8 & 13.9 & & \\\\ \\hline \\end{array} \\] \\begin{enumerate} \\item[(a)] Make side-by-side box plots for the three groups. Do these plots indicate any obvious differences between the groups? \\item[(b)] Construct an ANOVA table and test whether there are significant differences in hemoglobin levels between patients with different types of sickle cell disease. Use $\\alpha = 0.01$. Interpret your results. \\item[(c)] Check the normality and constant variance assumptions by making residual plots. \\item[(d)] Calculate 99\\% simultaneous confidence intervals using the Bonferroni and Tukey methods for the mean differences of hemoglobin levels between different types of sickle cell disease. Compare these intervals with separate 99\\% $t$-intervals (LSD method). Summarize the results. \\end{enumerate}",
+        "GPT-4o": {
+            "solution": ""
+        },
+        "OpenAI-o1": {
+            "solution": ""
+        }
+    },
+    "52": {
+        "problem": "For $a = 2$, show that the one-way ANOVA $F$-test is equivalent to the two-sided independent samples $t$-test of $H_0: \\mu_1 = \\mu_2$ by carrying out the following steps. \\begin{enumerate} \\item[(a)] Show that \\[ \\text{SSA} = \\text{MSA} = n_1(\\bar{Y}_1 - \\bar{Y})^2 + n_2(\\bar{Y}_2 - \\bar{Y})^2 = \\frac{n_1 n_2}{n_1 + n_2} (\\bar{Y}_1 - \\bar{Y}_2)^2. \\] \\item[(b)] Show that \\[ F = \\frac{\\text{MSA}}{\\text{MSE}} = \\left( \\frac{\\bar{Y}_1 - \\bar{Y}_2}{s \\sqrt{\\frac{1}{n_1} + \\frac{1}{n_2}}} \\right)^2 = t^2. \\] \\item[(c)] Finally show that the $\\alpha$-level $F$-test of $H_0$ rejects whenever the $\\alpha$-level two-sided $t$-test of $H_0$ rejects by showing that \\[ F > f_{1, \\nu, \\alpha} \\iff |t| > t_{\\nu, \\alpha / 2}. \\] (Hint: Use the result that $t_{\\nu, \\alpha / 2}^2 = f_{1, \\nu, \\alpha}$.) \\end{enumerate}",
+        "GPT-4o": {
+            "solution": ""
+        },
+        "OpenAI-o1": {
+            "solution": ""
+        }
+    },
+    "53": {
+        "problem": "Test whether the median of the population from which the following sample is drawn exceeds 30, i.e., test $H_0: \\tilde{\\mu} = 30$ vs. $H_1: \\tilde{\\mu} > 30$: 37, 26, 31, 35, 32, 32, 27, 31, 34, 36 \\begin{enumerate} \\item[(a)] Find the exact P-value for the sign test and find the normal approximation to it. Is the normal approximation accurate? Can you reject $H_0$ at $\\alpha = .05$? \\item[(b)] Repeat part (a) using the Wilcoxon signed rank test. \\end{enumerate}",
+        "GPT-4o": {
+            "solution": ""
+        },
+        "OpenAI-o1": {
+            "solution": ""
+        }
+    },
+    "54": {
+        "problem": "Many nonparametric test statistics have discrete distributions which impose a lower bound on the P-value (attained when the sample outcome is most favorable for rejecting $H_0$, e.g., when all signs are plus in the upper one-sided sign test or the Wilcoxon signed rank test) and therefore make it impossible to reject $H_0$ at an $\\alpha$ less than this lower bound. \\begin{enumerate} \\item[(a)] Show that the lowest attainable P-value using the one-sided sign test or the Wilcoxon signed rank test is $(\\frac{1}{2})^n$. \\item[(b)] Is it possible to reject $H_0$ at $\\alpha = .01$ if $n = 6$ using these tests? \\item[(c)] What is the smallest sample size required for these tests if rejection of $H_0$ at $\\alpha = .01$ must be possible? This now extends to the Wilcoxon-Mann-Whitney test. \\item[(d)] Show that the lowest attainable P-value using the one-sided Wilcoxon-Mann-Whitney test is $\\frac{1}{\\binom{n_1+n_2}{n_1}}$, where $n_1$ and $n_2$ are the sample sizes of the two groups. \\item[(e)] Is it possible to reject $H_0$ at $\\alpha = .01$ if $n_1 = n_2 = 4$? \\item[(f)] What is the smallest $n_1 = n_2 = n$ required if rejection of $H_0$ at $\\alpha = .01$ must be possible? \\end{enumerate}",
+        "GPT-4o": {
+            "solution": ""
+        },
+        "OpenAI-o1": {
+            "solution": ""
+        }
+    },
+    "55": {
+        "problem": "The table below gives the survival times of 16 mice that were randomly assigned to a control group or to a treatment group. Did the treatment prolong survival? Answer using the Wilcoxon-Mann-Whitney test at $\\alpha= .10$. Survival Times of Mice (Days) \\[ \\begin{array}{|c|c|c|c|c|c|c|c|c|c|} \\hline \\textbf{Control Group} & 52 & 104 & 146 & 10 & 50& 31 & 40 & 27&  46  \\\\ \\hline \\textbf{Treatment Group} & 94 & 197 & 16  & 38 & 99 & 141 & 23 & & \\\\ \\hline \\end{array} \\]",
+        "GPT-4o": {
+            "solution": ""
+        },
+        "OpenAI-o1": {
+            "solution": ""
+        }
+    },
+    "56": {
+        "problem": "Consider the dopamine level data below. Apply the Wilcoxon-Mann-Whitney test at $\\alpha = .05$ to find out if there is a significant difference between the dopamine levels of the psychotic and nonpsychotic patients. \\[ \\begin{array}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|} \\hline \\textbf{Non psychotic} & .0104 &.0105& .0112 &.0116& .0130& .0145& .0154 &.0156 &.0170& .0180& .0200 &.0200 &.0210& .0230 &.0252  \\\\ \\hline \\textbf{Psychotic} & .0150 &.0204 &.0208& .0222 &.0226 &.0245& .0270 &.0275& .0306 &.0320 & & & & & \\\\ \\hline \\end{array} \\]",
+        "GPT-4o": {
+            "solution": ""
+        },
+        "OpenAI-o1": {
+            "solution": ""
+        }
+    },
+    "57": {
+        "problem": "The following table gives the group means (5 observations per group) for a two-way ANOVA. \\[ \\begin{array}{|c|c|c|c|} \\hline \\text{Variable 2} & \\text{Variable 1 A} & \\text{Variable 1 B} & \\text{Variable 1 C} \\\\ \\hline \\text{Low} & 3.1 & 5.2 & 5.9 \\\\ \\text{High} & 3.9 & 1.2 & 1.9 \\\\ \\hline \\end{array} \\] \\begin{enumerate} \\item[(a)] Given that the MSE was 0.2, would you expect there to be a significant interaction in the ANOVA analysis? Provide justification to your answer. \\item[(b)] Suppose now you have a two-way ANOVA where some of the cells have no data because those combinations of factor levels are physically impossible to achieve. The following table gives the sample sizes in each cell. \\[ \\begin{array}{|c|c|c|c|} \\hline \\text{Variable 2} & \\text{Variable 1 A} & \\text{Variable 1 B} & \\text{Variable 1 C} \\\\ \\hline \\text{Low} & 0 & 7 & 7 \\\\ \\text{High} & 7 & 7 & 0 \\\\ \\hline \\end{array} \\] Since we do not know how to analyze two-way ANOVA with empty cells, can you think of a way to analyze this as a one-way ANOVA? Write down the model and interpret the parameters in your model including variance(s) in terms of the original design. \\end{enumerate}",
+        "GPT-4o": {
+            "solution": ""
+        },
+        "OpenAI-o1": {
+            "solution": ""
+        }
+    },
+    "58": {
+        "problem": "An experiment was conducted to compare five fluids that are supposed to prevent the build-up of lactic acid in long distance runners. For reasons unrelated to the fluids, there were an unequal number of runners assigned to the treatment. Fluid \\#1 was plain water. Fluids \\#2 and \\#3 were common sports drinks, A, at low and high concentrations. Fluids \\#4 and \\#5 was another sports drink, B, at low and high concentrations. The sample means, sample variances and sample sizes are shown in Table 1. \\[ \\begin{array}{|c|c|c|c|c|c|} \\hline \\text{Fluid} & 1 & 2 & 3 & 4 & 5 \\\\ \\hline \\text{Mean} & 33.3 & 32.6& 30.9& 29  & 26.1 \\\\ \\text{Variance} & 13.1& 14.2& 12.2& 13.9& 14.2 \\\\ \\text{Sample size} & 10  & 7   & 10  & 8  & 6 \\\\ \\hline \\end{array} \\] \\begin{enumerate} \\item[(a)] Construct an ANOVA for testing the hypothesis of equal fluid means. \\item[(b)] Consider the following contrasts: C1: $\\mu_1 - \\frac{\\sum_{j=2}^5\\mu_j}{4}$ C2: $\\frac{\\mu_2+\\mu_3}{2} - \\frac{\\mu_4+\\mu_5}{2}$ C3: $\\mu_2 - \\mu_3$ C4: $\\mu_4 - \\mu_5$ where $\\mu_j$ denotes the mean for fluid $j$ ($j=1, 2, ..., 5$). i) Give a verbal description of each contrast. ii) Are these set of contrasts orthogonal? Justify your answer. iii) Construct a 95\\% simultaneous confidence interval for these contrasts. \\end{enumerate}",
+        "GPT-4o": {
+            "solution": ""
+        },
+        "OpenAI-o1": {
+            "solution": ""
+        }
+    },
+    "59": {
+        "problem": "An experiment was conducted to compare the cooking time (in minutes) of five brands of rice, with four replicates per brand. The data is given in the table below. \\[ \\begin{array}{|c|c|c|c|c|} \\hline A & B & C & D & E \\\\ \\hline 40 & 38 & 44 & 41 & 34 \\\\ 45 & 40 & 42 & 43 & 35 \\\\ 46 & 38 & 40 & 40 & 33 \\\\ 49 & 44 & 34 & 40 & 33 \\\\ \\hline \\end{array} \\] \\begin{enumerate} \\item[(a)] Estimate the parameters in the one-way ANOVA model \\[ y_{ij} = \\mu + t_i + \\epsilon_{ij}, \\quad i = A, B, \\ldots, E; \\quad j = 1, \\ldots, 4 \\] \\item[(b)] Construct 90\\% simultaneous confidence intervals for the differences between all pairs of mean cooking time among the five brands. \\item[(c)] Define \\[ C_1 = 4t_B - t_A - t_C - t_D - t_E, \\quad C_2 = t_A + t_C - t_D - t_E, \\quad C_3 = t_A - t_C, \\quad C_4 = t_D - t_E \\] \\begin{enumerate} \\item[(i)] Do the least-squares estimates of these contrasts form a set of orthogonal contrasts? Justify your answer. \\item[(ii)] Give a verbal description of each contrast. \\item[(iii)] Compute the sum of squares for each contrast ($SS_{C_k}$) and the treatment sum of squares ($SSa$). Can you find out the relationship between $SS_{C_k}$'s and $SSa$? (Hint: for contrast $C_k$, $SS_{C_k} = \\frac{\\left( \\sum_i c_{ki} \\hat{\\mu}_i \\right)^2}{\\sum_i c_{ki}^2 / n_i}$, where $\\hat{\\mu}_i$ is the estimated mean of brand $i$). \\end{enumerate} \\end{enumerate}",
+        "GPT-4o": {
+            "solution": ""
+        },
+        "OpenAI-o1": {
+            "solution": ""
+        }
+    },
+    "60": {
+        "problem": "A research group conducted a study to estimate the number of passengers (other than the driver) per car passing through a busy intersection. The following data give the number of passengers collected between 8 AM and 3PM on May 07, 2021. \\[ \\begin{array}{|c|c|c|c|c|c|c|} \\hline \\textbf{Number of passengers} & 0 & 1 & 2 & 3 & 4& \\geq 5  \\\\ \\hline \\textbf{Frequency} & 443 & 314 & 148  & 60 & 24 & 11  \\\\ \\hline \\end{array} \\] The research group was unsure whether a Poisson or a Geometric distribution fit the data better. \\begin{enumerate} \\item[(a)] Using only proportion of zeroes and ones (i.e, 443/1000 and 314/1000), can you propose an estimate for $\\lambda$ assuming the data follows a Poisson distribution Po($\\lambda$)? \\item[(b)] Based on the estimate obtained from (a), test whether the number of passengers per car passing through a busy intersection follow a Poisson distribution on the entire dataset. \\item[(c)] Consider a geometric distribution Geo($p$) for the number of occupants (defined as number of passengers +1). Can you propose an estimate of $p$? \\item[(d)] Based on the estimates obtained from (c), test whether the number of occupants per car passing through a busy intersection follow a Geometric distribution on the entire dataset. \\item[(e)] Which distribution fits the data better? \\end{enumerate}",
+        "GPT-4o": {
+            "solution": ""
+        },
+        "OpenAI-o1": {
+            "solution": ""
+        }
+    },
+    "61": {
+        "problem": "A research group is interested in analyzing caffeine content in a particular coffee brand. The following data summarize the caffeine content of 175 cups of coffee. \\[ \\begin{array}{|c|c|} \\hline \\text{Caffeine content} & \\text{Number of cups of coffee}  \\\\ \\hline 52 \\leq x < 56 & 7  \\\\ 56 \\leq x < 60 & 22\\\\ 60 \\leq x < 64 & 36 \\\\ 64 \\leq x < 68 & 45 \\\\ 68 \\leq x < 72 & 33 \\\\ 72 \\leq x < 76 & 28 \\\\ 76 \\leq x < 80 & 4 \\\\ \\hline \\end{array} \\] \\begin{enumerate} \\item[(a)] Based on the data above, estimate the mean and variance of caffeine content. \\item[(b)] Test whether the caffeine content of this coffee brand is normally distributed at = 0.10. Show your work and justify your answer. \\end{enumerate}",
+        "GPT-4o": {
+            "solution": ""
+        },
+        "OpenAI-o1": {
+            "solution": ""
+        }
+    },
+    "62": {
+        "problem": "Suppose we have three independent random samples from three normal populations. $X_1, X_2, ..., X_{n_1} \\sim N(\\mu_X, \\sigma^2_X)$, $Y_1, Y_2, ..., Y_{n_2} \\sim N(\\mu_Y, \\sigma^2_Y)$, $Z_1, Z_2, ..., Z_{n_3} \\sim N(\\mu_Z, \\sigma^2_Z)$. Two hypotheses are to be tested simultaneously: $$H_0^A: 2\\mu_x-\\mu_y-\\mu_z = 0 \\text{ vs } H_1^A: 2\\mu_x-\\mu_y-\\mu_z \\neq 0$$ $$H_0^B: \\mu_x+\\mu_y-2\\mu_z = 0 \\text{ vs } H_1^B: \\mu_x+\\mu_y-2\\mu_z \\neq 0$$ \\begin{enumerate} \\item[(a)] At an overall significance level $\\alpha = 0.05$, derive the test statistics and decision rules for testing these two hypotheses. \\item[(b)] Suppose $\\sigma^2_X = 2\\sigma^2_Y = 4\\sigma^2_Z$ and the unequal sample allocation $n_1=n_2=n_3$, where $\\sigma^2_X$  is known. Derive the sample size formula to ensure a power $>80\\%$ at an overall $\\alpha = 0.05$ for testing the two hypotheses. \\end{enumerate}",
+        "GPT-4o": {
+            "solution": ""
+        },
+        "OpenAI-o1": {
+            "solution": ""
+        }
+    },
+    "63": {
+        "problem": "The salinity of water samples taken from four separate sites, namely sites A-D, in Long Island was measured. Below is the data collected. \\[ \\begin{array}{|c|c|c|c|c|} \\hline \\text{Site} & \\text{Sample Size} & \\text{Data} & \\text{Sample Mean} & \\text{Sample Variance} \\\\ \\hline A & 10 & 38.3, 39.3, 44.7, 40.2, 40.4, 45.1, 41.4, 36.2, 37.9, 38.7 & 40.22 & 8.19 \\\\ B & 15 & 45.7, 43.1, 43.2, 42.3, 40.3, 47.4, 43.5, 36.1, 44.1, 40.6, 38.8, 41.3, 38.9, 39.8, 40.1 & 41.68 & 8.51 \\\\ C & 10 & 27.8, 38.6, 35.7, 30.2, 40.3, 36.8, 33.7, 38.8, 38.7, 38.5 & 35.91 & 17.05 \\\\ D & 15 & 38.9, 38.4, 35.7, 34.7, 34.4, 33.1, 35.1, 30.6, 45.2, 41.1, 31.2, 34.3, 34.9, 33.9, 35.6 & 36.11 & 14.88 \\\\ \\hline \\end{array} \\] Let $A_i$, $B_i$, $C_i$, and $D_i$ denote random samples from site A, B, C, and D, respectively. Based on historical data, it can be assumed that $A_i \\sim N(\\mu_A, \\sigma_A^2)$, $B_i \\sim N(\\mu_B, \\sigma_B^2)$, $C_i \\sim N(\\mu_C, \\sigma_C^2)$, and $D_i \\sim N(\\mu_D, \\sigma_D^2)$, where $\\sigma_A^2 = \\sigma_B^2 = \\frac{\\sigma_C^2}{2} = \\frac{\\sigma_D^2}{2}$, but the actual values of $\\mu_i$'s and $\\sigma_i^2$ are unknown. A research group is interested in testing the following hypotheses simultaneously at overall $\\alpha = 0.05$: \\[ H_0: 4\\mu_A - 2\\mu_B - 2\\mu_C = 1 \\quad \\text{vs} \\quad H_1: 4\\mu_A - 2\\mu_B - 2\\mu_C > 1 \\] and \\[ H_0: \\mu_A + \\mu_B - 2\\mu_D = 2 \\quad \\text{vs} \\quad H_1: \\mu_A + \\mu_B - 2\\mu_D \\neq 2 \\] What is the conclusion of the hypotheses tests? Show your work to get full credit.",
+        "GPT-4o": {
+            "solution": ""
+        },
+        "OpenAI-o1": {
+            "solution": ""
+        }
+    }
+}
