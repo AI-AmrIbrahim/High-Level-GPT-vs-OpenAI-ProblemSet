@@ -2,7 +2,8 @@ import json
 import os
 import random
 import requests
-from openai import OpenAI
+# from openai import OpenAI
+import openai
 
 class DatasetManager:
     def __init__(self, dataset_folder='../High-Level-GPT-vs-OpenAI-ProblemSet/'):
@@ -262,11 +263,13 @@ Your code will be directly submitted to the LeetCode judge, so it must be comple
         
         problem_str = dataset[str(problem_id)]["problem"]
         
-        client = OpenAI(api_key=openai_key)
+        # client = OpenAI(api_key=openai_key)
+        openai.api_key = openai_key
 
         # Select the appropriate model based on the input
         if model == "GPT-4o":
-            response = client.chat.completions.create(
+            # response = client.chat.completions.create(
+            response = openai.ChatCompletion.create(
                 model="gpt-4o",
                 messages=[
                     {
@@ -286,7 +289,8 @@ Your code will be directly submitted to the LeetCode judge, so it must be comple
             dataset[str(problem_id)]["GPT-4o"]["solution"] = solution
         
         elif model == "OpenAI-o1":
-            response = client.chat.completions.create(
+            # response = client.chat.completions.create(
+            response = openai.ChatCompletion.create(
                 model="o1-preview",
                 messages=[
                     {
