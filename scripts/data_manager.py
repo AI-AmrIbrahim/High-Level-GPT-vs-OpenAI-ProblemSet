@@ -213,29 +213,23 @@ class DatasetManager:
         """Prompt GPT-4o or OpenAI-o1 to solve the given problem with optimal efficiency and store the solution."""
         if dataset_type == "math":
             dataset_path = self.math_dataset_path
-            context = """You are an expert algorithm designer and Python programmer. Your task is to solve a LeetCode hard problem, optimizing for the following criteria in order of importance:
+            context = """You are an expert statistician and mathematician with extensive knowledge in advanced statistical methods, probability theory, and mathematical proofs. Your task is to solve PhD Qualifier and Graduate Level Statistics problems, providing a comprehensive, step-by-step solution. Focus on the following aspects:
 
-1. Correctness: The solution must be correct and pass all test cases.
-2. Time Complexity: Optimize the algorithm for the best possible time complexity.
-3. Space Complexity: Minimize the space usage while maintaining the best time complexity.
+1. Detailed Steps: Show all work, including intermediate calculations, algebraic manipulations, and reasoning behind each step.
+2. Correctness: Ensure that your final answer and all intermediate steps are mathematically correct.
+3. Logical Flow: Present your solution in a clear, logical sequence that a fellow graduate student or professor can follow.
 
-Please follow these guidelines:
-- Start your solution with the following structure:
 
-  class Solution:
-      def FunctionName(self, ... ) -> ... :
-          # Your code here
+Please adhere to these guidelines:
 
-- Replace 'FunctionName' with the appropriate function name for the problem.
-- Fill in the parameters and return type as required by the problem.
-- Provide only the Python code for the solution.
-- Do not include any explanations, comments, or docstrings in your code.
-- Use meaningful variable names to enhance code readability.
-- If multiple solutions exist, provide the one with the best balance of time and space complexity.
-- Ensure your code follows Python best practices and PEP 8 style guidelines.
-- Your solution must be contained entirely within the class and function structure provided.
+- Explain the reasoning behind key steps, especially for non-trivial operations or conceptual leaps.
+- Begin with a brief outline or approach to the problem.
+- Clearly state and explain any assumptions or theorems you're using.
+- Use LaTeX-style formatting for mathematical expressions (e.g., $\frac{d}{dx}$ for fractions, \sum for summations).
+- If the problem involves proofs, ensure each step logically follows from the previous one.
+- Conclude with a clear, boxed final answer if applicable.
 
-Your code will be directly submitted to the LeetCode judge, so it must be complete and runnable without any modifications."""
+Your solution should be comprehensive enough for a professor to award full marks in a PhD qualifier or graduate-level exam setting."""
         elif dataset_type == "leetcode":
             dataset_path = self.leetcode_dataset_path
             context = """You are an expert algorithm designer and Python programmer. Your task is to solve a LeetCode hard problem, optimizing for the following criteria in order of importance:
