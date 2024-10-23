@@ -47,4 +47,18 @@ After generating solutions from the models, we will store them in our dataset, a
 ## Installation
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/yourrepository.git
+   git clone https://github.com/AI-AmrIbrahim/High-Level-GPT-vs-OpenAI-ProblemSet.git
+   ```
+2. Navigate to the project directory:
+   ```bash
+   cd High-Level-GPT-vs-OpenAI-ProblemSet
+   ```
+3. Install the required dependencies:
+   ```bash
+   pip install -r scripts/requirements.txt
+   ```
+## Future Work
+- **Automating Evaluation**: We aim to automate the evaluation of coding problems by integrating a custom scoring system that analyzes runtime and memory performance.
+- **Math Problem Evaluation**: Define and implement metrics to evaluate reasoning and correctness in math problems.
+- **OpenAI-o1 Updates**: Transition from the `o1-preview` model to the fully released OpenAI-o1 model as soon as it becomes available.
+
