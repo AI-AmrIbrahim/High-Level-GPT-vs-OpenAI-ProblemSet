@@ -209,8 +209,7 @@ class DatasetManager:
         except Exception as e:
             print(f"Error removing problem from {dataset_type} dataset: {e}")
     
-    def prompt_and_eval(self, openai_key, problem_id, model="GPT-4o", dataset_type="math"):
-        """Prompt GPT-4o or OpenAI-o1 to solve the given problem with optimal efficiency and store the solution."""
+    def prompt_llm(self, openai_key, problem_id, model = "GPT-4o", dataset_type = "math"):
         if dataset_type == "math":
             dataset_path = self.math_dataset_path
             context = """You are an expert statistician and mathematician with extensive knowledge in advanced statistical methods, probability theory, and mathematical proofs. Your task is to solve PhD Qualifier and Graduate Level Statistics problems, providing a comprehensive, step-by-step solution. Focus on the following aspects:
@@ -255,10 +254,6 @@ Please follow these guidelines:
 - Your solution must be contained entirely within the class and function structure provided.
 
 Your code will be directly submitted to the LeetCode judge, so it must be complete and runnable without any modifications."""
-            
-            # """You are a Python coding assistant. Solve the following problem in the most efficient way possible.
-            # Please provide **only the Python code** without any explanations, comments, or additional output.
-            # **Ensure the code is optimized for both time and space complexity**."""
         else:
             raise ValueError("Invalid dataset_type. Choose 'math' or 'leetcode'.")
         
@@ -284,7 +279,6 @@ Your code will be directly submitted to the LeetCode judge, so it must be comple
 
         # Select the appropriate model based on the input
         if model == "GPT-4o":
-            # response = client.chat.completions.create(
             response = openai.ChatCompletion.create(
                 model="gpt-4o",
                 messages=[
@@ -305,7 +299,6 @@ Your code will be directly submitted to the LeetCode judge, so it must be comple
             dataset[str(problem_id)]["GPT-4o"]["solution"] = solution
         
         elif model == "OpenAI-o1":
-            # response = client.chat.completions.create(
             response = openai.ChatCompletion.create(
                 model="o1-preview",
                 messages=[
@@ -338,40 +331,23 @@ Your code will be directly submitted to the LeetCode judge, so it must be comple
         print(solution)
         print("-" * 50)
 
-        if dataset_type == "math":
-            pass
-        elif dataset_type == "leetcode":
-            while True:
-                try:
-                    runtime_beats = float(input("Enter the LeetCode Solution Runtime Beats: "))
-                    memory_beats = float(input("Enter the LeetCode Solution Memory Beats: "))
-                    break
-                except ValueError:
-                    print("Please enter a valid number.")
-
-
-            self._eval(problem_id, model, runtime_beats, memory_beats, dataset_type)
-
-
-    def _eval(self, problem_id, model = "GPT-4o", runtime_beats = None, memory_beats = None, dataset_type = "math"):
+    def eval(self, problem_id, model = "GPT-4o", dataset_type = "math", runtime_beats = None, memory_beats = None):
         if dataset_type == "math":
             dataset_path = self.math_dataset_path
         elif dataset_type == "leetcode":
             dataset_path = self.leetcode_dataset_path
+            runtime_beats = runtime_beats
+            memory_beats = memory_beats
+
+            # Calculate the scores
+            simple_average = (runtime_beats + memory_beats) / 2
+            weighted_average = 0.6 * runtime_beats + 0.4 * memory_beats
         else:
             raise ValueError("Invalid dataset_type. Choose 'math' or 'leetcode'.")
-        
-        # Load the dataset in _eval
-        with open(dataset_path, 'r') as f:
-            dataset = json.load(f)
 
         if dataset_type == "math":
             pass
         elif dataset_type == "leetcode":
-            # Calculate the scores
-            simple_average = (runtime_beats + memory_beats) / 2
-            weighted_average = 0.6 * runtime_beats + 0.4 * memory_beats
-
             # Update the appropriate model's evaluation in the dataset
             if model == "GPT-4o":
                 dataset[str(problem_id)]["GPT-4o"]["runtime_beats"] = runtime_beats
@@ -384,13 +360,10 @@ Your code will be directly submitted to the LeetCode judge, so it must be comple
                 dataset[str(problem_id)]["OpenAI-o1"]["simple_average"] = simple_average
                 dataset[str(problem_id)]["OpenAI-o1"]["weighted_average"] = weighted_average
             else:
-                raise ValueError("Invalid model name. Choose either 'GPT-4o' or 'OpenAI-o1-preview'.")
+                raise ValueError("Invalid model name. Choose either 'GPT-4o' or 'OpenAI-o1'.")
 
-            # Save the updated dataset with the new evaluation metrics
-            with open(dataset_path, 'w') as f:
-                json.dump(dataset, f, indent=4)
+        # Save the updated dataset with the new evaluation metrics
+        with open(dataset_path, 'w') as f:
+            json.dump(dataset, f, indent=4)
 
-            print(f"Evaluation metrics added to {model} for problem ID {problem_id}.")
-
-        else:
-            raise ValueError("Invalid dataset_type. Choose 'math' or 'leetcode'.")
+        print(f"Evaluation metrics added to {model} for problem ID {problem_id}.")
