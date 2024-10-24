@@ -345,6 +345,9 @@ Your code will be directly submitted to the LeetCode judge, so it must be comple
         else:
             raise ValueError("Invalid dataset_type. Choose 'math' or 'leetcode'.")
 
+        with open(dataset_path, 'r') as f:
+            dataset = json.load(f)
+
         if dataset_type == "math":
             pass
         elif dataset_type == "leetcode":
