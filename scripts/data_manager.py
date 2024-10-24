@@ -336,8 +336,13 @@ Your code will be directly submitted to the LeetCode judge, so it must be comple
             dataset_path = self.math_dataset_path
         elif dataset_type == "leetcode":
             dataset_path = self.leetcode_dataset_path
-            runtime_beats = runtime_beats
-            memory_beats = memory_beats
+            
+            if runtime_beats == None or memory_beats == None:
+                runtime_beats = float(input("Enter the LeetCode Solution Runtime Beats: "))
+                memory_beats = float(input("Enter the LeetCode Solution Memory Beats: "))
+            else:
+                runtime_beats = runtime_beats
+                memory_beats = memory_beats
 
             # Calculate the scores
             simple_average = (runtime_beats + memory_beats) / 2
