@@ -2,6 +2,8 @@ import json
 import os
 import random
 import requests
+# from openai import OpenAI
+import openai
 
 class DatasetManager:
     def __init__(self, dataset_folder='../High-Level-GPT-vs-OpenAI-ProblemSet/'):
@@ -206,3 +208,170 @@ class DatasetManager:
             print(f"Problem with ID {problem_id} removed from {dataset_type} dataset.")
         except Exception as e:
             print(f"Error removing problem from {dataset_type} dataset: {e}")
+    
+    def prompt_llm(self, openai_key, problem_id, model = "GPT-4o", dataset_type = "math"):
+        if dataset_type == "math":
+            dataset_path = self.math_dataset_path
+            context = """You are an expert statistician and mathematician with extensive knowledge in advanced statistical methods, probability theory, and mathematical proofs. Your task is to solve PhD Qualifier and Graduate Level Statistics problems, providing a comprehensive, step-by-step solution. Focus on the following aspects:
+
+1. Detailed Steps: Show all work, including intermediate calculations, algebraic manipulations, and reasoning behind each step.
+2. Correctness: Ensure that your final answer and all intermediate steps are mathematically correct.
+3. Logical Flow: Present your solution in a clear, logical sequence that a fellow graduate student or professor can follow.
+
+
+Please adhere to these guidelines:
+
+- Explain the reasoning behind key steps, especially for non-trivial operations or conceptual leaps.
+- Begin with a brief outline or approach to the problem.
+- Clearly state and explain any assumptions or theorems you're using.
+- Use LaTeX-style formatting for mathematical expressions (e.g., $\frac{d}{dx}$ for fractions, \sum for summations).
+- If the problem involves proofs, ensure each step logically follows from the previous one.
+- Conclude with a clear, boxed final answer if applicable.
+
+Your solution should be comprehensive enough for a professor to award full marks in a PhD qualifier or graduate-level exam setting."""
+        elif dataset_type == "leetcode":
+            dataset_path = self.leetcode_dataset_path
+            context = """You are an expert algorithm designer and Python programmer. Your task is to solve a LeetCode hard problem, optimizing for the following criteria in order of importance:
+
+1. Correctness: The solution must be correct and pass all test cases.
+2. Time Complexity: Optimize the algorithm for the best possible time complexity.
+3. Space Complexity: Minimize the space usage while maintaining the best time complexity.
+
+Please follow these guidelines:
+- Start your solution with the following structure:
+
+  class Solution:
+      def FunctionName(self, ... ) -> ... :
+          # Your code here
+
+- Replace 'FunctionName' with the appropriate function name for the problem.
+- Fill in the parameters and return type as required by the problem.
+- Provide only the Python code for the solution.
+- Do not include any explanations, comments, or docstrings in your code.
+- Use meaningful variable names to enhance code readability.
+- If multiple solutions exist, provide the one with the best balance of time and space complexity.
+- Ensure your code follows Python best practices and PEP 8 style guidelines.
+- Your solution must be contained entirely within the class and function structure provided.
+
+Your code will be directly submitted to the LeetCode judge, so it must be complete and runnable without any modifications."""
+        else:
+            raise ValueError("Invalid dataset_type. Choose 'math' or 'leetcode'.")
+        
+        # Load the problem description from the dataset
+        with open(dataset_path, 'r') as f:
+            dataset = json.load(f)
+
+        # Check if the problem ID exists
+        if str(problem_id) not in dataset:
+            print(f"Problem with ID {problem_id} not found in the {dataset_type} dataset.")
+            return
+        
+        # Find the problem by ID
+        problem = dataset[str(problem_id)]
+        if not problem:
+            print(f"Problem with ID {problem_id} not found.")
+            return
+        
+        problem_str = dataset[str(problem_id)]["problem"]
+        
+        # client = OpenAI(api_key=openai_key)
+        openai.api_key = openai_key
+
+        # Select the appropriate model based on the input
+        if model == "GPT-4o":
+            response = openai.ChatCompletion.create(
+                model="gpt-4o",
+                messages=[
+                    {
+                    "role": "system",
+                    "content": context
+                    },
+                    {
+                    "role": "user",
+                    "content": problem_str
+                    }
+                ],
+                max_tokens=5000,  # Adjust as needed to ensure enough space for longer solutions
+                temperature=0  # Ensures deterministic output
+            )
+            # Store the solution in the GPT-4o slot
+            solution = response.choices[0].message.content.replace('```python\n', '').replace('\n```', '')
+            dataset[str(problem_id)]["GPT-4o"]["solution"] = solution
+        
+        elif model == "OpenAI-o1":
+            response = openai.ChatCompletion.create(
+                model="o1-preview",
+                messages=[
+                    {
+                    "role": "system",
+                    "content": context
+                    },
+                    {
+                    "role": "user",
+                    "content": problem_str
+                    }
+                ],
+                max_tokens=5000,
+                temperature=0  # Ensures deterministic output
+            )
+            # Extract the generated code and store in the problem entry
+            solution = response.choices[0].message.content.replace('```python\n', '').replace('\n```', '')
+            dataset[str(problem_id)]["OpenAI-o1"]["solution"] = solution
+        
+        else:
+            raise ValueError("Invalid model name. Choose either 'GPT-4o' or 'OpenAI-o1'.")
+        
+        # Save the updated dataset with the new solution
+        with open(dataset_path, 'w') as f:
+            json.dump(dataset, f, indent=4)
+        
+        print(f"Solution added to {model} for problem ID {problem_id} to {dataset_type} dataset.")
+        print(f"\n{model} solution for problem ID {problem_id}:")
+        print("-" * 50)
+        print(solution)
+        print("-" * 50)
+
+    def eval(self, problem_id, model = "GPT-4o", dataset_type = "math", runtime_beats = None, memory_beats = None):
+        if dataset_type == "math":
+            dataset_path = self.math_dataset_path
+        elif dataset_type == "leetcode":
+            dataset_path = self.leetcode_dataset_path
+            
+            if runtime_beats == None or memory_beats == None:
+                runtime_beats = float(input("Enter the LeetCode Solution Runtime Beats: "))
+                memory_beats = float(input("Enter the LeetCode Solution Memory Beats: "))
+            else:
+                runtime_beats = runtime_beats
+                memory_beats = memory_beats
+
+            # Calculate the scores
+            simple_average = (runtime_beats + memory_beats) / 2
+            weighted_average = 0.6 * runtime_beats + 0.4 * memory_beats
+        else:
+            raise ValueError("Invalid dataset_type. Choose 'math' or 'leetcode'.")
+
+        with open(dataset_path, 'r') as f:
+            dataset = json.load(f)
+
+        if dataset_type == "math":
+            pass
+        elif dataset_type == "leetcode":
+            # Update the appropriate model's evaluation in the dataset
+            if model == "GPT-4o":
+                dataset[str(problem_id)]["GPT-4o"]["runtime_beats"] = runtime_beats
+                dataset[str(problem_id)]["GPT-4o"]["memory_beats"] = memory_beats
+                dataset[str(problem_id)]["GPT-4o"]["simple_average"] = simple_average
+                dataset[str(problem_id)]["GPT-4o"]["weighted_average"] = weighted_average
+            elif model == "OpenAI-o1":
+                dataset[str(problem_id)]["OpenAI-o1"]["runtime_beats"] = runtime_beats
+                dataset[str(problem_id)]["OpenAI-o1"]["memory_beats"] = memory_beats
+                dataset[str(problem_id)]["OpenAI-o1"]["simple_average"] = simple_average
+                dataset[str(problem_id)]["OpenAI-o1"]["weighted_average"] = weighted_average
+            else:
+                raise ValueError("Invalid model name. Choose either 'GPT-4o' or 'OpenAI-o1'.")
+
+        # Save the updated dataset with the new evaluation metrics
+        with open(dataset_path, 'w') as f:
+            json.dump(dataset, f, indent=4)
+
+        print(f"Evaluation metrics added to {model} for problem ID {problem_id}.")
