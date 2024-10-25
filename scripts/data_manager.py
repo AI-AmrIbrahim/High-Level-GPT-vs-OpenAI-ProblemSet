@@ -345,6 +345,8 @@ Your code will be directly submitted to the LeetCode judge, so it must be comple
             else:
                 runtime_beats = runtime_beats
                 memory_beats = memory_beats
+            
+            feedback = input("Enter feedback: ")
 
             # Calculate the scores
             simple_average = (runtime_beats + memory_beats) / 2
@@ -364,11 +366,13 @@ Your code will be directly submitted to the LeetCode judge, so it must be comple
                 dataset[str(problem_id)]["GPT-4o"]["memory_beats"] = memory_beats
                 dataset[str(problem_id)]["GPT-4o"]["simple_average"] = simple_average
                 dataset[str(problem_id)]["GPT-4o"]["weighted_average"] = weighted_average
+                dataset[str(problem_id)]["GPT-4o"]["feedback"] = feedback
             elif model == "OpenAI-o1":
                 dataset[str(problem_id)]["OpenAI-o1"]["runtime_beats"] = runtime_beats
                 dataset[str(problem_id)]["OpenAI-o1"]["memory_beats"] = memory_beats
                 dataset[str(problem_id)]["OpenAI-o1"]["simple_average"] = simple_average
                 dataset[str(problem_id)]["OpenAI-o1"]["weighted_average"] = weighted_average
+                dataset[str(problem_id)]["OpenAI-o1"]["feedback"] = feedback
             else:
                 raise ValueError("Invalid model name. Choose either 'GPT-4o' or 'OpenAI-o1'.")
 
