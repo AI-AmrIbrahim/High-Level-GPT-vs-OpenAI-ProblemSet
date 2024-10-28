@@ -330,7 +330,7 @@ Your code will be directly submitted to the LeetCode judge, so it must be comple
         with open(dataset_path, 'w') as f:
             json.dump(dataset, f, indent=4)
         
-        print(f"Problem title: {dataset[str(problem_id)]["title_slug"]}")
+        print(f'Problem title: {dataset[str(problem_id)]["title_slug"]}')
         print(f"\nSolution added to {model} for problem ID {problem_id} to {dataset_type} dataset.")
         print(f"\n{model} solution for problem ID {problem_id}:")
         print("-" * 50)
