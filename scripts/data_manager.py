@@ -209,7 +209,7 @@ class DatasetManager:
         except Exception as e:
             print(f"Error removing problem from {dataset_type} dataset: {e}")
     
-    def prompt_llm(self, openai_key, problem_id, model = "GPT-4o", dataset_type = "math"):
+    def prompt_llm(self, openai_key, problem_id, model_name = "gpt-4o", dataset_type = "math"):
         if dataset_type == "math":
             dataset_path = self.math_dataset_path
             context = """You are an expert statistician and mathematician with extensive knowledge in advanced statistical methods, probability theory, and mathematical proofs. Your task is to solve PhD Qualifier and Graduate Level Statistics problems, providing a comprehensive, step-by-step solution. Focus on the following aspects:
@@ -277,63 +277,67 @@ Your code will be directly submitted to the LeetCode judge, so it must be comple
         client = OpenAI(api_key=openai_key)
         # openai.api_key = openai_key
 
+
+
         # Select the appropriate model based on the input
-        if model == "GPT-4o":
+        # if model == "GPT-4o":
             # response = openai.ChatCompletion.create(
-            response = client.chat.completions.create(
-                model="gpt-4o",
-                messages=[
-                    {
-                    "role": "system",
-                    "content": context
-                    },
-                    {
-                    "role": "user",
-                    "content": problem_str
-                    }
-                ],
-                max_tokens=5000,  # Adjust as needed to ensure enough space for longer solutions
-                temperature=0  # Ensures deterministic output
-            )
+        response = client.chat.completions.create(
+            model=model_name,
+            messages=[
+                {
+                "role": "system",
+                "content": context
+                },
+                {
+                "role": "user",
+                "content": problem_str
+                }
+            ],
+            max_tokens=5000,  # Adjust as needed to ensure enough space for longer solutions
+            temperature=0  # Ensures deterministic output
+        )
             # Store the solution in the GPT-4o slot
-            solution = response.choices[0].message.content.replace('```python\n', '').replace('\n```', '')
-            dataset[str(problem_id)]["GPT-4o"]["solution"] = solution
+        solution = response.choices[0].message.content.replace('```python\n', '').replace('\n```', '')
+        dataset[str(problem_id)][model_name] = {"solution": solution}
+        # dataset[str(problem_id)][model_name]["solution"] = solution
         
-        elif model == "OpenAI-o1":
-            # response = openai.ChatCompletion.create(
-            response = client.chat.completions.create(
-                model="o1-preview",
-                messages=[
-                    {
-                    "role": "system",
-                    "content": context
-                    },
-                    {
-                    "role": "user",
-                    "content": problem_str
-                    }
-                ],
-                max_tokens=5000,
-                temperature=0  # Ensures deterministic output
-            )
-            # Extract the generated code and store in the problem entry
-            solution = response.choices[0].message.content.replace('```python\n', '').replace('\n```', '')
-            dataset[str(problem_id)]["OpenAI-o1"]["solution"] = solution
+        # elif model == "OpenAI-o1":
+        #     # response = openai.ChatCompletion.create(
+        #     response = client.chat.completions.create(
+        #         model="o1-preview",
+        #         messages=[
+        #             {
+        #             "role": "system",
+        #             "content": context
+        #             },
+        #             {
+        #             "role": "user",
+        #             "content": problem_str
+        #             }
+        #         ],
+        #         max_tokens=5000,
+        #         temperature=0  # Ensures deterministic output
+        #     )
+        #     # Extract the generated code and store in the problem entry
+        #     solution = response.choices[0].message.content.replace('```python\n', '').replace('\n```', '')
+        #     dataset[str(problem_id)]["OpenAI-o1"]["solution"] = solution
         
-        else:
-            raise ValueError("Invalid model name. Choose either 'GPT-4o' or 'OpenAI-o1'.")
+        # else:
+        #     raise ValueError("Invalid model name. Choose either 'GPT-4o' or 'OpenAI-o1'.")
         
         # Save the updated dataset with the new solution
         with open(dataset_path, 'w') as f:
             json.dump(dataset, f, indent=4)
         
-        print(f"Solution added to {model} for problem ID {problem_id} to {dataset_type} dataset.")
+        print(f"Problem title: {dataset[str(problem_id)]["title_slug"]}")
+        print(f"\nSolution added to {model} for problem ID {problem_id} to {dataset_type} dataset.")
         print(f"\n{model} solution for problem ID {problem_id}:")
         print("-" * 50)
         print(solution)
         print("-" * 50)
 
-    def eval(self, problem_id, model = "GPT-4o", dataset_type = "math", runtime_beats = None, memory_beats = None):
+    def eval(self, problem_id, model_name = "gpt-4o", dataset_type = "math", runtime_beats = None, memory_beats = None):
         if dataset_type == "math":
             dataset_path = self.math_dataset_path
         elif dataset_type == "leetcode":
@@ -361,20 +365,20 @@ Your code will be directly submitted to the LeetCode judge, so it must be comple
             pass
         elif dataset_type == "leetcode":
             # Update the appropriate model's evaluation in the dataset
-            if model == "GPT-4o":
-                dataset[str(problem_id)]["GPT-4o"]["runtime_beats"] = runtime_beats
-                dataset[str(problem_id)]["GPT-4o"]["memory_beats"] = memory_beats
-                dataset[str(problem_id)]["GPT-4o"]["simple_average"] = simple_average
-                dataset[str(problem_id)]["GPT-4o"]["weighted_average"] = weighted_average
-                dataset[str(problem_id)]["GPT-4o"]["feedback"] = feedback
-            elif model == "OpenAI-o1":
-                dataset[str(problem_id)]["OpenAI-o1"]["runtime_beats"] = runtime_beats
-                dataset[str(problem_id)]["OpenAI-o1"]["memory_beats"] = memory_beats
-                dataset[str(problem_id)]["OpenAI-o1"]["simple_average"] = simple_average
-                dataset[str(problem_id)]["OpenAI-o1"]["weighted_average"] = weighted_average
-                dataset[str(problem_id)]["OpenAI-o1"]["feedback"] = feedback
-            else:
-                raise ValueError("Invalid model name. Choose either 'GPT-4o' or 'OpenAI-o1'.")
+            # if model == "GPT-4o":
+            dataset[str(problem_id)].setdefault(model_name, {})["runtime_beats"] = runtime_beats
+            dataset[str(problem_id)][model_name]["memory_beats"] = memory_beats
+            dataset[str(problem_id)][model_name]["simple_average"] = simple_average
+            dataset[str(problem_id)][model_name]["weighted_average"] = weighted_average
+            dataset[str(problem_id)][model_name]["feedback"] = feedback
+            # elif model == "OpenAI-o1":
+            #     dataset[str(problem_id)]["OpenAI-o1"]["runtime_beats"] = runtime_beats
+            #     dataset[str(problem_id)]["OpenAI-o1"]["memory_beats"] = memory_beats
+            #     dataset[str(problem_id)]["OpenAI-o1"]["simple_average"] = simple_average
+            #     dataset[str(problem_id)]["OpenAI-o1"]["weighted_average"] = weighted_average
+            #     dataset[str(problem_id)]["OpenAI-o1"]["feedback"] = feedback
+            # else:
+            #     raise ValueError("Invalid model name. Choose either 'GPT-4o' or 'OpenAI-o1'.")
 
         # Save the updated dataset with the new evaluation metrics
         with open(dataset_path, 'w') as f:
