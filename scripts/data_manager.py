@@ -361,6 +361,19 @@ Your code will be directly submitted to the LeetCode judge, so it must be comple
         with open(dataset_path, 'r') as f:
             dataset = json.load(f)
 
+        # Check if problem_id exists in dataset
+        if str(problem_id) not in dataset:
+            print(f"Problem with ID {problem_id} not found in the {dataset_type} dataset. Please check the problem ID and try again.")
+            return
+
+        # Check if model_name exists and has a solution for the problem
+        if model_name not in dataset[str(problem_id)] or not dataset[str(problem_id)][model_name].get("solution"):
+            print(f"No solution found for model '{model_name}' in problem ID {problem_id}. Possible issues:")
+            print(f"- The model '{model_name}' does not exist for this problem.")
+            print(f"- The solution may not have been generated yet.")
+            print("Please ensure the model and problem ID are correct.")
+            return
+        
         if dataset_type == "math":
             pass
         elif dataset_type == "leetcode":
