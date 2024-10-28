@@ -14,7 +14,7 @@ class DatasetManager:
         # Initialize datasets and titleslug store if they don't exist
         self._initialize_dataset(self.math_dataset_path)
         self._initialize_dataset(self.leetcode_dataset_path)
-        self._initialize_dataset(self.titleslug_store_path)
+        # self._initialize_dataset(self.titleslug_store_path)
     
     def _initialize_dataset(self, path):
         """If the dataset file does not exist, create it with an empty structure."""
@@ -85,15 +85,13 @@ class DatasetManager:
             
             # Generate the new problem with an auto-incremented ID
             new_problem_id = str(self._get_next_id(dataset))
-            new_problem_data = {
-            "problem": problem_str,
-            "GPT-4o": {
-                "solution": "",  # Placeholder for GPT-4o solution
-                },
-            "OpenAI-o1": {
-                "solution": "",  # Placeholder for OpenAI-o1 solution
+            if title_slug:
+                new_problem_data = {
+                    "title_slug": title_slug,
+                    "problem": problem_str
                 }
-            }
+            else:
+                new_problem_data = {"problem": problem_str}
             # Add the new problem to the dataset using the new ID as the key
             dataset[new_problem_id] = new_problem_data
             
@@ -103,8 +101,8 @@ class DatasetManager:
             print(f"New problem added to {dataset_type} dataset with ID {new_problem_id}.")
             
             # Save the titleSlug only if the problem was added
-            if title_slug:
-                self._save_title_slug(title_slug)
+            # if title_slug:
+            #     self._save_title_slug(title_slug)
         
         except Exception as e:
             print(f"Error adding problem to {dataset_type} dataset: {e}")
@@ -133,25 +131,31 @@ class DatasetManager:
             while problems_added < 15 and attempts < len(hard_question_titleslugs):
                 slug = hard_question_titleslugs[attempts]
                 attempts += 1
+
+                # Check if the title_slug is already present in the dataset
+                with open(self.leetcode_dataset_path, 'r') as f:
+                    dataset = json.load(f)
+                if slug in [entry["title_slug"] for entry in dataset.values()]:
+                    continue  # Skip if duplicate title_slug found
                 
-                if not self._is_duplicate_slug(slug):
-                    try:
-                        # Try fetching and adding the problem
-                        self.get_problem_description_and_add(slug)
-                        
-                        # Check if the problem was actually added
-                        with open(self.leetcode_dataset_path, 'r') as f:
-                            current_problem_count = len(json.load(f))
-                        
-                        if current_problem_count > initial_problem_count + problems_added:
-                            problems_added += 1
-                            print(f"Added problem {problems_added}/15")
-                        else:
-                            # print(f"Problem for {slug} was not added (likely duplicate content)")
-                            pass
-                    except Exception as e:
-                        # print(f"Error fetching problem for titleSlug {slug}: {e}")
+                # if not self._is_duplicate_slug(slug):
+                try:
+                    # Try fetching and adding the problem
+                    self.get_problem_description_and_add(slug)
+                    
+                    # Check if the problem was actually added
+                    with open(self.leetcode_dataset_path, 'r') as f:
+                        current_problem_count = len(json.load(f))
+                    
+                    if current_problem_count > initial_problem_count + problems_added:
+                        problems_added += 1
+                        print(f"Added problem {problems_added}/15")
+                    else:
+                        # print(f"Problem for {slug} was not added (likely duplicate content)")
                         pass
+                except Exception as e:
+                    # print(f"Error fetching problem for titleSlug {slug}: {e}")
+                    pass
                 
                 if problems_added >= 15:
                     break
