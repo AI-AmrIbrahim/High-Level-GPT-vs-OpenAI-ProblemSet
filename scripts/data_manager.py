@@ -342,19 +342,6 @@ Your code will be directly submitted to the LeetCode judge, so it must be comple
             dataset_path = self.math_dataset_path
         elif dataset_type == "leetcode":
             dataset_path = self.leetcode_dataset_path
-            
-            if runtime_beats == None or memory_beats == None:
-                runtime_beats = float(input("Enter the LeetCode Solution Runtime Beats: "))
-                memory_beats = float(input("Enter the LeetCode Solution Memory Beats: "))
-            else:
-                runtime_beats = runtime_beats
-                memory_beats = memory_beats
-            
-            feedback = input("Enter feedback: ")
-
-            # Calculate the scores
-            simple_average = (runtime_beats + memory_beats) / 2
-            weighted_average = 0.6 * runtime_beats + 0.4 * memory_beats
         else:
             raise ValueError("Invalid dataset_type. Choose 'math' or 'leetcode'.")
 
@@ -377,6 +364,20 @@ Your code will be directly submitted to the LeetCode judge, so it must be comple
         if dataset_type == "math":
             pass
         elif dataset_type == "leetcode":
+            
+            if runtime_beats == None or memory_beats == None:
+                runtime_beats = float(input("Enter the LeetCode Solution Runtime Beats: "))
+                memory_beats = float(input("Enter the LeetCode Solution Memory Beats: "))
+            else:
+                runtime_beats = runtime_beats
+                memory_beats = memory_beats
+            
+            feedback = input("Enter feedback: ")
+
+            # Calculate the scores
+            simple_average = (runtime_beats + memory_beats) / 2
+            weighted_average = 0.6 * runtime_beats + 0.4 * memory_beats
+            
             # Update the appropriate model's evaluation in the dataset
             # if model == "GPT-4o":
             dataset[str(problem_id)].setdefault(model_name, {})["runtime_beats"] = runtime_beats
