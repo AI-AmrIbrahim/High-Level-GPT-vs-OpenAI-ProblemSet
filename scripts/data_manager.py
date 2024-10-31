@@ -278,7 +278,7 @@ Your code will be directly submitted to the LeetCode judge, so it must be comple
         
         problem_str = dataset[str(problem_id)]["problem"]
         
-        client = OpenAI(api_key=openai_key)
+        client = OpenAI(base_url="https://openrouter.ai/api/v1", api_key=openai_key)
         # openai.api_key = openai_key
 
 
@@ -287,7 +287,7 @@ Your code will be directly submitted to the LeetCode judge, so it must be comple
         # if model == "GPT-4o":
             # response = openai.ChatCompletion.create(
         response = client.chat.completions.create(
-            model=model_name,
+            model=f"openai/{model_name}",
             messages=[
                 {
                 "role": "system",
