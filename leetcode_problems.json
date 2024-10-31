@@ -9,6 +9,14 @@
             "simple_average": 61.06,
             "weighted_average": 68.848,
             "feedback": "Solution correct but memory can be optimized"
+        },
+        "o1-preview": {
+            "solution": "class Solution:\n    def atMostNGivenDigitSet(self, digits: List[str], n: int) -> int:\n        from functools import lru_cache\n        n_str = str(n)\n        len_n = len(n_str)\n        digits.sort()\n        @lru_cache(None)\n        def dfs(pos, is_limit):\n            if pos == len_n:\n                return 1\n            total = 0\n            max_digit = n_str[pos] if is_limit else '9'\n            for d in digits:\n                if d > max_digit:\n                    break\n                next_is_limit = is_limit and d == max_digit\n                total += dfs(pos+1, next_is_limit)\n            return total\n        total = 0\n        for i in range(1, len_n):\n            total += len(digits) ** i\n        total += dfs(0, True)\n        return total",
+            "runtime_beats": 100.0,
+            "memory_beats": 9.4,
+            "simple_average": 54.7,
+            "weighted_average": 63.76,
+            "feedback": "Solution correct but memory can be optimized"
         }
     },
     "2": {
