@@ -347,7 +347,8 @@ Your code will be directly submitted to the LeetCode judge, so it must be comple
         print(solution)
         print("-" * 50)
 
-    def eval(self, problem_id, model_name = "gpt-4o", dataset_type = "math", runtime_beats = None, memory_beats = None):
+    def eval(self, problem_id, model_name="gpt-4o", dataset_type="math", runtime_beats=None, memory_beats=None):
+        # Set dataset path based on dataset_type
         if dataset_type == "math":
             dataset_path = self.math_dataset_path
         elif dataset_type == "leetcode":
@@ -355,57 +356,47 @@ Your code will be directly submitted to the LeetCode judge, so it must be comple
         else:
             raise ValueError("Invalid dataset_type. Choose 'math' or 'leetcode'.")
 
+        # Load the dataset
         with open(dataset_path, 'r') as f:
             dataset = json.load(f)
 
-        # Check if problem_id exists in dataset
+        # Check if the problem ID exists in the dataset
         if str(problem_id) not in dataset:
-            print(f"Problem with ID {problem_id} not found in the {dataset_type} dataset. Please check the problem ID and try again.")
+            print(f"Problem with ID {problem_id} not found in the {dataset_type} dataset. Please check the problem ID.")
             return
 
-        # Check if model_name exists and has a solution for the problem
+        # Check if the model_name exists and has a solution for the problem
         if model_name not in dataset[str(problem_id)] or not dataset[str(problem_id)][model_name].get("solution"):
             print(f"No solution found for model '{model_name}' in problem ID {problem_id}. Possible issues:")
-            print(f"- The model '{model_name}' does not exist for this problem.")
-            print(f"- The solution may not have been generated yet.")
-            print("Please ensure the model and problem ID are correct.")
+            print("- The model name or problem ID might be incorrect.")
+            print("- The solution may not have been generated yet.")
             return
-        
-        if dataset_type == "math":
-            pass
-        elif dataset_type == "leetcode":
-            
-            if runtime_beats == None or memory_beats == None:
-                runtime_beats = float(input("Enter the LeetCode Solution Runtime Beats: "))
-                memory_beats = float(input("Enter the LeetCode Solution Memory Beats: "))
-            else:
-                runtime_beats = runtime_beats
-                memory_beats = memory_beats
-            
-            feedback = input("Enter feedback: ")
 
-            # Calculate the scores
+        # For LeetCode dataset, prompt for runtime and memory if not provided
+        if dataset_type == "leetcode":
+            try:
+                if runtime_beats is None:
+                    runtime_beats = float(input("Enter the LeetCode Solution Runtime Beats: "))
+                if memory_beats is None:
+                    memory_beats = float(input("Enter the LeetCode Solution Memory Beats: "))
+                feedback = input("Enter feedback: ")
+            except ValueError:
+                print("Invalid input. Please enter numeric values for runtime and memory beats.")
+                return
+
+            # Calculate average scores
             simple_average = (runtime_beats + memory_beats) / 2
             weighted_average = 0.6 * runtime_beats + 0.4 * memory_beats
-            
-            # Update the appropriate model's evaluation in the dataset
-            # if model == "GPT-4o":
+
+            # Update model's evaluation in the dataset
             dataset[str(problem_id)].setdefault(model_name, {})["runtime_beats"] = runtime_beats
             dataset[str(problem_id)][model_name]["memory_beats"] = memory_beats
             dataset[str(problem_id)][model_name]["simple_average"] = simple_average
             dataset[str(problem_id)][model_name]["weighted_average"] = weighted_average
             dataset[str(problem_id)][model_name]["feedback"] = feedback
-            # elif model == "OpenAI-o1":
-            #     dataset[str(problem_id)]["OpenAI-o1"]["runtime_beats"] = runtime_beats
-            #     dataset[str(problem_id)]["OpenAI-o1"]["memory_beats"] = memory_beats
-            #     dataset[str(problem_id)]["OpenAI-o1"]["simple_average"] = simple_average
-            #     dataset[str(problem_id)]["OpenAI-o1"]["weighted_average"] = weighted_average
-            #     dataset[str(problem_id)]["OpenAI-o1"]["feedback"] = feedback
-            # else:
-            #     raise ValueError("Invalid model name. Choose either 'GPT-4o' or 'OpenAI-o1'.")
 
-        # Save the updated dataset with the new evaluation metrics
-        with open(dataset_path, 'w') as f:
-            json.dump(dataset, f, indent=4)
+            # Save the updated dataset
+            with open(dataset_path, 'w') as f:
+                json.dump(dataset, f, indent=4)
 
-        print(f"Evaluation metrics added to {model_name} for problem ID {problem_id}.")
+            print(f"Evaluation metrics added to {model_name} for problem ID {problem_id}.")
