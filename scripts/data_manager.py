@@ -303,7 +303,7 @@ Your code will be directly submitted to the LeetCode judge, so it must be comple
                 "content": problem_str
                 }
             ],
-            max_tokens=50000,  # Adjust as needed to ensure enough space for longer solutions
+            max_tokens=16000,  # Adjust as needed to ensure enough space for longer solutions
             temperature=0  # Ensures deterministic output
         )
             # Store the solution in the GPT-4o slot
