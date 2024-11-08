@@ -829,6 +829,14 @@
             "simple_average": 48.485,
             "weighted_average": 44.885999999999996,
             "feedback": "Solution correct but runtime and memory can be optimized"
+        },
+        "o1-preview": {
+            "solution": "class Solution:\n    BelowTwenty = [\"\", \"One\", \"Two\", \"Three\", \"Four\", \"Five\", \"Six\", \"Seven\", \"Eight\", \"Nine\",\n                   \"Ten\", \"Eleven\", \"Twelve\", \"Thirteen\", \"Fourteen\", \"Fifteen\",\n                   \"Sixteen\", \"Seventeen\", \"Eighteen\", \"Nineteen\"]\n    Tens = [\"\", \"Ten\", \"Twenty\", \"Thirty\", \"Forty\", \"Fifty\", \"Sixty\", \"Seventy\", \"Eighty\", \"Ninety\"]\n    Thousands = [\"\", \"Thousand\", \"Million\", \"Billion\"]\n\n    def numberToWords(self, num: int) -> str:\n        if num == 0:\n            return 'Zero'\n\n        def helper(n):\n            if n == 0:\n                return ''\n            elif n < 20:\n                return self.BelowTwenty[n] + ' '\n            elif n < 100:\n                return self.Tens[n // 10] + ' ' + helper(n % 10)\n            else:\n                return self.BelowTwenty[n // 100] + ' Hundred ' + helper(n % 100)\n\n        result = ''\n        for idx, unit in enumerate(self.Thousands):\n            if num == 0:\n                break\n            num, chunk = divmod(num, 1000)\n            if chunk > 0:\n                result = helper(chunk) + unit + ' ' + result\n\n        return result.strip()",
+            "runtime_beats": 100.0,
+            "memory_beats": 38.02,
+            "simple_average": 69.01,
+            "weighted_average": 75.208,
+            "feedback": "Solution correct but memory can be optimized"
         }
     },
     "43": {
@@ -840,6 +848,14 @@
             "memory_beats": 93.23,
             "simple_average": 69.625,
             "weighted_average": 64.904,
+            "feedback": "Solution correct but runtime can be optimized"
+        },
+        "o1-preview": {
+            "solution": "class Solution:\n    def firstMissingPositive(self, nums) -> int:\n        n = len(nums)\n        for i in range(n):\n            if nums[i] <= 0 or nums[i] > n:\n                nums[i] = n + 1\n        for i in range(n):\n            num = abs(nums[i])\n            if num <= n:\n                nums[num - 1] = -abs(nums[num - 1])\n        for i in range(n):\n            if nums[i] > 0:\n                return i + 1\n        return n + 1",
+            "runtime_beats": 41.21,
+            "memory_beats": 94.1,
+            "simple_average": 67.655,
+            "weighted_average": 62.366,
             "feedback": "Solution correct but runtime can be optimized"
         }
     },
@@ -853,6 +869,14 @@
             "simple_average": 34.55,
             "weighted_average": 37.239999999999995,
             "feedback": "Solution correct but runtime and memory can be optimized"
+        },
+        "o1-preview": {
+            "solution": "class Solution:\n    def maxSumSubmatrix(self, matrix: List[List[int]], k: int) -> int:\n        import bisect\n        rows = len(matrix)\n        cols = len(matrix[0])\n        result = float('-inf')\n        if rows <= cols:\n            for top in range(rows):\n                col_sums = [0] * cols\n                for bottom in range(top, rows):\n                    for c in range(cols):\n                        col_sums[c] += matrix[bottom][c]\n                    prefix_sums = [0]\n                    current_sum = 0\n                    for sum_ in col_sums:\n                        current_sum += sum_\n                        idx = bisect.bisect_left(prefix_sums, current_sum - k)\n                        if idx < len(prefix_sums):\n                            result = max(result, current_sum - prefix_sums[idx])\n                            if result == k:\n                                return k\n                        bisect.insort(prefix_sums, current_sum)\n        else:\n            for left in range(cols):\n                row_sums = [0] * rows\n                for right in range(left, cols):\n                    for r in range(rows):\n                        row_sums[r] += matrix[r][right]\n                    prefix_sums = [0]\n                    current_sum = 0\n                    for sum_ in row_sums:\n                        current_sum += sum_\n                        idx = bisect.bisect_left(prefix_sums, current_sum - k)\n                        if idx < len(prefix_sums):\n                            result = max(result, current_sum - prefix_sums[idx])\n                            if result == k:\n                                return k\n                        bisect.insort(prefix_sums, current_sum)\n        return result",
+            "runtime_beats": 94.48,
+            "memory_beats": 59.93,
+            "simple_average": 77.205,
+            "weighted_average": 80.66,
+            "feedback": "Solution correct but memory can be optimized"
         }
     },
     "45": {
@@ -865,6 +889,14 @@
             "simple_average": 59.915,
             "weighted_average": 62.932,
             "feedback": "Solution correct but memory can be optimized"
+        },
+        "o1-preview": {
+            "solution": "class Solution:\n    def findMinMoves(self, machines: List[int]) -> int:\n        total_dresses = sum(machines)\n        num_machines = len(machines)\n        if total_dresses % num_machines != 0:\n            return -1\n        target = total_dresses // num_machines\n        max_moves = 0\n        cumulative_surplus = 0\n        for dresses in machines:\n            surplus = dresses - target\n            cumulative_surplus += surplus\n            max_moves = max(max_moves, abs(cumulative_surplus), surplus)\n        return max_moves",
+            "runtime_beats": 53.85,
+            "memory_beats": 71.37,
+            "simple_average": 62.61,
+            "weighted_average": 60.858000000000004,
+            "feedback": "Solution correct but runtime can be optimized"
         }
     },
     "46": {
@@ -877,6 +909,14 @@
             "simple_average": 82.0,
             "weighted_average": 84.196,
             "feedback": "Solution correct"
+        },
+        "o1-preview": {
+            "solution": "class Solution:\n    def addOperators(self, num: str, target: int) -> List[str]:\n        n = len(num)\n        res = []\n        def dfs(index, path, eval_value, last_operand):\n            if index == n:\n                if eval_value == target:\n                    res.append(path)\n                return\n            for i in range(index, n):\n                if i != index and num[index] == '0':\n                    break\n                curr_str = num[index:i+1]\n                curr_operand = int(curr_str)\n                if index == 0:\n                    dfs(i+1, curr_str, curr_operand, curr_operand)\n                else:\n                    dfs(i+1, path + '+' + curr_str, eval_value + curr_operand, curr_operand)\n                    dfs(i+1, path + '-' + curr_str, eval_value - curr_operand, -curr_operand)\n                    dfs(i+1, path + '*' + curr_str, eval_value - last_operand + last_operand * curr_operand, last_operand * curr_operand)\n        dfs(0, '', 0, 0)\n        return res",
+            "runtime_beats": 86.55,
+            "memory_beats": 54.95,
+            "simple_average": 70.75,
+            "weighted_average": 73.91,
+            "feedback": "Solution correct but me memory can be optimized"
         }
     },
     "47": {
@@ -889,6 +929,14 @@
             "simple_average": 49.370000000000005,
             "weighted_average": 50.152,
             "feedback": "Solution correct but runtime and memory can be optimized"
+        },
+        "o1-preview": {
+            "solution": "class Solution:\n    def isMatch(self, s: str, p: str) -> bool:\n        compressed_pattern = []\n        for char in p:\n            if not (compressed_pattern and compressed_pattern[-1] == '*' and char == '*'):\n                compressed_pattern.append(char)\n        p = ''.join(compressed_pattern)\n        s_length = len(s)\n        p_length = len(p)\n        previous_dp = [False] * (p_length + 1)\n        current_dp = [False] * (p_length + 1)\n        previous_dp[0] = True\n        for j in range(1, p_length + 1):\n            if p[j - 1] == '*':\n                previous_dp[j] = previous_dp[j - 1]\n        for i in range(1, s_length + 1):\n            current_dp[0] = False\n            for j in range(1, p_length + 1):\n                if p[j - 1] == s[i - 1] or p[j - 1] == '?':\n                    current_dp[j] = previous_dp[j - 1]\n                elif p[j - 1] == '*':\n                    current_dp[j] = previous_dp[j] or current_dp[j - 1]\n                else:\n                    current_dp[j] = False\n            previous_dp, current_dp = current_dp, previous_dp\n        return previous_dp[p_length]",
+            "runtime_beats": 73.14,
+            "memory_beats": 73.93,
+            "simple_average": 73.535,
+            "weighted_average": 73.456,
+            "feedback": "Solution correct"
         }
     },
     "48": {
@@ -901,6 +949,14 @@
             "simple_average": 57.22,
             "weighted_average": 61.56,
             "feedback": "Solution correct but memory can be optimized"
+        },
+        "o1-preview": {
+            "solution": "class Solution:\n    def getSkyline(self, buildings) -> List[List[int]]:\n        events = []\n        for l, r, h in buildings:\n            events.append((l, -h, r))  # entering event\n            events.append((r, 0, 0))   # leaving event\n        events.sort()\n        \n        result = []\n        heap = [(0, float('inf'))]  # (height, right)\n        prev_height = 0\n        \n        for x, neg_h, r in events:\n            while heap[0][1] <= x:\n                heapq.heappop(heap)\n            if neg_h != 0:\n                heapq.heappush(heap, (neg_h, r))\n            curr_height = -heap[0][0]\n            if curr_height != prev_height:\n                result.append([x, curr_height])\n                prev_height = curr_height\n                \n        return result",
+            "runtime_beats": 46.2,
+            "memory_beats": 5.16,
+            "simple_average": 25.68,
+            "weighted_average": 29.784000000000002,
+            "feedback": "Solution correct but runtime and memory can be optimized"
         }
     },
     "49": {
@@ -912,6 +968,14 @@
             "memory_beats": 51.92,
             "simple_average": 70.695,
             "weighted_average": 74.44999999999999,
+            "feedback": "Solution correct but memory can be optimized"
+        },
+        "o1-preview": {
+            "solution": "class Solution:\n    def findRotateSteps(self, ring: str, key: str) -> int:\n        from functools import lru_cache\n        from collections import defaultdict\n        ring_length = len(ring)\n        char_positions = defaultdict(list)\n        for index, character in enumerate(ring):\n            char_positions[character].append(index)\n        @lru_cache(None)\n        def dp(ring_pos, key_pos):\n            if key_pos == len(key):\n                return 0\n            min_total_steps = float('inf')\n            target_char = key[key_pos]\n            for pos in char_positions[target_char]:\n                distance = min(abs(pos - ring_pos), ring_length - abs(pos - ring_pos))\n                steps = distance + 1\n                total_steps = steps + dp(pos, key_pos + 1)\n                min_total_steps = min(min_total_steps, total_steps)\n            return min_total_steps\n        return dp(0, 0)",
+            "runtime_beats": 70.89,
+            "memory_beats": 29.96,
+            "simple_average": 50.425,
+            "weighted_average": 54.518,
             "feedback": "Solution correct but memory can be optimized"
         }
     },
@@ -925,6 +989,14 @@
             "simple_average": 79.815,
             "weighted_average": 81.706,
             "feedback": "Solution correct"
+        },
+        "o1-preview": {
+            "solution": "class Solution:\n    def longestIncreasingPath(self, matrix: List[List[int]]) -> int:\n        if not matrix or not matrix[0]:\n            return 0\n        rows, cols = len(matrix), len(matrix[0])\n        cache = [[0] * cols for _ in range(rows)]\n        result = 0\n        directions = [(-1, 0), (1, 0), (0, -1), (0, 1)]\n\n        def dfs(i, j):\n            if cache[i][j]:\n                return cache[i][j]\n            max_length = 1\n            for dx, dy in directions:\n                next_i, next_j = i + dx, j + dy\n                if 0 <= next_i < rows and 0 <= next_j < cols and matrix[next_i][next_j] > matrix[i][j]:\n                    length = 1 + dfs(next_i, next_j)\n                    max_length = max(max_length, length)\n            cache[i][j] = max_length\n            return max_length\n\n        for i in range(rows):\n            for j in range(cols):\n                result = max(result, dfs(i, j))\n        return result",
+            "runtime_beats": 89.07,
+            "memory_beats": 81.54,
+            "simple_average": 85.305,
+            "weighted_average": 86.05799999999999,
+            "feedback": "Solution correct"
         }
     },
     "51": {
@@ -937,6 +1009,14 @@
             "simple_average": 32.975,
             "weighted_average": 37.093999999999994,
             "feedback": "Solution correct but runtime and memory can be optimized"
+        },
+        "o1-preview": {
+            "solution": "class Solution:\n    def countSmaller(self, nums: List[int]) -> List[int]:\n        from bisect import bisect_left\n\n        class FenwickTree:\n            def __init__(self, size):\n                self.tree = [0] * (size + 1)\n\n            def update(self, index):\n                while index < len(self.tree):\n                    self.tree[index] += 1\n                    index += index & -index\n\n            def query(self, index):\n                result = 0\n                while index > 0:\n                    result += self.tree[index]\n                    index -= index & -index\n                return result\n\n        ranks = {num: i + 1 for i, num in enumerate(sorted(set(nums)))}\n        fenwick = FenwickTree(len(ranks))\n        counts = []\n        for num in reversed(nums):\n            rank = ranks[num]\n            counts.append(fenwick.query(rank - 1))\n            fenwick.update(rank)\n        return counts[::-1]",
+            "runtime_beats": 97.15,
+            "memory_beats": 60.02,
+            "simple_average": 78.58500000000001,
+            "weighted_average": 82.298,
+            "feedback": "Solution correct but memory can be optimized"
         }
     },
     "52": {
@@ -944,6 +1024,14 @@
         "problem": "<p>You are playing a variation of the game Zuma.</p>\n\n<p>In this variation of Zuma, there is a <strong>single row</strong> of colored balls on a board, where each ball can be colored red <code>&#39;R&#39;</code>, yellow <code>&#39;Y&#39;</code>, blue <code>&#39;B&#39;</code>, green <code>&#39;G&#39;</code>, or white <code>&#39;W&#39;</code>. You also have several colored balls in your hand.</p>\n\n<p>Your goal is to <strong>clear all</strong> of the balls from the board. On each turn:</p>\n\n<ul>\n\t<li>Pick <strong>any</strong> ball from your hand and insert it in between two balls in the row or on either end of the row.</li>\n\t<li>If there is a group of <strong>three or more consecutive balls</strong> of the <strong>same color</strong>, remove the group of balls from the board.\n\t<ul>\n\t\t<li>If this removal causes more groups of three or more of the same color to form, then continue removing each group until there are none left.</li>\n\t</ul>\n\t</li>\n\t<li>If there are no more balls on the board, then you win the game.</li>\n\t<li>Repeat this process until you either win or do not have any more balls in your hand.</li>\n</ul>\n\n<p>Given a string <code>board</code>, representing the row of balls on the board, and a string <code>hand</code>, representing the balls in your hand, return <em>the <strong>minimum</strong> number of balls you have to insert to clear all the balls from the board. If you cannot clear all the balls from the board using the balls in your hand, return </em><code>-1</code>.</p>\n\n<p>&nbsp;</p>\n<p><strong class=\"example\">Example 1:</strong></p>\n\n<pre>\n<strong>Input:</strong> board = &quot;WRRBBW&quot;, hand = &quot;RB&quot;\n<strong>Output:</strong> -1\n<strong>Explanation:</strong> It is impossible to clear all the balls. The best you can do is:\n- Insert &#39;R&#39; so the board becomes WRR<u>R</u>BBW. W<u>RRR</u>BBW -&gt; WBBW.\n- Insert &#39;B&#39; so the board becomes WBB<u>B</u>W. W<u>BBB</u>W -&gt; WW.\nThere are still balls remaining on the board, and you are out of balls to insert.</pre>\n\n<p><strong class=\"example\">Example 2:</strong></p>\n\n<pre>\n<strong>Input:</strong> board = &quot;WWRRBBWW&quot;, hand = &quot;WRBRW&quot;\n<strong>Output:</strong> 2\n<strong>Explanation:</strong> To make the board empty:\n- Insert &#39;R&#39; so the board becomes WWRR<u>R</u>BBWW. WW<u>RRR</u>BBWW -&gt; WWBBWW.\n- Insert &#39;B&#39; so the board becomes WWBB<u>B</u>WW. WW<u>BBB</u>WW -&gt; <u>WWWW</u> -&gt; empty.\n2 balls from your hand were needed to clear the board.\n</pre>\n\n<p><strong class=\"example\">Example 3:</strong></p>\n\n<pre>\n<strong>Input:</strong> board = &quot;G&quot;, hand = &quot;GGGGG&quot;\n<strong>Output:</strong> 2\n<strong>Explanation:</strong> To make the board empty:\n- Insert &#39;G&#39; so the board becomes G<u>G</u>.\n- Insert &#39;G&#39; so the board becomes GG<u>G</u>. <u>GGG</u> -&gt; empty.\n2 balls from your hand were needed to clear the board.\n</pre>\n\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>1 &lt;= board.length &lt;= 16</code></li>\n\t<li><code>1 &lt;= hand.length &lt;= 5</code></li>\n\t<li><code>board</code> and <code>hand</code> consist of the characters <code>&#39;R&#39;</code>, <code>&#39;Y&#39;</code>, <code>&#39;B&#39;</code>, <code>&#39;G&#39;</code>, and <code>&#39;W&#39;</code>.</li>\n\t<li>The initial row of balls on the board will <strong>not</strong> have any groups of three or more consecutive balls of the same color.</li>\n</ul>\n\"WRRBBW\"\n\"RB\"\n\"WWRRBBWW\"\n\"WRBRW\"\n\"G\"\n\"GGGGG\"",
         "gpt-4o": {
             "solution": "class Solution:\n    def findMinStep(self, board: str, hand: str) -> int:\n        from collections import Counter\n\n        def remove_consecutive(s):\n            i = 0\n            while i < len(s):\n                j = i\n                while j < len(s) and s[j] == s[i]:\n                    j += 1\n                if j - i >= 3:\n                    return remove_consecutive(s[:i] + s[j:])\n                i = j\n            return s\n\n        def dfs(board, hand_count):\n            board = remove_consecutive(board)\n            if not board:\n                return 0\n            if not any(hand_count.values()):\n                return float('inf')\n            min_steps = float('inf')\n            i = 0\n            while i < len(board):\n                j = i\n                while j < len(board) and board[j] == board[i]:\n                    j += 1\n                need = 3 - (j - i)\n                if hand_count[board[i]] >= need:\n                    hand_count[board[i]] -= need\n                    min_steps = min(min_steps, need + dfs(board[:i] + board[j:], hand_count))\n                    hand_count[board[i]] += need\n                i = j\n            return min_steps\n\n        hand_count = Counter(hand)\n        result = dfs(board, hand_count)\n        return result if result != float('inf') else -1",
+            "runtime_beats": 0.0,
+            "memory_beats": 0.0,
+            "simple_average": 0.0,
+            "weighted_average": 0.0,
+            "feedback": "Wrong Answer"
+        },
+        "o1-preview": {
+            "solution": "class Solution:\n    def findMinStep(self, board: str, hand: str) -> int:\n        from collections import deque, Counter\n\n        def remove_consecutive(s):\n            stack = []\n            i = 0\n            while i < len(s):\n                if not stack or s[i] != stack[-1][0]:\n                    stack.append([s[i], 1])\n                else:\n                    stack[-1][1] += 1\n                    if stack[-1][1] >= 3:\n                        stack.pop()\n                i += 1\n            return ''.join(c * k for c, k in stack)\n\n        hand_counts = Counter(hand)\n        queue = deque()\n        visited = set()\n        queue.append((board, tuple(hand_counts.items()), 0))\n        visited.add((board, tuple(hand_counts.items())))\n        while queue:\n            curr_board, curr_hand, steps = queue.popleft()\n            if not curr_board:\n                return steps\n            hand_count_dict = dict(curr_hand)\n            for i in range(len(curr_board) + 1):\n                for c in hand_count_dict:\n                    if hand_count_dict[c] > 0:\n                        if i > 0 and curr_board[i - 1] == c or i < len(curr_board) and curr_board[i] == c:\n                            new_board = curr_board[:i] + c + curr_board[i:]\n                            new_board = remove_consecutive(new_board)\n                            new_hand_counts = hand_count_dict.copy()\n                            new_hand_counts[c] -= 1\n                            new_state = (new_board, tuple(sorted(new_hand_counts.items())))\n                            if new_state not in visited:\n                                visited.add(new_state)\n                                queue.append((new_board, tuple(new_hand_counts.items()), steps + 1))\n        return -1",
             "runtime_beats": 0.0,
             "memory_beats": 0.0,
             "simple_average": 0.0,
@@ -961,6 +1049,14 @@
             "simple_average": 96.91,
             "weighted_average": 97.52799999999999,
             "feedback": "Solution correct"
+        },
+        "o1-preview": {
+            "solution": "class Solution:\n    def reverseKGroup(self, head: Optional[ListNode], k: int) -> Optional[ListNode]:\n        dummy = ListNode(0)\n        dummy.next = head\n        group_prev = dummy\n        while True:\n            kth = group_prev\n            for _ in range(k):\n                kth = kth.next\n                if not kth:\n                    return dummy.next\n            group_next = kth.next\n            prev = kth.next\n            curr = group_prev.next\n            while curr != group_next:\n                temp = curr.next\n                curr.next = prev\n                prev = curr\n                curr = temp\n            temp = group_prev.next\n            group_prev.next = kth\n            group_prev = temp",
+            "runtime_beats": 16.08,
+            "memory_beats": 31.92,
+            "simple_average": 24.0,
+            "weighted_average": 22.415999999999997,
+            "feedback": "Solution correct but runtime and memory can be optimized"
         }
     },
     "54": {
@@ -972,6 +1068,14 @@
             "memory_beats": 94.79,
             "simple_average": 97.39500000000001,
             "weighted_average": 97.916,
+            "feedback": "Solution correct"
+        },
+        "o1-preview": {
+            "solution": "from typing import List\n\nclass Solution:\n    def findMin(self, nums: List[int]) -> int:\n        low = 0\n        high = len(nums) - 1\n        while low < high:\n            mid = (low + high) // 2\n            if nums[mid] > nums[high]:\n                low = mid + 1\n            elif nums[mid] < nums[high]:\n                high = mid\n            else:\n                high -= 1\n        return nums[low]",
+            "runtime_beats": 100.0,
+            "memory_beats": 72.89,
+            "simple_average": 86.445,
+            "weighted_average": 89.156,
             "feedback": "Solution correct"
         }
     },
@@ -985,6 +1089,14 @@
             "simple_average": 82.455,
             "weighted_average": 79.884,
             "feedback": "Solution correct but runtime can be optimized"
+        },
+        "o1-preview": {
+            "solution": "class Solution:\n    def isMatch(self, s: str, p: str) -> bool:\n        m = len(s)\n        n = len(p)\n        dp = [[False] * (n + 1) for _ in range(m + 1)]\n        dp[0][0] = True\n        for j in range(2, n + 1):\n            if p[j - 1] == '*':\n                dp[0][j] = dp[0][j - 2]\n        for i in range(1, m + 1):\n            for j in range(1, n + 1):\n                if p[j - 1] == '.' or p[j - 1] == s[i - 1]:\n                    dp[i][j] = dp[i - 1][j - 1]\n                elif p[j - 1] == '*':\n                    dp[i][j] = dp[i][j - 2]\n                    if p[j - 2] == '.' or p[j - 2] == s[i - 1]:\n                        dp[i][j] |= dp[i - 1][j]\n        return dp[m][n]",
+            "runtime_beats": 41.38,
+            "memory_beats": 59.84,
+            "simple_average": 50.61,
+            "weighted_average": 48.764,
+            "feedback": "Solution correct but runtime and memory can be optimized"
         }
     },
     "56": {
@@ -997,6 +1109,14 @@
             "simple_average": 33.32,
             "weighted_average": 38.57,
             "feedback": "Solution correct but runtime and memory can be optimized"
+        },
+        "o1-preview": {
+            "solution": "class Solution:\n    def minPatches(self, nums: List[int], n: int) -> int:\n        nums_len = len(nums)\n        patches = 0\n        miss = 1\n        index = 0\n        while miss <= n:\n            if index < nums_len and nums[index] <= miss:\n                miss += nums[index]\n                index += 1\n            else:\n                miss += miss\n                patches += 1\n        return patches",
+            "runtime_beats": 100.0,
+            "memory_beats": 78.71,
+            "simple_average": 89.35499999999999,
+            "weighted_average": 91.484,
+            "feedback": "Solution correct"
         }
     },
     "57": {
@@ -1008,6 +1128,14 @@
             "memory_beats": 52.25,
             "simple_average": 76.125,
             "weighted_average": 80.9,
+            "feedback": "Solution correct but memory can be optimized"
+        },
+        "o1-preview": {
+            "solution": "import bisect\nclass SummaryRanges:\n    def __init__(self):\n        self.intervals = []\n    def addNum(self, value: int) -> None:\n        intervals = self.intervals\n        new_interval = [value, value]\n        i = bisect.bisect_left(intervals, new_interval)\n        if i != 0 and intervals[i - 1][1] + 1 >= value:\n            i -= 1\n        while i < len(intervals) and intervals[i][0] - 1 <= value <= intervals[i][1] + 1:\n            new_interval[0] = min(new_interval[0], intervals[i][0])\n            new_interval[1] = max(new_interval[1], intervals[i][1])\n            del intervals[i]\n        intervals.insert(i, new_interval)\n    def getIntervals(self) -> list[list[int]]:\n        return self.intervals",
+            "runtime_beats": 100.0,
+            "memory_beats": 56.8,
+            "simple_average": 78.4,
+            "weighted_average": 82.72,
             "feedback": "Solution correct but memory can be optimized"
         }
     },
@@ -1021,6 +1149,14 @@
             "simple_average": 73.86500000000001,
             "weighted_average": 72.66,
             "feedback": "Solution correct but runtime can be optimized"
+        },
+        "o1-preview": {
+            "solution": "class Solution:\n    def mergeKLists(self, lists: List[Optional[ListNode]]) -> Optional[ListNode]:\n        import heapq\n        heap = []\n        for index, node in enumerate(lists):\n            if node:\n                heapq.heappush(heap, (node.val, index, node))\n        dummy = ListNode(0)\n        current = dummy\n        while heap:\n            val, index, node = heapq.heappop(heap)\n            current.next = node\n            current = current.next\n            if node.next:\n                heapq.heappush(heap, (node.next.val, index, node.next))\n        return dummy.next",
+            "runtime_beats": 79.12,
+            "memory_beats": 98.6,
+            "simple_average": 88.86,
+            "weighted_average": 86.912,
+            "feedback": "Solution correct"
         }
     },
     "59": {
@@ -1032,6 +1168,14 @@
             "memory_beats": 10.45,
             "simple_average": 45.225,
             "weighted_average": 52.18,
+            "feedback": "Solution correct but memory can be optimized"
+        },
+        "o1-preview": {
+            "solution": "class Solution:\n    def reversePairs(self, nums: List[int]) -> int:\n        def merge_sort(left: int, right: int) -> int:\n            if left >= right:\n                return 0\n            mid = (left + right) // 2\n            count = merge_sort(left, mid) + merge_sort(mid + 1, right)\n            j = mid + 1\n            for i in range(left, mid + 1):\n                while j <= right and nums[i] > 2 * nums[j]:\n                    j += 1\n                count += j - (mid + 1)\n            nums[left:right + 1] = sorted(nums[left:right + 1])\n            return count\n        return merge_sort(0, len(nums) - 1)",
+            "runtime_beats": 80.62,
+            "memory_beats": 22.97,
+            "simple_average": 51.795,
+            "weighted_average": 57.56,
             "feedback": "Solution correct but memory can be optimized"
         }
     },
@@ -1045,6 +1189,14 @@
             "simple_average": 0.0,
             "weighted_average": 0.0,
             "feedback": "Wrong Answer"
+        },
+        "o1-preview": {
+            "solution": "class Solution:\n    def cancellationRate(self, trips):\n        banned_users = set()\n        for user in Users:\n            user_id = int(user['users_id'])\n            if user['banned'] == 'Yes':\n                banned_users.add(user_id)\n        date_range = ['2013-10-01', '2013-10-02', '2013-10-03']\n        results = {day: {'total': 0, 'cancelled': 0} for day in date_range}\n        for trip in Trips:\n            day = trip['request_at']\n            if day not in date_range:\n                continue\n            client_id = int(trip['client_id'])\n            driver_id = int(trip['driver_id'])\n            if client_id in banned_users or driver_id in banned_users:\n                continue\n            if trip['status'] in ('cancelled_by_driver', 'cancelled_by_client'):\n                results[day]['total'] += 1\n                results[day]['cancelled'] += 1\n            else:\n                results[day]['total'] +=1\n        output = []\n        for day in date_range:\n            total = results[day]['total']\n            cancelled = results[day]['cancelled']\n            rate = round(cancelled / total + 1e-8, 2) if total > 0 else 0.00\n            output.append({'Day': day, 'Cancellation Rate': rate})\n        return output",
+            "runtime_beats": 0.0,
+            "memory_beats": 0.0,
+            "simple_average": 0.0,
+            "weighted_average": 0.0,
+            "feedback": "Solution in Python not SQL"
         }
     },
     "61": {
@@ -1052,6 +1204,14 @@
         "problem": "<p>You are given an integer <code>n</code> and an array <code>sick</code> sorted in increasing order, representing positions of infected people in a line of <code>n</code> people.</p>\n\n<p>At each step, <strong>one </strong>uninfected person <strong>adjacent</strong> to an infected person gets infected. This process continues until everyone is infected.</p>\n\n<p>An <strong>infection sequence</strong> is the order in which uninfected people become infected, excluding those initially infected.</p>\n\n<p>Return the number of different infection sequences possible, modulo <code>10<sup>9</sup>+7</code>.</p>\n\n<p>&nbsp;</p>\n<p><strong class=\"example\">Example 1:</strong></p>\n\n<div class=\"example-block\">\n<p><strong>Input:</strong> <span class=\"example-io\">n = 5, sick = [0,4]</span></p>\n\n<p><strong>Output:</strong> <span class=\"example-io\">4</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p>There is a total of 6 different sequences overall.</p>\n\n<ul>\n\t<li>Valid infection sequences are <code>[1,2,3]</code>, <code>[1,3,2]</code>, <code>[3,2,1]</code> and <code>[3,1,2]</code>.</li>\n\t<li><code>[2,3,1]</code> and <code>[2,1,3]</code> are not valid infection sequences because the person at index 2 cannot be infected at the first step.</li>\n</ul>\n</div>\n\n<p><strong class=\"example\">Example 2:</strong></p>\n\n<div class=\"example-block\">\n<p><strong>Input:</strong> <span class=\"example-io\">n = 4, sick = [1]</span></p>\n\n<p><strong>Output:</strong> <span class=\"example-io\">3</span></p>\n\n<p><strong>Explanation:</strong></p>\n\n<p>There is a total of 6 different sequences overall.</p>\n\n<ul>\n\t<li>Valid infection sequences are <code>[0,2,3]</code>, <code>[2,0,3]</code> and <code>[2,3,0]</code>.</li>\n\t<li><code>[3,2,0]</code>, <code>[3,0,2]</code>, and <code>[0,3,2]</code> are not valid infection sequences because the infection starts at the person at index 1, then the order of infection is 2, then 3, and hence 3 cannot be infected earlier than 2.</li>\n</ul>\n</div>\n\n<p>&nbsp;</p>\n<p><strong>Constraints:</strong></p>\n\n<ul>\n\t<li><code>2 &lt;= n &lt;= 10<sup>5</sup></code></li>\n\t<li><code>1 &lt;= sick.length &lt;= n - 1</code></li>\n\t<li><code>0 &lt;= sick[i] &lt;= n - 1</code></li>\n\t<li><code>sick</code> is sorted in increasing order.</li>\n</ul>\n5\n[0,4]\n4\n[1]",
         "gpt-4o": {
             "solution": "class Solution:\n    def countInfectionSequences(self, n: int, sick: list[int]) -> int:\n        MOD = 10**9 + 7\n        from math import factorial\n\n        def mod_inv(x, mod):\n            return pow(x, mod - 2, mod)\n\n        def comb(n, k, mod):\n            if k > n:\n                return 0\n            return (factorial(n) * mod_inv(factorial(k), mod) % mod) * mod_inv(factorial(n - k), mod) % mod\n\n        total_uninfected = n - len(sick)\n        result = 1\n\n        for i in range(1, len(sick)):\n            gap = sick[i] - sick[i - 1] - 1\n            if gap > 0:\n                result = result * comb(total_uninfected, gap, MOD) % MOD\n                total_uninfected -= gap\n\n        result = result * factorial(total_uninfected) % MOD\n        return result",
+            "runtime_beats": 0.0,
+            "memory_beats": 0.0,
+            "simple_average": 0.0,
+            "weighted_average": 0.0,
+            "feedback": "Wrong Answer"
+        },
+        "o1-preview": {
+            "solution": "class Solution:\n    def countInfectionSequences(self, n: int, sick: List[int]) -> int:\n        MOD = 10 ** 9 + 7\n        from math import factorial\n\n        sick_set = set(sick)\n        sick.sort()\n        res = 1\n\n        positions = list(range(n))\n        segments = []\n        prev = -1\n\n        for s in sick:\n            if s - prev > 1:\n                segments.append((prev + 1, s - 1))\n            prev = s\n        if n - 1 > sick[-1]:\n            segments.append((sick[-1] + 1, n - 1))\n\n        for segment in segments:\n            length = segment[1] - segment[0] + 1\n            left_infected = segment[0] - 1 in sick_set\n            right_infected = segment[1] + 1 in sick_set\n\n            if left_infected and right_infected:\n                res = res * pow(2, length - 1, MOD) % MOD\n            else:\n                res = res * factorial(length) % MOD\n        return res",
             "runtime_beats": 0.0,
             "memory_beats": 0.0,
             "simple_average": 0.0,
