@@ -2109,6 +2109,14 @@
             "simple_average": 80.315,
             "weighted_average": 80.02600000000001,
             "feedback": "Solution correct"
+        },
+        "o1-preview": {
+            "solution": "class Solution:\n    def trap(self, height: List[int]) -> int:\n        left, right = 0, len(height) - 1\n        left_max = right_max = total_water = 0\n        while left <= right:\n            if height[left] <= height[right]:\n                if height[left] >= left_max:\n                    left_max = height[left]\n                else:\n                    total_water += left_max - height[left]\n                left += 1\n            else:\n                if height[right] >= right_max:\n                    right_max = height[right]\n                else:\n                    total_water += right_max - height[right]\n                right -= 1\n        return total_water",
+            "runtime_beats": 91.98,
+            "memory_beats": 78.15,
+            "simple_average": 85.065,
+            "weighted_average": 86.44800000000001,
+            "feedback": "Solution correct"
         }
     },
     "107": {
@@ -2121,6 +2129,14 @@
             "simple_average": 59.19,
             "weighted_average": 60.146,
             "feedback": "Solution correct but runtime and memory can be optimized"
+        },
+        "o1-preview": {
+            "solution": "class Solution:\n    def maxProfit(self, k: int, prices: List[int]) -> int:\n        n = len(prices)\n        if k >= n // 2:\n            profit = 0\n            for i in range(1, n):\n                if prices[i] > prices[i - 1]:\n                    profit += prices[i] - prices[i - 1]\n            return profit\n        dp = [[0, float('-inf')] for _ in range(k + 1)]\n        for price in prices:\n            for j in range(k, 0, -1):\n                dp[j][0] = max(dp[j][0], dp[j][1] + price)\n                dp[j][1] = max(dp[j][1], dp[j - 1][0] - price)\n        return dp[k][0]",
+            "runtime_beats": 75.96,
+            "memory_beats": 83.92,
+            "simple_average": 79.94,
+            "weighted_average": 79.144,
+            "feedback": "Solution correct"
         }
     },
     "108": {
@@ -2133,6 +2149,14 @@
             "simple_average": 81.565,
             "weighted_average": 79.38,
             "feedback": "Solution correect"
+        },
+        "o1-preview": {
+            "solution": "class Solution:\n    def maxProfit(self, prices: List[int]) -> int:\n        first_buy = -prices[0]\n        first_sell = 0\n        second_buy = -prices[0]\n        second_sell = 0\n        for price in prices[1:]:\n            first_buy = max(first_buy, -price)\n            first_sell = max(first_sell, first_buy + price)\n            second_buy = max(second_buy, first_sell - price)\n            second_sell = max(second_sell, second_buy + price)\n        return second_sell",
+            "runtime_beats": 68.74,
+            "memory_beats": 89.08,
+            "simple_average": 78.91,
+            "weighted_average": 76.87599999999999,
+            "feedback": "Solution correct but runtime can be optimized"
         }
     },
     "109": {
@@ -2145,6 +2169,14 @@
             "simple_average": 0.0,
             "weighted_average": 0.0,
             "feedback": "Memory Limit Exceeded"
+        },
+        "o1-preview": {
+            "solution": "from collections import defaultdict, deque\nfrom typing import List\n\n\nclass Solution:\n    def findLadders(self, beginWord: str, endWord: str, wordList: List[str]) -> List[List[str]]:\n        word_set = set(wordList)\n        if endWord not in word_set:\n            return []\n        word_set.add(beginWord)\n        parents = defaultdict(set)\n        level = {beginWord}\n        found = False\n        while level and not found:\n            next_level = set()\n            word_set -= level\n            for word in level:\n                for i in range(len(word)):\n                    prefix, suffix = word[:i], word[i + 1:]\n                    for c in 'abcdefghijklmnopqrstuvwxyz':\n                        if c != word[i]:\n                            next_word = prefix + c + suffix\n                            if next_word in word_set:\n                                next_level.add(next_word)\n                                parents[next_word].add(word)\n                                if next_word == endWord:\n                                    found = True\n            level = next_level\n        if not found:\n            return []\n        results = []\n        path = [endWord]\n        def dfs(word):\n            if word == beginWord:\n                results.append(path[::-1])\n                return\n            for parent in parents[word]:\n                path.append(parent)\n                dfs(parent)\n                path.pop()\n        dfs(endWord)\n        return results",
+            "runtime_beats": 63.89,
+            "memory_beats": 35.41,
+            "simple_average": 49.65,
+            "weighted_average": 52.498,
+            "feedback": "Solution correct but runtime and memory can be optimized"
         }
     },
     "110": {
@@ -2156,6 +2188,14 @@
             "memory_beats": 5.97,
             "simple_average": 15.895,
             "weighted_average": 17.88,
+            "feedback": "Solution correct but runtime and memory can be optimized"
+        },
+        "o1-preview": {
+            "solution": "class MedianFinder:\n    def __init__(self):\n        self.small = []\n        self.large = []\n    def addNum(self, num: int) -> None:\n        import heapq\n        heapq.heappush(self.small, -num)\n        if self.small and self.large and -self.small[0] > self.large[0]:\n            val = -heapq.heappop(self.small)\n            heapq.heappush(self.large, val)\n        if len(self.small) > len(self.large) + 1:\n            val = -heapq.heappop(self.small)\n            heapq.heappush(self.large, val)\n        if len(self.large) > len(self.small) + 1:\n            val = heapq.heappop(self.large)\n            heapq.heappush(self.small, -val)\n    def findMedian(self) -> float:\n        if len(self.small) > len(self.large):\n            return -self.small[0]\n        if len(self.large) > len(self.small):\n            return self.large[0]\n        return (-self.small[0] + self.large[0]) / 2.0",
+            "runtime_beats": 45.83,
+            "memory_beats": 11.69,
+            "simple_average": 28.759999999999998,
+            "weighted_average": 32.174,
             "feedback": "Solution correct but runtime and memory can be optimized"
         }
     },
@@ -2169,6 +2209,14 @@
             "simple_average": 20.835,
             "weighted_average": 20.992,
             "feedback": "Solution correct but runtime and memory can be optimized"
+        },
+        "o1-preview": {
+            "solution": "class Solution:\n    def findWords(self, board, words):\n        class TrieNode:\n            def __init__(self):\n                self.children = {}\n                self.word = None\n        root = TrieNode()\n        for word in words:\n            node = root\n            for letter in word:\n                node = node.children.setdefault(letter, TrieNode())\n            node.word = word\n        rows = len(board)\n        cols = len(board[0])\n        result = []\n        def dfs(r, c, node):\n            letter = board[r][c]\n            if letter not in node.children:\n                return\n            child_node = node.children[letter]\n            if child_node.word:\n                result.append(child_node.word)\n                child_node.word = None\n            board[r][c] = '#'\n            for x, y in [(r-1,c), (r+1,c), (r,c-1), (r,c+1)]:\n                if 0 <= x < rows and 0 <= y < cols and board[x][y] != '#':\n                    dfs(x, y, child_node)\n            board[r][c] = letter\n            if not child_node.children:\n                node.children.pop(letter)\n        for r in range(rows):\n            for c in range(cols):\n                dfs(r, c, root)\n        return result",
+            "runtime_beats": 86.89,
+            "memory_beats": 20.79,
+            "simple_average": 53.84,
+            "weighted_average": 60.45,
+            "feedback": "Solution correct but memory can be optimized"
         }
     },
     "112": {
@@ -2181,6 +2229,14 @@
             "simple_average": 73.13,
             "weighted_average": 67.82600000000001,
             "feedback": "Solution correct but runtime can be optimized"
+        },
+        "o1-preview": {
+            "solution": "class Solution:\n    def ladderLength(self, beginWord: str, endWord: str, wordList: list) -> int:\n        word_set = set(wordList)\n        if endWord not in word_set:\n            return 0\n        begin_set = {beginWord}\n        end_set = {endWord}\n        level = 1\n        alpha = 'abcdefghijklmnopqrstuvwxyz'\n        while begin_set and end_set:\n            if len(begin_set) > len(end_set):\n                begin_set, end_set = end_set, begin_set\n            next_set = set()\n            for word in begin_set:\n                for i in range(len(word)):\n                    for c in alpha:\n                        new_word = word[:i] + c + word[i+1:]\n                        if new_word in end_set:\n                            return level + 1\n                        if new_word in word_set:\n                            next_set.add(new_word)\n                            word_set.remove(new_word)\n            begin_set = next_set\n            level += 1\n        return 0",
+            "runtime_beats": 98.08,
+            "memory_beats": 90.02,
+            "simple_average": 94.05,
+            "weighted_average": 94.856,
+            "feedback": "Solution correct"
         }
     },
     "113": {
@@ -2193,6 +2249,14 @@
             "simple_average": 55.76,
             "weighted_average": 52.664,
             "feedback": "Solution correct but runtime can be optimized"
+        },
+        "o1-preview": {
+            "solution": "class Solution:\n    def containsNearbyAlmostDuplicate(self, nums: List[int], indexDiff: int, valueDiff: int) -> bool:\n        if valueDiff < 0:\n            return False\n        bucket = {}\n        width = valueDiff + 1\n        for i, num in enumerate(nums):\n            bucket_id = num // width\n            if bucket_id in bucket:\n                return True\n            if bucket_id - 1 in bucket and abs(num - bucket[bucket_id - 1]) < width:\n                return True\n            if bucket_id + 1 in bucket and abs(num - bucket[bucket_id + 1]) < width:\n                return True\n            bucket[bucket_id] = num\n            if i >= indexDiff:\n                del bucket[nums[i - indexDiff] // width]\n        return False",
+            "runtime_beats": 99.32,
+            "memory_beats": 19.59,
+            "simple_average": 59.455,
+            "weighted_average": 67.428,
+            "feedback": "Solution correct but memory can be optimized"
         }
     },
     "114": {
@@ -2205,6 +2269,14 @@
             "simple_average": 28.485,
             "weighted_average": 23.882,
             "feedback": "Solution correct but runtime and memory can be optimized"
+        },
+        "o1-preview": {
+            "solution": "from collections import deque\n\nclass Codec:\n    def serialize(self, root):\n        if not root:\n            return ''\n        queue = deque([root])\n        result = []\n        while queue:\n            node = queue.popleft()\n            if node:\n                result.append(str(node.val))\n                queue.append(node.left)\n                queue.append(node.right)\n            else:\n                result.append('N')\n        return ','.join(result)\n    \n    def deserialize(self, data):\n        if not data:\n            return None\n        tokens = data.split(',')\n        root = TreeNode(int(tokens[0]))\n        queue = deque([root])\n        i = 1\n        while queue:\n            node = queue.popleft()\n            if i < len(tokens):\n                if tokens[i] != 'N':\n                    node.left = TreeNode(int(tokens[i]))\n                    queue.append(node.left)\n                i += 1\n            if i < len(tokens):\n                if tokens[i] != 'N':\n                    node.right = TreeNode(int(tokens[i]))\n                    queue.append(node.right)\n                i += 1\n        return root",
+            "runtime_beats": 76.33,
+            "memory_beats": 63.57,
+            "simple_average": 69.95,
+            "weighted_average": 71.226,
+            "feedback": "Solution correct but memory can be optimized"
         }
     },
     "115": {
@@ -2217,6 +2289,14 @@
             "simple_average": 0.0,
             "weighted_average": 0.0,
             "feedback": "Runtime Error - unsupported SQL functions"
+        },
+        "o1-preview": {
+            "solution": "class Solution:\n    def getHighEarners(self, employees, departments):\n        dept_id_to_name = {dept['id']: dept['name'] for dept in departments}\n        dept_to_employees = {}\n        for emp in employees:\n            dept_id = emp['departmentId']\n            if dept_id not in dept_to_employees:\n                dept_to_employees[dept_id] = []\n            dept_to_employees[dept_id].append(emp)\n        result = []\n        for dept_id, emp_list in dept_to_employees.items():\n            salaries = set(emp['salary'] for emp in emp_list)\n            top_salaries = sorted(salaries, reverse=True)[:3]\n            for emp in emp_list:\n                if emp['salary'] in top_salaries:\n                    result.append({\n                        'Department': dept_id_to_name[dept_id],\n                        'Employee': emp['name'],\n                        'Salary': emp['salary']\n                    })\n        return result",
+            "runtime_beats": 0.0,
+            "memory_beats": 0.0,
+            "simple_average": 0.0,
+            "weighted_average": 0.0,
+            "feedback": "Solution in Python not SQL"
         }
     },
     "116": {
@@ -2228,6 +2308,14 @@
             "memory_beats": 81.55,
             "simple_average": 71.655,
             "weighted_average": 69.67599999999999,
+            "feedback": "Solution correct but runtime can be optimized"
+        },
+        "o1-preview": {
+            "solution": "class Solution:\n    def longestValidParentheses(self, s: str) -> int:\n        max_length = 0\n        left = right = 0\n        for c in s:\n            if c == '(':\n                left += 1\n            else:\n                right +=1\n            if left == right:\n                max_length = max(max_length, 2*right)\n            elif right > left:\n                left = right = 0\n        left = right = 0\n        for c in reversed(s):\n            if c == ')':\n                right +=1\n            else:\n                left +=1\n            if left == right:\n                max_length = max(max_length, 2*left)\n            elif left > right:\n                left = right = 0\n        return max_length",
+            "runtime_beats": 62.13,
+            "memory_beats": 76.24,
+            "simple_average": 69.185,
+            "weighted_average": 67.774,
             "feedback": "Solution correct but runtime can be optimized"
         }
     },
@@ -2241,6 +2329,14 @@
             "simple_average": 48.105000000000004,
             "weighted_average": 50.35,
             "feedback": "Solution correct but runtime and memory can be optimized"
+        },
+        "o1-preview": {
+            "solution": "class Solution:\n    def totalNQueens(self, n: int) -> int:\n        def backtrack(row: int, columns: int, diagonals: int, anti_diagonals: int) -> int:\n            if row == n:\n                return 1\n            count = 0\n            available_positions = (~(columns | diagonals | anti_diagonals)) & ((1 << n) - 1)\n            while available_positions:\n                position = available_positions & -available_positions\n                available_positions &= available_positions - 1\n                count += backtrack(\n                    row + 1,\n                    columns | position,\n                    (diagonals | position) << 1,\n                    (anti_diagonals | position) >> 1\n                )\n            return count\n        return backtrack(0, 0, 0, 0)",
+            "runtime_beats": 100.0,
+            "memory_beats": 42.29,
+            "simple_average": 71.145,
+            "weighted_average": 76.916,
+            "feedback": "Solution correct but memory can be optimized"
         }
     },
     "118": {
@@ -2253,6 +2349,14 @@
             "simple_average": 53.92,
             "weighted_average": 57.501999999999995,
             "feedback": "Solution correct but memory can be optimized"
+        },
+        "o1-preview": {
+            "solution": "class Solution:\n    def minCut(self, s: str) -> int:\n        n = len(s)\n        dp = [i - 1 for i in range(n + 1)]\n        for i in range(n):\n            left = right = i\n            while left >= 0 and right < n and s[left] == s[right]:\n                dp[right + 1] = min(dp[right + 1], dp[left] + 1)\n                left -= 1\n                right += 1\n            left = i\n            right = i + 1\n            while left >= 0 and right < n and s[left] == s[right]:\n                dp[right + 1] = min(dp[right + 1], dp[left] + 1)\n                left -= 1\n                right += 1\n        return dp[n]",
+            "runtime_beats": 93.79,
+            "memory_beats": 95.69,
+            "simple_average": 94.74000000000001,
+            "weighted_average": 94.55000000000001,
+            "feedback": "Solution correct"
         }
     },
     "119": {
@@ -2264,6 +2368,14 @@
             "memory_beats": 87.11,
             "simple_average": 85.49000000000001,
             "weighted_average": 85.166,
+            "feedback": "Solution correct"
+        },
+        "o1-preview": {
+            "solution": "class Solution:\n    def numDistinct(self, s: str, t: str) -> int:\n        dp = [0] * (len(t) + 1)\n        dp[0] = 1\n        for char in s:\n            for i in range(len(t), 0, -1):\n                if t[i - 1] == char:\n                    dp[i] += dp[i - 1]\n        return dp[len(t)]",
+            "runtime_beats": 88.42,
+            "memory_beats": 93.12,
+            "simple_average": 90.77000000000001,
+            "weighted_average": 90.30000000000001,
             "feedback": "Solution correct"
         }
     },
@@ -2277,6 +2389,14 @@
             "simple_average": 71.38499999999999,
             "weighted_average": 76.774,
             "feedback": "Solution correct but memory can be optimized"
+        },
+        "o1-preview": {
+            "solution": "class Solution:\n    def calculateMinimumHP(self, dungeon: List[List[int]]) -> int:\n        m, n = len(dungeon), len(dungeon[0])\n        dp = [float('inf')] * (n + 1)\n        dp[n - 1] = 1\n        for i in range(m - 1, -1, -1):\n            for j in range(n - 1, -1, -1):\n                min_health = min(dp[j], dp[j + 1]) - dungeon[i][j]\n                dp[j] = max(1, min_health)\n        return dp[0]",
+            "runtime_beats": 69.58,
+            "memory_beats": 91.98,
+            "simple_average": 80.78,
+            "weighted_average": 78.53999999999999,
+            "feedback": "Solution correct but runtime can be optimized"
         }
     },
     "121": {
