@@ -2409,6 +2409,14 @@
             "simple_average": 48.30500000000001,
             "weighted_average": 45.898,
             "feedback": "Solution correct but runtime and memory can be optimized"
+        },
+        "o1-preview": {
+            "solution": "class Solution:\n    def solveSudoku(self, board: List[List[str]]) -> None:\n        from typing import List\n\n        rows = [0] * 9\n        cols = [0] * 9\n        boxes = [0] * 9\n        empty_cells = []\n\n        for i in range(9):\n            for j in range(9):\n                if board[i][j] == '.':\n                    empty_cells.append((i, j))\n                else:\n                    num = int(board[i][j]) - 1\n                    bit = 1 << num\n                    rows[i] |= bit\n                    cols[j] |= bit\n                    box_index = (i // 3) * 3 + j // 3\n                    boxes[box_index] |= bit\n\n        def dfs(idx):\n            if idx == len(empty_cells):\n                return True\n            i, j = empty_cells[idx]\n            box_index = (i // 3) * 3 + j // 3\n            for num in range(9):\n                bit = 1 << num\n                if not (rows[i] & bit or cols[j] & bit or boxes[box_index] & bit):\n                    board[i][j] = str(num + 1)\n                    rows[i] |= bit\n                    cols[j] |= bit\n                    boxes[box_index] |= bit\n                    if dfs(idx + 1):\n                        return True\n                    board[i][j] = '.'\n                    rows[i] &= ~bit\n                    cols[j] &= ~bit\n                    boxes[box_index] &= ~bit\n            return False\n\n        dfs(0)",
+            "runtime_beats": 87.54,
+            "memory_beats": 64.19,
+            "simple_average": 75.86500000000001,
+            "weighted_average": 78.2,
+            "feedback": "Solution correct but memory can be optimized"
         }
     },
     "122": {
@@ -2421,6 +2429,14 @@
             "simple_average": 75.075,
             "weighted_average": 80.06,
             "feedback": "Solution correct but memory can be optimized"
+        },
+        "o1-preview": {
+            "solution": "class Solution:\n    def getPermutation(self, n: int, k: int) -> str:\n        numbers = list(range(1, n + 1))\n        factorial = [1] * n\n        for i in range(1, n):\n            factorial[i] = factorial[i - 1] * i\n        k -= 1\n        result = ''\n        for i in range(n - 1, -1, -1):\n            idx = k // factorial[i]\n            result += str(numbers[idx])\n            numbers.pop(idx)\n            k %= factorial[i]\n        return result",
+            "runtime_beats": 33.46,
+            "memory_beats": 13.54,
+            "simple_average": 23.5,
+            "weighted_average": 25.492,
+            "feedback": "Solution correct but runtime and memory can be optimized"
         }
     },
     "123": {
@@ -2433,6 +2449,14 @@
             "simple_average": 84.66,
             "weighted_average": 83.428,
             "feedback": "Solution correct"
+        },
+        "o1-preview": {
+            "solution": "class Solution:\n    def largestRectangleArea(self, heights: List[int]) -> int:\n        max_area = 0\n        stack = []\n        index = 0\n        while index < len(heights):\n            if not stack or heights[index] >= heights[stack[-1]]:\n                stack.append(index)\n                index += 1\n            else:\n                top_of_stack = stack.pop()\n                width = index if not stack else index - stack[-1] - 1\n                max_area = max(max_area, heights[top_of_stack] * width)\n        while stack:\n            top_of_stack = stack.pop()\n            width = index if not stack else index - stack[-1] - 1\n            max_area = max(max_area, heights[top_of_stack] * width)\n        return max_area",
+            "runtime_beats": 48.87,
+            "memory_beats": 90.55,
+            "simple_average": 69.71,
+            "weighted_average": 65.542,
+            "feedback": "Solution correct but runtime can be optimized"
         }
     },
     "124": {
@@ -2444,6 +2468,14 @@
             "memory_beats": 66.92,
             "simple_average": 83.46000000000001,
             "weighted_average": 86.768,
+            "feedback": "Solution correct but memory can be optimized"
+        },
+        "o1-preview": {
+            "solution": "from typing import List\n\nclass Solution:\n    def fullJustify(self, words: List[str], maxWidth: int) -> List[str]:\n        result = []\n        index = 0\n        n = len(words)\n        while index < n:\n            line_words = []\n            num_of_letters = 0\n            while index < n and num_of_letters + len(words[index]) + len(line_words) <= maxWidth:\n                line_words.append(words[index])\n                num_of_letters += len(words[index])\n                index += 1\n            spaces_needed = maxWidth - num_of_letters\n            spaces_between_words = len(line_words) - 1\n            if index == n or spaces_between_words == 0:\n                line = ' '.join(line_words)\n                line += ' ' * (maxWidth - len(line))\n            else:\n                spaces_per_slot = spaces_needed // spaces_between_words\n                extra_spaces = spaces_needed % spaces_between_words\n                line = ''\n                for i in range(spaces_between_words):\n                    line += line_words[i]\n                    line += ' ' * (spaces_per_slot + (1 if i < extra_spaces else 0))\n                line += line_words[-1]\n            result.append(line)\n        return result",
+            "runtime_beats": 100.0,
+            "memory_beats": 6.17,
+            "simple_average": 53.085,
+            "weighted_average": 62.468,
             "feedback": "Solution correct but memory can be optimized"
         }
     },
@@ -2457,6 +2489,14 @@
             "simple_average": 49.79,
             "weighted_average": 54.27,
             "feedback": "Solution correct but memory can be optimized"
+        },
+        "o1-preview": {
+            "solution": "class Solution:\n    def solveNQueens(self, n: int) -> List[List[str]]:\n        result = []\n        board = [['.'] * n for _ in range(n)]\n        columns = set()\n        positive_diagonals = set()\n        negative_diagonals = set()\n\n        def backtrack(row):\n            if row == n:\n                result.append([''.join(r) for r in board])\n                return\n            for col in range(n):\n                if col in columns or (row + col) in positive_diagonals or (row - col) in negative_diagonals:\n                    continue\n                board[row][col] = 'Q'\n                columns.add(col)\n                positive_diagonals.add(row + col)\n                negative_diagonals.add(row - col)\n                backtrack(row + 1)\n                board[row][col] = '.'\n                columns.remove(col)\n                positive_diagonals.remove(row + col)\n                negative_diagonals.remove(row - col)\n\n        backtrack(0)\n        return result",
+            "runtime_beats": 97.72,
+            "memory_beats": 62.4,
+            "simple_average": 80.06,
+            "weighted_average": 83.592,
+            "feedback": "Solution correct but memory can be optimized"
         }
     },
     "126": {
@@ -2469,6 +2509,14 @@
             "simple_average": 78.275,
             "weighted_average": 75.078,
             "feedback": "Solution correct but runtime can be optimized"
+        },
+        "o1-preview": {
+            "solution": "class Solution:\n    def maxSlidingWindow(self, nums: List[int], k: int) -> List[int]:\n        from collections import deque\n        n = len(nums)\n        result = []\n        deq = deque()\n        for i in range(n):\n            while deq and deq[-1][0] <= nums[i]:\n                deq.pop()\n            deq.append((nums[i], i))\n            if deq[0][1] <= i - k:\n                deq.popleft()\n            if i >= k - 1:\n                result.append(deq[0][0])\n        return result",
+            "runtime_beats": 47.47,
+            "memory_beats": 64.33,
+            "simple_average": 55.9,
+            "weighted_average": 54.214,
+            "feedback": "Solution correct but runtime and memory can be optimized"
         }
     },
     "127": {
@@ -2480,6 +2528,14 @@
             "memory_beats": 8.99,
             "simple_average": 24.16,
             "weighted_average": 27.194,
+            "feedback": "Solution correct but runtime and memory can be optimized"
+        },
+        "o1-preview": {
+            "solution": "class Solution:\n    def maxPathSum(self, root: TreeNode) -> int:\n        max_sum = float('-inf')\n        def max_gain(node):\n            nonlocal max_sum\n            if not node:\n                return 0\n            left_gain = max(max_gain(node.left), 0)\n            right_gain = max(max_gain(node.right), 0)\n            current_path_sum = node.val + left_gain + right_gain\n            max_sum = max(max_sum, current_path_sum)\n            return node.val + max(left_gain, right_gain)\n        max_gain(root)\n        return max_sum",
+            "runtime_beats": 38.93,
+            "memory_beats": 29.51,
+            "simple_average": 34.22,
+            "weighted_average": 35.162000000000006,
             "feedback": "Solution correct but runtime and memory can be optimized"
         }
     },
@@ -2493,6 +2549,14 @@
             "simple_average": 0.0,
             "weighted_average": 0.0,
             "feedback": "Time Limit Exceeded"
+        },
+        "o1-preview": {
+            "solution": "from functools import lru_cache\n\nclass Solution:\n    def isScramble(self, s1: str, s2: str) -> bool:\n        n = len(s1)\n        @lru_cache(None)\n        def dfs(s1_start, s1_end, s2_start, s2_end):\n            if s1_end - s1_start != s2_end - s2_start:\n                return False\n            length = s1_end - s1_start\n            if s1[s1_start:s1_end] == s2[s2_start:s2_end]:\n                return True\n            if sorted(s1[s1_start:s1_end]) != sorted(s2[s2_start:s2_end]):\n                return False\n            for k in range(1, length):\n                if (dfs(s1_start, s1_start + k, s2_start, s2_start + k) and\n                    dfs(s1_start + k, s1_end, s2_start + k, s2_end)):\n                    return True\n                if (dfs(s1_start, s1_start + k, s2_end - k, s2_end) and\n                    dfs(s1_start + k, s1_end, s2_start, s2_end - k)):\n                    return True\n            return False\n        return dfs(0, n, 0, n)",
+            "runtime_beats": 86.24,
+            "memory_beats": 46.58,
+            "simple_average": 66.41,
+            "weighted_average": 70.37599999999999,
+            "feedback": "Solution correct but memory can be optimized"
         }
     },
     "129": {
