@@ -68,7 +68,7 @@
             "memory_beats": 98.62,
             "simple_average": 98.275,
             "weighted_average": 98.20600000000002,
-            "feedback": "Solution Correct"
+            "feedback": "Solution correct"
         },
         "o1-preview": {
             "solution": "class Solution:\n    def isRectangleCover(self, rectangles: List[List[int]]) -> bool:\n        total_area = 0\n        min_x = float('inf')\n        min_y = float('inf')\n        max_x = float('-inf')\n        max_y = float('-inf')\n        corner_set = set()\n        for x1, y1, x2, y2 in rectangles:\n            total_area += (x2 - x1) * (y2 - y1)\n            min_x = min(min_x, x1)\n            min_y = min(min_y, y1)\n            max_x = max(max_x, x2)\n            max_y = max(max_y, y2)\n            corners = [(x1, y1), (x1, y2), (x2, y1), (x2, y2)]\n            for corner in corners:\n                if corner in corner_set:\n                    corner_set.remove(corner)\n                else:\n                    corner_set.add(corner)\n        expected_area = (max_x - min_x) * (max_y - min_y)\n        if total_area != expected_area:\n            return False\n        if len(corner_set) != 4:\n            return False\n        expected_corners = {(min_x, min_y), (min_x, max_y), (max_x, min_y), (max_x, max_y)}\n        if corner_set != expected_corners:\n            return False\n        return True",
@@ -88,7 +88,7 @@
             "memory_beats": 100.0,
             "simple_average": 100.0,
             "weighted_average": 100.0,
-            "feedback": "Solution Correct"
+            "feedback": "Solution correct"
         },
         "o1-preview": {
             "solution": "class Solution:\n    def maxValueAfterReverse(self, nums):\n        n = len(nums)\n        total = sum(abs(nums[i] - nums[i + 1]) for i in range(n - 1))\n        res = 0\n        min_val = float('inf')\n        max_val = float('-inf')\n        for i in range(n - 1):\n            a, b = nums[i], nums[i + 1]\n            min_val = min(min_val, max(a, b))\n            max_val = max(max_val, min(a, b))\n        res = max(res, 2 * (max_val - min_val))\n        for i in range(1, n):\n            res = max(res, abs(nums[0] - nums[i]) - abs(nums[i -1] - nums[i]))\n            res = max(res, abs(nums[-1] - nums[i -1]) - abs(nums[i -1] - nums[i]))\n        for i in range(1, n -1):\n            gain = abs(nums[i -1] - nums[i +1]) - abs(nums[i -1] - nums[i]) - abs(nums[i] - nums[i +1])\n            res = max(res, gain)\n        return total + res",
@@ -128,7 +128,7 @@
             "memory_beats": 98.5,
             "simple_average": 98.75,
             "weighted_average": 98.80000000000001,
-            "feedback": "Solution Correct"
+            "feedback": "Solution correct"
         },
         "o1-preview": {
             "solution": "class Solution:\n    def distanceLimitedPathsExist(self, n: int, edgeList: list[list[int]], queries: list[list[int]]) -> list[bool]:\n        parent = [i for i in range(n)]\n        def find(u):\n            while u != parent[u]:\n                parent[u] = parent[parent[u]]\n                u = parent[u]\n            return u\n        def union(u, v):\n            parent[find(u)] = find(v)\n        edgeList.sort(key=lambda x: x[2])\n        queries_with_index = [(p, q, limit, idx) for idx, (p, q, limit) in enumerate(queries)]\n        queries_with_index.sort(key=lambda x: x[2])\n        res = [False] * len(queries)\n        i = 0\n        for p, q, limit, idx in queries_with_index:\n            while i < len(edgeList) and edgeList[i][2] < limit:\n                union(edgeList[i][0], edgeList[i][1])\n                i += 1\n            if find(p) == find(q):\n                res[idx] = True\n        return res",
@@ -156,7 +156,7 @@
             "memory_beats": 0.0,
             "simple_average": 0.0,
             "weighted_average": 0.0,
-            "feedback": "Runtime Error - Wrong number of Positional Arguments (2 expected 3)"
+            "feedback": "Runtime Error"
         }
     },
     "9": {
@@ -168,7 +168,7 @@
             "memory_beats": 97.14,
             "simple_average": 91.905,
             "weighted_average": 90.858,
-            "feedback": "Solution Correct"
+            "feedback": "Solution correct"
         },
         "o1-preview": {
             "solution": "class Solution:\n    def sumOfFlooredPairs(self, nums: List[int]) -> int:\n        MOD = 10 ** 9 + 7\n        max_value = max(nums)\n        counts = [0] * (max_value + 1)\n        for num in nums:\n            counts[num] += 1\n        pre_sum = [0] * (max_value + 2)\n        for i in range(1, max_value + 1):\n            pre_sum[i] = pre_sum[i - 1] + counts[i]\n        total = 0\n        for k in range(1, max_value + 1):\n            for b in range(1, max_value // k + 1):\n                start = k * b\n                end = min((k + 1) * b - 1, max_value)\n                if start > end:\n                    continue\n                count_a = pre_sum[end] - pre_sum[start - 1]\n                count_b = counts[b]\n                total += count_a * count_b * k\n                total %= MOD\n        return total",
@@ -188,7 +188,7 @@
             "memory_beats": 94.61,
             "simple_average": 95.53999999999999,
             "weighted_average": 95.726,
-            "feedback": "Solution Correct"
+            "feedback": "Solution correct"
         },
         "o1-preview": {
             "solution": "class Solution:\n    def maximumScore(self, nums: List[int], k: int) -> int:\n        n = len(nums)\n        left = right = k\n        min_val = nums[k]\n        max_score = min_val\n        while left > 0 or right < n - 1:\n            if left > 0 and (right == n - 1 or nums[left - 1] >= nums[right + 1]):\n                left -= 1\n                min_val = min(min_val, nums[left])\n            else:\n                right += 1\n                min_val = min(min_val, nums[right])\n            max_score = max(max_score, min_val * (right - left + 1))\n        return max_score",
@@ -296,7 +296,7 @@
             "memory_beats": 0.0,
             "simple_average": 0.0,
             "weighted_average": 0.0,
-            "feedback": "Runtime Error - Index out of range"
+            "feedback": "Runtime Error"
         }
     },
     "16": {
@@ -468,7 +468,7 @@
             "memory_beats": 89.37,
             "simple_average": 91.475,
             "weighted_average": 91.896,
-            "feedback": "Solution Correct"
+            "feedback": "Solution correct"
         },
         "o1-preview": {
             "solution": "class Solution:\n    def minWindow(self, s: str, t: str) -> str:\n        from collections import Counter\n        if not s or not t:\n            return \"\"\n        dict_t = Counter(t)\n        required = len(dict_t)\n        left, right = 0, 0\n        formed = 0\n        window_counts = {}\n        min_length = float(\"inf\")\n        min_left = 0\n        while right < len(s):\n            character = s[right]\n            window_counts[character] = window_counts.get(character, 0) + 1\n            if character in dict_t and window_counts[character] == dict_t[character]:\n                formed += 1\n            while left <= right and formed == required:\n                character = s[left]\n                if right - left + 1 < min_length:\n                    min_length = right - left + 1\n                    min_left = left\n                window_counts[character] -= 1\n                if character in dict_t and window_counts[character] < dict_t[character]:\n                    formed -= 1\n                left += 1\n            right += 1\n        if min_length == float(\"inf\"):\n            return \"\"\n        else:\n            return s[min_left:min_left + min_length]",
@@ -916,7 +916,7 @@
             "memory_beats": 54.95,
             "simple_average": 70.75,
             "weighted_average": 73.91,
-            "feedback": "Solution correct but me memory can be optimized"
+            "feedback": "Solution correct but memory can be optimized"
         }
     },
     "47": {
@@ -1516,7 +1516,7 @@
             "memory_beats": 0.0,
             "simple_average": 0.0,
             "weighted_average": 0.0,
-            "feedback": "Runtime Error - Wrong number of Positional Arguments (3 expected 4)"
+            "feedback": "Runtime Error"
         }
     },
     "77": {
@@ -2148,7 +2148,7 @@
             "memory_beats": 92.49,
             "simple_average": 81.565,
             "weighted_average": 79.38,
-            "feedback": "Solution correect"
+            "feedback": "Solution correct"
         },
         "o1-preview": {
             "solution": "class Solution:\n    def maxProfit(self, prices: List[int]) -> int:\n        first_buy = -prices[0]\n        first_sell = 0\n        second_buy = -prices[0]\n        second_sell = 0\n        for price in prices[1:]:\n            first_buy = max(first_buy, -price)\n            first_sell = max(first_sell, first_buy + price)\n            second_buy = max(second_buy, first_sell - price)\n            second_sell = max(second_sell, second_buy + price)\n        return second_sell",
@@ -2288,7 +2288,7 @@
             "memory_beats": 0.0,
             "simple_average": 0.0,
             "weighted_average": 0.0,
-            "feedback": "Runtime Error - unsupported SQL functions"
+            "feedback": "Runtime Error"
         },
         "o1-preview": {
             "solution": "class Solution:\n    def getHighEarners(self, employees, departments):\n        dept_id_to_name = {dept['id']: dept['name'] for dept in departments}\n        dept_to_employees = {}\n        for emp in employees:\n            dept_id = emp['departmentId']\n            if dept_id not in dept_to_employees:\n                dept_to_employees[dept_id] = []\n            dept_to_employees[dept_id].append(emp)\n        result = []\n        for dept_id, emp_list in dept_to_employees.items():\n            salaries = set(emp['salary'] for emp in emp_list)\n            top_salaries = sorted(salaries, reverse=True)[:3]\n            for emp in emp_list:\n                if emp['salary'] in top_salaries:\n                    result.append({\n                        'Department': dept_id_to_name[dept_id],\n                        'Employee': emp['name'],\n                        'Salary': emp['salary']\n                    })\n        return result",
