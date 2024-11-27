@@ -347,7 +347,11 @@ Your code will be directly submitted to the LeetCode judge, so it must be comple
         print(solution)
         print("-" * 50)
 
-    def eval(self, problem_id, model_name="gpt-4o", dataset_type="math", runtime_beats=None, memory_beats=None):
+    def eval(self, problem_id, model_name="gpt-4o", dataset_type="math", runtime_beats=None, memory_beats=None, 
+            correctness_final=None, correctness_steps=None, clarity_explanation=None, completeness=None, appropriate_methods=None):
+        """
+        Evaluate a model's solution for a problem in either the math or leetcode dataset.
+        """
         # Set dataset path based on dataset_type
         if dataset_type == "math":
             dataset_path = self.math_dataset_path
@@ -395,8 +399,48 @@ Your code will be directly submitted to the LeetCode judge, so it must be comple
             dataset[str(problem_id)][model_name]["weighted_average"] = weighted_average
             dataset[str(problem_id)][model_name]["feedback"] = feedback
 
-            # Save the updated dataset
-            with open(dataset_path, 'w') as f:
-                json.dump(dataset, f, indent=4)
+        elif dataset_type == "math":
+            try:
+                if correctness_final is None:
+                    correctness_final = int(input("Rate the correctness of final answer on a scale of 1 (Poor) to 5 (Excellent): "))
+                if correctness_steps is None:
+                    correctness_steps = int(input("Rate the correctness of intermediate steps on a scale of 1 (Poor) to 5 (Excellent): "))
+                if clarity_explanation is None:
+                    clarity_explanation = int(input("Rate the clarity and depth of exmplanation on a scale of 1 (Poor) to 5 (Excellent): "))
+                if completeness is None:
+                    completeness = int(input("Rate the completness on a scale of 1 (Poor) to 5 (Excellent): "))
+                if appropriate_methods is None:
+                    appropriate_methods = int(input("Rate the use of appropriate methods and terminology on a scale of 1 (Poor) to 5 (Excellent): "))
 
-            print(f"Evaluation metrics added to {model_name} for problem ID {problem_id}.")
+                # Check for valid inputs
+                if not all(1 <= score <= 5 for score in [correctness_final, correctness_steps, clarity_explanation, completeness, appropriate_methods]):
+                    print("Invalid scores entered. All scores must be between 1 and 5.")
+                    return
+                    
+            except ValueError:
+                print("Invalid input. Please enter integer values between 1 and 5.")
+                return
+
+            # Calculate weighted score for math
+            weighted_score = (
+                0.25 * correctness_final +
+                0.30 * correctness_steps +
+                0.20 * clarity_explanation +
+                0.15 * completeness +
+                0.10 * appropriate_methods
+            )
+    
+            # Save evaluations for Math
+            model_data = dataset[str(problem_id)].setdefault(model_name, {})
+            model_data["correctness_final"] = correctness_final
+            model_data["correctness_steps"] = correctness_steps
+            model_data["clarity_explanation"] = clarity_explanation
+            model_data["completeness"] = completeness
+            model_data["appropriate_methods"] = appropriate_methods
+            model_data["weighted_score"] = weighted_score
+
+        # Save the updated dataset
+        with open(dataset_path, 'w') as f:
+            json.dump(dataset, f, indent=4)
+
+        print(f"Evaluation metrics added to {model_name} for problem ID {problem_id}.")
