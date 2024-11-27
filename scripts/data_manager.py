@@ -282,13 +282,8 @@ Your code will be directly submitted to the LeetCode judge, so it must be comple
             client = OpenAI(base_url="https://openrouter.ai/api/v1", api_key=openai_key)
         else:
             client = OpenAI(api_key=openai_key)
-        # openai.api_key = openai_key
-
-
-
+            
         # Select the appropriate model based on the input
-        # if model == "GPT-4o":
-            # response = openai.ChatCompletion.create(
         selected_model = f"openai/{model_name}" if model_name == "o1-preview" else model_name
         
         response = client.chat.completions.create(
@@ -309,31 +304,6 @@ Your code will be directly submitted to the LeetCode judge, so it must be comple
             # Store the solution in the GPT-4o slot
         solution = response.choices[0].message.content.replace('```python\n', '').replace('\n```', '')
         dataset[str(problem_id)][model_name] = {"solution": solution}
-        # dataset[str(problem_id)][model_name]["solution"] = solution
-        
-        # elif model == "OpenAI-o1":
-        #     # response = openai.ChatCompletion.create(
-        #     response = client.chat.completions.create(
-        #         model="o1-preview",
-        #         messages=[
-        #             {
-        #             "role": "system",
-        #             "content": context
-        #             },
-        #             {
-        #             "role": "user",
-        #             "content": problem_str
-        #             }
-        #         ],
-        #         max_tokens=5000,
-        #         temperature=0  # Ensures deterministic output
-        #     )
-        #     # Extract the generated code and store in the problem entry
-        #     solution = response.choices[0].message.content.replace('```python\n', '').replace('\n```', '')
-        #     dataset[str(problem_id)]["OpenAI-o1"]["solution"] = solution
-        
-        # else:
-        #     raise ValueError("Invalid model name. Choose either 'GPT-4o' or 'OpenAI-o1'.")
         
         # Save the updated dataset with the new solution
         with open(dataset_path, 'w') as f:
@@ -402,15 +372,15 @@ Your code will be directly submitted to the LeetCode judge, so it must be comple
         elif dataset_type == "math":
             try:
                 if correctness_final is None:
-                    correctness_final = int(input("Rate the correctness of final answer on a scale of 1 (Poor) to 5 (Excellent): "))
+                    correctness_final = float(input("Rate the correctness of final answer on a scale of 1 (Poor) to 5 (Excellent): "))
                 if correctness_steps is None:
-                    correctness_steps = int(input("Rate the correctness of intermediate steps on a scale of 1 (Poor) to 5 (Excellent): "))
+                    correctness_steps = float(input("Rate the correctness of intermediate steps on a scale of 1 (Poor) to 5 (Excellent): "))
                 if clarity_explanation is None:
-                    clarity_explanation = int(input("Rate the clarity and depth of exmplanation on a scale of 1 (Poor) to 5 (Excellent): "))
+                    clarity_explanation = float(input("Rate the clarity and depth of exmplanation on a scale of 1 (Poor) to 5 (Excellent): "))
                 if completeness is None:
-                    completeness = int(input("Rate the completness on a scale of 1 (Poor) to 5 (Excellent): "))
+                    completeness = float(input("Rate the completness on a scale of 1 (Poor) to 5 (Excellent): "))
                 if appropriate_methods is None:
-                    appropriate_methods = int(input("Rate the use of appropriate methods and terminology on a scale of 1 (Poor) to 5 (Excellent): "))
+                    appropriate_methods = float(input("Rate the use of appropriate methods and terminology on a scale of 1 (Poor) to 5 (Excellent): "))
 
                 # Check for valid inputs
                 if not all(1 <= score <= 5 for score in [correctness_final, correctness_steps, clarity_explanation, completeness, appropriate_methods]):
@@ -418,7 +388,7 @@ Your code will be directly submitted to the LeetCode judge, so it must be comple
                     return
                     
             except ValueError:
-                print("Invalid input. Please enter integer values between 1 and 5.")
+                print("Invalid input. Please enter values between 1 and 5.")
                 return
 
             # Calculate weighted score for math
