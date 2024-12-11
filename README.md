@@ -31,20 +31,8 @@ Once the datasets are finalized, both **GPT-4o** and **OpenAI-o1** will be evalu
 
 ### 4. **Ongoing Model Comparison**
 After generating solutions from the models, we will store them in our dataset, alongside their evaluation metrics, allowing us to compare performance over time. This process will evolve to include more automated evaluation steps in the future.
-
-## How to Contribute
-1. **Add New Problems**: Use the `DatasetManager` tool to easily add new math or coding problems into the dataset. Ensure that each problem is unique and formatted according to the schema.
-2. **Generate Solutions**: Prompt GPT-4o or OpenAI-o1 to solve the problems in the dataset. The solutions will be saved for evaluation.
-3. **Run Evaluations**: LeetCode problem evaluations involve manually submitting solutions and entering runtime/memory performance data into the system.
-4. **Submit Feedback**: Open issues or pull requests to propose improvements or report issues with the dataset, code, or evaluation methods.
-
-## Repository Structure
-- `math_problems.json`: Stores graduate-level math problems and their model-generated solutions.
-- `leetcode_problems.json`: Stores hard-level LeetCode problems, solutions, and associated performance metrics.
-- `scripts/`: Contains Python scripts for managing the dataset, prompting models, and evaluating results.
-- `scripts/requirements.txt`: Lists the Python dependencies required to run the project.
-
-## Installation
+## How to Use
+### Setup
 1. Clone the repository:
    ```bash
    git clone https://github.com/AI-AmrIbrahim/High-Level-GPT-vs-OpenAI-ProblemSet.git
@@ -57,8 +45,51 @@ After generating solutions from the models, we will store them in our dataset, a
    ```bash
    pip install -r scripts/requirements.txt
    ```
+### Using `DatasetManager` in Python
+Currently only Python interaction is supported and CLI scripts are not available.
+#### Initiating Dataset Manager
+```python
+from scripts.data_manager import DatasetManager
+manager = DatasetManager()
+```
+#### Adding New Problems to a Dataset
+```python
+manager.add_problem("Find the determinant of this matrix...", dataset_type="math")
+```
+#### Generating Solution
+Currently, only OpenAI models are supported. For o1-preview, users need to provide an OpenRouter API key.
+
+**Ensure that you have access to the appropriate API keys.** For GPT-4o, use an OpenAI API key, while for o1-preview, use an OpenRouter API key.
+```python
+manager.prompt_llm(openai_key=API_KEY, problem_id=1, model_name="gpt-4o", dataset_type="leetcode")
+```
+#### Evaluating Solutions
+User can either pass supported evaluation metrics through arguments or through input evaluations.
+```python
+# Example for math dataset. Metrics in the range 1 to 5
+manager.eval(problem_id=1, model="gpt-4o", dataset_type="math",
+             correctness_final=5, correctness_steps=4, 
+             clarity_explanation=5, completeness=5, appropriate_methods=4)
+
+# Example for leetcode dataset. Metrics in the range 0 to 100
+manager.eval(problem_id=1, model="gpt-4o", dataset_type="leetcode",
+             runtime_beats=80.5, memory_beats=75.3)
+```
+
+## Repository Structure
+- `math_problems.json`: Stores graduate-level math problems and their model-generated solutions.
+- `leetcode_problems.json`: Stores hard-level LeetCode problems, solutions, and associated performance metrics.
+- `scripts/`: Contains Python scripts for managing the dataset, prompting models, and evaluating results.
+- `scripts/requirements.txt`: Lists the Python dependencies required to run the project.
+
 ## Future Work
 - **Automating Evaluation**: We aim to automate the evaluation of coding problems by integrating a custom scoring system that analyzes runtime and memory performance.
 - **Math Problem Evaluation**: Define and implement metrics to evaluate reasoning and correctness in math problems.
 - **OpenAI-o1 Updates**: Transition from the `o1-preview` model to the fully released OpenAI-o1 model as soon as it becomes available.
 
+## Acknowledgments
+- Groupmates:
+    - Solha Park (Stony Brook University Data Science PhD Candidate)
+    - David Zhao (Stony Brook University Data Science PhD Candidate)
+- Tools:
+    - [Alfa LeetCode API](https://github.com/alfaarghya/alfa-leetcode-api)
