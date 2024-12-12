@@ -24,10 +24,15 @@ Once the datasets are finalized, both **GPT-4o** and **OpenAI-o1** will be evalu
   - **Runtime Beats**: Percentage of submissions the solution is faster than.
   - **Memory Beats**: Percentage of submissions that use more memory.
   - **Evaluation Metrics**: 
-    - `Simple Average`: (Runtime Beats + Memory Beats) / 2
-    - `Weighted Average`: 0.6 * Runtime Beats + 0.4 * Memory Beats (prioritizing runtime slightly more).
+    - `Simple Average: (Runtime Beats + Memory Beats) / 2`
+    - `Weighted Average: 0.6 * Runtime Beats + 0.4 * Memory Beats (prioritizing runtime slightly more).`
   
-- **Math Problem Evaluation**: This will be implemented as per team discussions but may focus on qualitative metrics such as the correctness and depth of reasoning.
+- **Math Problem Evaluation**: The performance of GPT-4o and OpenAI-o1-preview was evaluated using a custom math rubric, as our problem involved advanced mathematical concepts, and linguistic analysis alone was insufficient. We opted for a more sophisticated human evaluation approach.
+
+`Math Score = 0.25 * correctness_final +  0.30 * correctness_steps +  0.20 * clarity_explanation +  0.15 * completeness +  0.10 * appropriate_methods`
+
+
+![image](https://github.com/user-attachments/assets/40ecd0fc-f11b-4a00-b78c-86160aebc02a)
 
 ### 4. **Ongoing Model Comparison**
 After generating solutions from the models, we will store them in our dataset, alongside their evaluation metrics, allowing us to compare performance over time. This process will evolve to include more automated evaluation steps in the future.
