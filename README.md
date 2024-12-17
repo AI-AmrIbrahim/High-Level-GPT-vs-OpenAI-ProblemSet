@@ -36,6 +36,10 @@ Once the datasets are finalized, both **GPT-4o** and **OpenAI-o1** will be evalu
 
 ### 4. **Ongoing Model Comparison**
 After generating solutions from the models, we will store them in our dataset, alongside their evaluation metrics, allowing us to compare performance over time. This process will evolve to include more automated evaluation steps in the future.
+
+## Full Report 
+For a detailed explanation of the methodology, results, and analysis, view the [Final Report](https://github.com/AI-AmrIbrahim/High-Level-GPT-vs-OpenAI-ProblemSet/blob/main/Final%20Report.pdf).
+
 ## How to Use
 ### Setup
 1. Clone the repository:
