@@ -38,7 +38,7 @@ Once the datasets are finalized, both **GPT-4o** and **OpenAI-o1** will be evalu
 After generating solutions from the models, we will store them in our dataset, alongside their evaluation metrics, allowing us to compare performance over time. This process will evolve to include more automated evaluation steps in the future.
 
 ## Full Report 
-For a detailed explanation of the methodology, results, and analysis, view the [Final Report](file:///C:/Users/amrkh/Desktop/SBU/AMS%20560/_AMS%20560%20Final%20Paper/_AMS560FinalPaper.html).
+For a detailed explanation of the methodology, results, and analysis, view the [Final Report](Final_Report.pdf).
 
 ## How to Use
 ### Setup
